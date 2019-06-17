@@ -5,6 +5,8 @@ extern "C" {
 	const char *TAG = "ANEWinCore:";
 	
 
+	bool isCrateCrashDump = false;
+
 	//≥ı ºªØ
 	FREObject isSupported(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[])
 	{
@@ -18,9 +20,13 @@ extern "C" {
 	//±¿¿£º‡øÿ
 	FREObject crashDump(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[])
 	{
-		printf("\n%s,%s", TAG, "killProcess");
+		printf("\n%s,%s", TAG, "crashDump");
 
-		MiniDump::EnableAutoDump(true);
+		if (isCrateCrashDump == false) {
+			MiniDump::EnableAutoDump(true);
+			printf("\n%s,%s", TAG, "crashDump EnableAutoDump");
+		}
+		isCrateCrashDump = true;
 
 		FREObject result;
 		auto status = FRENewObjectFromBool(true, &result);

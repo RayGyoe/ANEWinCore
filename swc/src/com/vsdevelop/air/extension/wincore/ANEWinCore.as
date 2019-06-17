@@ -4,10 +4,11 @@ package com.vsdevelop.air.extension.wincore
 	import flash.events.EventDispatcher;
 	import flash.events.StatusEvent;
 	import flash.external.ExtensionContext;
+	import flash.filesystem.File;
 	
 	public class ANEWinCore extends EventDispatcher
 	{
-		private var _instance:ANEWinCore;
+		private static var _instance:ANEWinCore;
 		private var _extCtx:ExtensionContext;
 		private var _isSupported:Boolean;
 		
@@ -15,21 +16,17 @@ package com.vsdevelop.air.extension.wincore
 		{
 			if (!_instance)
 			{
-				if (this.isSupported)
+				_extCtx = ExtensionContext.createExtensionContext("com.vsdevelop.air.extension.wincore", null);
+				
+				if (_extCtx != null)
 				{
 					
-					_extCtx = ExtensionContext.createExtensionContext("com.vsdevelop.air.extension.wincore", null);
+					_isSupported = _extCtx.call("isSupported") as Boolean;
 					
-					if (_extCtx != null)
-					{
-						
-						_isSupported = _extCtx.call("isSupported") as Boolean;
-						
-						_extCtx.addEventListener(StatusEvent.STATUS, onStatus);
-					} else
-					{
-						trace('extCtx is null.'); 
-					}
+					_extCtx.addEventListener(StatusEvent.STATUS, onStatus);
+				} else
+				{
+					trace('extCtx is null.'); 
 				}
 				_instance = this;
 			}
@@ -37,6 +34,10 @@ package com.vsdevelop.air.extension.wincore
 			{
 				throw Error( 'This is a singleton, use getInstance, do not call the constructor directly');
 			}
+		}
+		public static function getInstance() : ANEWinCore
+		{
+			return _instance ? _instance : new ANEWinCore();
 		}
 		
 		public function get isSupported():Boolean
@@ -53,6 +54,50 @@ package com.vsdevelop.air.extension.wincore
 		{
 			
 			
+			
+		}
+		
+		/**
+		 * 崩溃监控 
+		 * 
+		 */		
+		public function crashDump():void{
+			
+			
+			if(isSupported){
+				
+				//crash
+				var file:File = new File(File.applicationDirectory.nativePath+"/crash");				
+				if(file){
+					file.createDirectory();
+				}
+				
+				_extCtx.call("crashDump");
+			}
+			
+		}
+		
+		/**
+		 * 强制关闭当前应用 
+		 * 
+		 */		
+		public function killProcess():void{
+			if(isSupported){
+				_extCtx.call("killProcess");
+			}
+		}
+		
+		
+		/**
+		 * 禁止休眠 
+		 * @param value
+		 * 
+		 */		
+		public function keepScreenOn(value:Boolean):void{
+			
+			if(isSupported){
+				_extCtx.call("keepScreenOn",value?1:0);
+			}
 			
 		}
 	}
