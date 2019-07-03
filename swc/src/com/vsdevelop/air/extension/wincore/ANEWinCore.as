@@ -66,8 +66,8 @@ package com.vsdevelop.air.extension.wincore
 			
 			if(isSupported){
 				
-				//crash
-				var file:File = new File(File.applicationDirectory.nativePath+"/crash");				
+				//crash File.applicationStorageDirectory.nativePath
+				var file:File = new File(File.applicationStorageDirectory.nativePath+"/crash");				
 				if(file){
 					file.createDirectory();
 				}
