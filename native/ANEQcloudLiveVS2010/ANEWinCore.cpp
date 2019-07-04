@@ -1,6 +1,16 @@
 #include "ANEWinCore.h"
+#include <sstream>
 
 extern "C" {
+
+	std::string intToStdString(int value)
+	{
+		std::stringstream str_stream;
+		str_stream << value;
+		std::string str = str_stream.str();
+
+		return str;
+	}
 	
 	const char *TAG = "ANEWinCore:";
 	
@@ -71,6 +81,31 @@ extern "C" {
 
 		return NULL;
 	}
+
+	FREObject getScreenSize(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[])
+	{
+		printf("\n%s,%s", TAG, "getScreenSize");
+
+
+		HDC desktopDc = GetDC(NULL);
+		//// Get native resolution  
+		int horizontalDPI = GetDeviceCaps(desktopDc, LOGPIXELSX);
+		int verticalDPI = GetDeviceCaps(desktopDc, LOGPIXELSY);
+
+		int width = GetSystemMetrics(SM_CXSCREEN);
+		int height = GetSystemMetrics(SM_CYSCREEN);
+
+		printf("\n%s%s   = width:%i   === height:%i\n", TAG, "getScreenShareSize", width, height);
+
+		std::string rect = intToStdString(width) + "||" + intToStdString(height) + "||" + intToStdString(horizontalDPI) + "||" + intToStdString(verticalDPI);
+
+		FREObject result;
+		auto status = FRENewObjectFromUTF8(uint32_t(strlen(rect.c_str())) + 1, reinterpret_cast<const uint8_t *>(rect.c_str()), &result);
+		return result;
+	}
+
+
+
 	///
 	// Flash Native Extensions stuff	
 	void ANEWinCoreContextInitializer(void* extData, const uint8_t* ctxType, FREContext ctx, uint32_t* numFunctionsToSet, const FRENamedFunction** functionsToSet) {
@@ -84,6 +119,9 @@ extern "C" {
 			{ (const uint8_t*) "killProcess",     NULL, &killProcess },
 
 			{ (const uint8_t*) "keepScreenOn",     NULL, &keepScreenOn },
+
+			{ (const uint8_t*) "getScreenSize",     NULL, &getScreenSize },
+			
 		};
 
 		*numFunctionsToSet = sizeof(extensionFunctions) / sizeof(FRENamedFunction);

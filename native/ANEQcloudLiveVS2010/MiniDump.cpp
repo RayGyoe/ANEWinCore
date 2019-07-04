@@ -41,7 +41,7 @@ LONG MiniDump::ApplicationCrashHandler(EXCEPTION_POINTERS *pException)
 		stTime.wHour, stTime.wMinute, stTime.wSecond);
 	// 创建dump文件;
 
-	printf("%s\n", szDumpFile);
+	printf("%ls\n", szDumpFile);
 
 	CreateDumpFile(szDumpFile, pException);
 

@@ -98,7 +98,44 @@ package com.vsdevelop.air.extension.wincore
 			if(isSupported){
 				_extCtx.call("keepScreenOn",value?1:0);
 			}
-			
 		}
+		
+		
+		
+		
+		/**
+		 * 获取窗口实际大小
+		 * 
+		 * @return
+		 */ 
+		public function getScreenSize():Object
+		{
+			var rect:Object;
+			
+			if (isSupported)
+			{
+				var whstr:String = _extCtx.call("getScreenSize")  as String;
+				trace("getScreenSize",whstr);
+				if(whstr && whstr.length){
+					
+					var arr:Array = whstr.split("||");
+					
+					if(arr.length){
+						
+						rect = {};
+						rect.width = int(arr[0]);
+						rect.height = int(arr[1]);
+						
+						rect.hdpi = int(arr[2]);
+						rect.vdpi = int(arr[3]);
+					}
+					
+				}
+				
+			}
+			
+			return rect;
+		}
+		
 	}
 }
