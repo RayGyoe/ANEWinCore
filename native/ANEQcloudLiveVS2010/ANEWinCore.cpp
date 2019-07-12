@@ -1,17 +1,17 @@
 #include "ANEWinCore.h"
 #include <sstream>
 
+std::string intToStdString(int value)
+{
+	std::stringstream str_stream;
+	str_stream << value;
+	std::string str = str_stream.str();
+
+	return str;
+}
+
 extern "C" {
 
-	std::string intToStdString(int value)
-	{
-		std::stringstream str_stream;
-		str_stream << value;
-		std::string str = str_stream.str();
-
-		return str;
-	}
-	
 	const char *TAG = "ANEWinCore:";
 	
 
