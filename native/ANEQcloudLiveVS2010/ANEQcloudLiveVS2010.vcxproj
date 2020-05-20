@@ -43,7 +43,7 @@
     <UseDebugLibraries>false</UseDebugLibraries>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
-    <PlatformToolset>v100</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
     <CLRSupport>false</CLRSupport>
     <UseOfMfc>false</UseOfMfc>
   </PropertyGroup>
@@ -187,11 +187,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="ANEWinCore.h" />
+    <ClInclude Include="CustomURLProtocolApp.h" />
     <ClInclude Include="FlashRuntimeExtensions.h" />
     <ClInclude Include="MiniDump.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ANEWinCore.cpp" />
+    <ClCompile Include="CustomURLProtocolApp.cpp" />
     <ClCompile Include="MiniDump.cpp" />
   </ItemGroup>
   <ItemGroup>

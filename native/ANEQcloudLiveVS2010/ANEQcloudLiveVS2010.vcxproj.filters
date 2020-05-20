@@ -24,6 +24,9 @@
     <ClInclude Include="MiniDump.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="CustomURLProtocolApp.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Library Include="FlashRuntimeExtensions.lib">
@@ -35,6 +38,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="MiniDump.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="CustomURLProtocolApp.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
