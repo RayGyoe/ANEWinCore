@@ -1,6 +1,12 @@
 #include "ANEWinCore.h"
 #include <sstream>
 
+#include <vector>
+using std::string;
+
+#include "IEProxy.h"
+using namespace ie_proxy;
+
 std::string intToStdString(int value)
 {
 	std::stringstream str_stream;
@@ -8,6 +14,35 @@ std::string intToStdString(int value)
 	std::string str = str_stream.str();
 
 	return str;
+}
+
+std::wstring s2ws(const std::string& s)
+{
+	int len;
+	int slength = (int)s.length() + 1;
+	len = MultiByteToWideChar(CP_ACP, 0, s.c_str(), slength, 0, 0);
+	wchar_t* buf = new wchar_t[len];
+	MultiByteToWideChar(CP_ACP, 0, s.c_str(), slength, buf, len);
+	std::wstring r(buf);
+	delete[] buf;
+	return r;
+
+	std::vector<wchar_t> buff(s.size());
+	std::locale loc("zh-CN");
+	wchar_t* pwszNext = nullptr;
+	const char* pszNext = nullptr;
+	mbstate_t state = {};
+	int res = std::use_facet<std::codecvt<wchar_t, char, mbstate_t> >
+		(loc).in(state,
+			s.data(), s.data() + s.size(), pszNext,
+			buff.data(), buff.data() + buff.size(), pwszNext);
+
+	if (std::codecvt_base::ok == res)
+	{
+		return std::wstring(buff.data(), pwszNext);
+	}
+
+	return NULL;
 }
 
 extern "C" {
@@ -105,6 +140,115 @@ extern "C" {
 	}
 
 
+	//设置代理
+	FREObject setProxyConfig(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[])
+	{
+		uint32_t string1Length;
+		const uint8_t *val;
+		auto status = FREGetObjectAsUTF8(argv[0], &string1Length, &val);
+		std::string url = std::string(val, val + string1Length);
+
+		printf("\n%s,%s = %s", TAG, "setProxyConfig",url.c_str());
+
+		ProxyConfig pc;
+		pc.proxy_server = s2ws(url);
+		setProxyConfig(&pc);
+
+		return NULL;
+	}
+
+	FREObject getProxyConfig(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[])
+	{
+		ProxyConfig pc;
+		getProxyConfig(&pc);
+
+		printf("\n%s,%s = %ws", TAG, "getProxyConfig",pc.proxy_server.c_str());
+
+		return NULL;
+	}
+
+
+	//代理设置
+	int AutoProxyDiscovery(bool enable)
+	{
+		_TCHAR *szSubKey = _T("Software\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Connections");
+
+		BYTE pBuffer[372];
+		DWORD nMaxLength = 372;
+		DWORD   rc = 0;
+		DWORD   dwType;
+		HKEY    hOpenedKey;
+
+		rc = RegOpenKeyEx(
+			HKEY_CURRENT_USER, // handle of open key 
+			szSubKey,               // address of name of subkey to open 
+			0,                  // reserved 
+			KEY_READ | KEY_WRITE,       // security access mask 
+			&hOpenedKey            // address of handle of open key 
+		);
+		if (ERROR_SUCCESS == rc)
+		{
+			rc = RegQueryValueEx(
+				hOpenedKey,
+				_T("DefaultConnectionSettings"),
+				0,
+				&dwType,
+				(LPBYTE)pBuffer,
+				&nMaxLength);
+			if (rc != ERROR_SUCCESS)
+			{
+				return (int)-1;
+			}
+
+			if (enable)
+			{
+				pBuffer[8] = pBuffer[8] | 8;
+			}
+			else
+			{
+				pBuffer[8] = pBuffer[8] ^ 8;
+			}
+
+			rc = RegSetValueEx(
+				hOpenedKey,
+				_T("DefaultConnectionSettings"),
+				0,
+				dwType,
+				pBuffer,
+				nMaxLength
+			);
+
+			if (rc != ERROR_SUCCESS)
+			{
+				return (int)-1;
+			}
+
+			RegCloseKey(hOpenedKey);
+			return 0;
+		}
+		else
+		{
+			return (DWORD)-1;
+		}
+	}
+	FREObject ProxyDiscovery(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[])
+	{
+		uint32_t value = 0;
+		bool ret = false;
+		FREGetObjectAsBool(argv[0], &value);
+		if (value > 0) ret = true;
+
+		printf("\n%s,%s = %d", TAG, "ProxyDiscovery", ret);
+
+		AutoProxyDiscovery(ret);
+
+		InternetSetOption(0, INTERNET_OPTION_SETTINGS_CHANGED, NULL, 0);
+		InternetSetOption(0, INTERNET_OPTION_REFRESH, NULL, 0);
+
+		return NULL;
+	}
+
+
 
 	///
 	// Flash Native Extensions stuff	
@@ -121,7 +265,12 @@ extern "C" {
 			{ (const uint8_t*) "keepScreenOn",     NULL, &keepScreenOn },
 
 			{ (const uint8_t*) "getScreenSize",     NULL, &getScreenSize },
-			
+
+
+			{ (const uint8_t*) "ProxyDiscovery",     NULL, &ProxyDiscovery },
+
+			{ (const uint8_t*) "setProxyConfig",     NULL, &setProxyConfig },
+			{ (const uint8_t*) "getProxyConfig",     NULL, &getProxyConfig },
 		};
 
 		*numFunctionsToSet = sizeof(extensionFunctions) / sizeof(FRENamedFunction);

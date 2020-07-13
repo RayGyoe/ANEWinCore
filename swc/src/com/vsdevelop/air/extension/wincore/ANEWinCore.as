@@ -102,6 +102,44 @@ package com.vsdevelop.air.extension.wincore
 		
 		
 		
+		/**
+		 * 代理重置 
+		 * @param value
+		 * 
+		 */		
+		public function ProxyDiscovery(value:Boolean):void{
+			
+			if(isSupported){
+				_extCtx.call("ProxyDiscovery",value);
+			}
+		}
+		
+		/**
+		 * 设置代理地址 
+		 * @param url
+		 * 
+		 */		
+		public function setProxyConfig(url:String):void{
+			
+			if(isSupported){
+				_extCtx.call("setProxyConfig",url);
+			}
+		}
+		
+		
+		/**
+		 * 获取代理地址 
+		 * @return 
+		 * 
+		 */		
+		public function getProxyConfig():String
+		{
+			if(isSupported){
+				_extCtx.call("getProxyConfig");
+			}
+			return null;
+		}
+		
 		
 		/**
 		 * 获取窗口实际大小

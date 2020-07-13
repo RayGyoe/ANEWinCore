@@ -5,6 +5,10 @@
 #include "FlashRuntimeExtensions.h"
 
 #include "MiniDump.h"
+
+#include <Windows.h>
+#include <WinInet.h>
+#include <tchar.h>
 /*
 #include <windows.h>
 #include <string>

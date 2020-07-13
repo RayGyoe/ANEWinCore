@@ -189,6 +189,7 @@
     <ClInclude Include="ANEWinCore.h" />
     <ClInclude Include="CustomURLProtocolApp.h" />
     <ClInclude Include="FlashRuntimeExtensions.h" />
+    <ClInclude Include="IEProxy.h" />
     <ClInclude Include="MiniDump.h" />
   </ItemGroup>
   <ItemGroup>
