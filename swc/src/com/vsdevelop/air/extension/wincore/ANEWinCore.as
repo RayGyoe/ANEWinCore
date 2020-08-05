@@ -103,18 +103,6 @@ package com.vsdevelop.air.extension.wincore
 		
 		
 		/**
-		 * 代理重置 
-		 * @param value
-		 * 
-		 */		
-		public function ProxyDiscovery(value:Boolean):void{
-			
-			if(isSupported){
-				_extCtx.call("ProxyDiscovery",value);
-			}
-		}
-		
-		/**
 		 * 设置代理地址 
 		 * @param url
 		 * 

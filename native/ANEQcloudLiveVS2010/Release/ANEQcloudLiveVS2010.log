@@ -1,14 +1,8 @@
 ﻿  ANEWinCore.cpp
-C:\Program Files (x86)\Windows Kits\8.1\Include\um\DbgHelp.h(1544): warning C4091: “typedef ”: 没有声明变量时忽略“”的左侧
-C:\Program Files (x86)\Windows Kits\8.1\Include\um\DbgHelp.h(3190): warning C4091: “typedef ”: 没有声明变量时忽略“”的左侧
-i:\works\edoctor\anewincore\native\aneqcloudlivevs2010\IEProxy.h(88): warning C4800: “BOOL”: 将值强制为布尔值“true”或“false”(性能警告)
+g:\works\talkmedandroid-company\talkmed_anewincore\native\aneqcloudlivevs2010\IEProxy.h(88): warning C4800: “BOOL”: 将值强制为布尔值“true”或“false”(性能警告)
   CustomURLProtocolApp.cpp
   MiniDump.cpp
-C:\Program Files (x86)\Windows Kits\8.1\Include\um\DbgHelp.h(1544): warning C4091: “typedef ”: 没有声明变量时忽略“”的左侧
-C:\Program Files (x86)\Windows Kits\8.1\Include\um\DbgHelp.h(3190): warning C4091: “typedef ”: 没有声明变量时忽略“”的左侧
-    正在创建库 I:\Works\eDoctor\ANEWinCore\native\Release\ANEWinCore.lib 和对象 I:\Works\eDoctor\ANEWinCore\native\Release\ANEWinCore.exp
+     正在创建库 G:\Works\TalkMEDAndroid-Company\talkmed_anewincore\native\Release\ANEWinCore.lib 和对象 G:\Works\TalkMEDAndroid-Company\talkmed_anewincore\native\Release\ANEWinCore.exp
   正在生成代码
-  All 315 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
   已完成代码的生成
-  ANEQcloudLiveVS2010.vcxproj -> I:\Works\eDoctor\ANEWinCore\native\Release\ANEWinCore.dll
-  ANEQcloudLiveVS2010.vcxproj -> I:\Works\eDoctor\ANEWinCore\native\Release\ANEWinCore.pdb (Full PDB)
+  ANEQcloudLiveVS2010.vcxproj -> G:\Works\TalkMEDAndroid-Company\talkmed_anewincore\native\Release\ANEWinCore.dll
