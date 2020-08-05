@@ -1,2 +1,6 @@
 #TargetFrameworkVersion=v4.0:PlatformToolSet=v120_xp:EnableManagedIncrementalBuild=false:VCToolArchitecture=Native32Bit
+<<<<<<< HEAD
 Release|Win32|I:\Works\eDoctor\ANEWinCore\native\|
+=======
+Release|Win32|G:\Works\TalkMEDAndroid-Company\talkmed_anewincore\native\|
+>>>>>>> 58d18d6299fbcddc2f27361e0bad46c9db3c5df7

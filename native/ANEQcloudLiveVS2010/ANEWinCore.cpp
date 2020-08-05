@@ -149,10 +149,11 @@ extern "C" {
 		std::string url = std::string(val, val + string1Length);
 
 		printf("\n%s,%s = %s", TAG, "setProxyConfig",url.c_str());
-
+		
 		ProxyConfig pc;
 		pc.proxy_server = s2ws(url);
 		setProxyConfig(&pc);
+		
 
 		return NULL;
 	}
@@ -161,93 +162,10 @@ extern "C" {
 	{
 		ProxyConfig pc;
 		getProxyConfig(&pc);
-
 		printf("\n%s,%s = %ws", TAG, "getProxyConfig",pc.proxy_server.c_str());
-
+		
 		return NULL;
 	}
-
-
-	//´úÀíÉèÖÃ
-	int AutoProxyDiscovery(bool enable)
-	{
-		_TCHAR *szSubKey = _T("Software\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Connections");
-
-		BYTE pBuffer[372];
-		DWORD nMaxLength = 372;
-		DWORD   rc = 0;
-		DWORD   dwType;
-		HKEY    hOpenedKey;
-
-		rc = RegOpenKeyEx(
-			HKEY_CURRENT_USER, // handle of open key 
-			szSubKey,               // address of name of subkey to open 
-			0,                  // reserved 
-			KEY_READ | KEY_WRITE,       // security access mask 
-			&hOpenedKey            // address of handle of open key 
-		);
-		if (ERROR_SUCCESS == rc)
-		{
-			rc = RegQueryValueEx(
-				hOpenedKey,
-				_T("DefaultConnectionSettings"),
-				0,
-				&dwType,
-				(LPBYTE)pBuffer,
-				&nMaxLength);
-			if (rc != ERROR_SUCCESS)
-			{
-				return (int)-1;
-			}
-
-			if (enable)
-			{
-				pBuffer[8] = pBuffer[8] | 8;
-			}
-			else
-			{
-				pBuffer[8] = pBuffer[8] ^ 8;
-			}
-
-			rc = RegSetValueEx(
-				hOpenedKey,
-				_T("DefaultConnectionSettings"),
-				0,
-				dwType,
-				pBuffer,
-				nMaxLength
-			);
-
-			if (rc != ERROR_SUCCESS)
-			{
-				return (int)-1;
-			}
-
-			RegCloseKey(hOpenedKey);
-			return 0;
-		}
-		else
-		{
-			return (DWORD)-1;
-		}
-	}
-	FREObject ProxyDiscovery(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[])
-	{
-		uint32_t value = 0;
-		bool ret = false;
-		FREGetObjectAsBool(argv[0], &value);
-		if (value > 0) ret = true;
-
-		printf("\n%s,%s = %d", TAG, "ProxyDiscovery", ret);
-
-		AutoProxyDiscovery(ret);
-
-		InternetSetOption(0, INTERNET_OPTION_SETTINGS_CHANGED, NULL, 0);
-		InternetSetOption(0, INTERNET_OPTION_REFRESH, NULL, 0);
-
-		return NULL;
-	}
-
 
 
 	///
@@ -266,8 +184,6 @@ extern "C" {
 
 			{ (const uint8_t*) "getScreenSize",     NULL, &getScreenSize },
 
-
-			{ (const uint8_t*) "ProxyDiscovery",     NULL, &ProxyDiscovery },
 
 			{ (const uint8_t*) "setProxyConfig",     NULL, &setProxyConfig },
 			{ (const uint8_t*) "getProxyConfig",     NULL, &getProxyConfig },

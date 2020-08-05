@@ -1,4 +1,5 @@
 ﻿  ANEWinCore.cpp
+<<<<<<< HEAD
 i:\works\edoctor\anewincore\native\aneqcloudlivevs2010\IEProxy.h(88): warning C4800: “BOOL”: 将值强制为布尔值“true”或“false”(性能警告)
   CustomURLProtocolApp.cpp
   MiniDump.cpp
@@ -6,3 +7,12 @@ i:\works\edoctor\anewincore\native\aneqcloudlivevs2010\IEProxy.h(88): warning C4
   正在生成代码
   已完成代码的生成
   ANEQcloudLiveVS2010.vcxproj -> I:\Works\eDoctor\ANEWinCore\native\Release\ANEWinCore.dll
+=======
+g:\works\talkmedandroid-company\talkmed_anewincore\native\aneqcloudlivevs2010\IEProxy.h(88): warning C4800: “BOOL”: 将值强制为布尔值“true”或“false”(性能警告)
+  CustomURLProtocolApp.cpp
+  MiniDump.cpp
+     正在创建库 G:\Works\TalkMEDAndroid-Company\talkmed_anewincore\native\Release\ANEWinCore.lib 和对象 G:\Works\TalkMEDAndroid-Company\talkmed_anewincore\native\Release\ANEWinCore.exp
+  正在生成代码
+  已完成代码的生成
+  ANEQcloudLiveVS2010.vcxproj -> G:\Works\TalkMEDAndroid-Company\talkmed_anewincore\native\Release\ANEWinCore.dll
+>>>>>>> 58d18d6299fbcddc2f27361e0bad46c9db3c5df7
