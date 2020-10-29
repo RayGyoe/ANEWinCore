@@ -1,8 +1,8 @@
 ﻿  ANEWinCore.cpp
-i:\works\edoctor\anewincore\native\aneqcloudlivevs2010\IEProxy.h(88): warning C4800: “BOOL”: 将值强制为布尔值“true”或“false”(性能警告)
+f:\works\edoctor\anewincore\native\aneqcloudlivevs2010\IEProxy.h(88): warning C4800: “BOOL”: 将值强制为布尔值“true”或“false”(性能警告)
   CustomURLProtocolApp.cpp
   MiniDump.cpp
-     正在创建库 I:\Works\eDoctor\ANEWinCore\native\Release\ANEWinCore.lib 和对象 I:\Works\eDoctor\ANEWinCore\native\Release\ANEWinCore.exp
+     正在创建库 F:\Works\eDoctor\ANEWinCore\native\Release\ANEWinCore.lib 和对象 F:\Works\eDoctor\ANEWinCore\native\Release\ANEWinCore.exp
   正在生成代码
   已完成代码的生成
-  ANEQcloudLiveVS2010.vcxproj -> I:\Works\eDoctor\ANEWinCore\native\Release\ANEWinCore.dll
+  ANEQcloudLiveVS2010.vcxproj -> F:\Works\eDoctor\ANEWinCore\native\Release\ANEWinCore.dll

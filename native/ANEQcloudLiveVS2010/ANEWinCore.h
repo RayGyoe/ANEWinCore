@@ -1,7 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <iostream>
-
 #include "FlashRuntimeExtensions.h"
 
 #include "MiniDump.h"
