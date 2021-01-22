@@ -13,7 +13,7 @@ call asdoc ^
 -main-title "Ray.lei %projectName% Documentation" ^
 -output %pathtome%\asdocs ^
 -lenient ^
--library-path+=F:\Adobe\Flex_Sdk\AIR\frameworks\libs\air\airglobal.swc
+-library-path+=E:\Adobe\Flex_Sdk\AIR\frameworks\libs\air\airglobal.swc
 
 call asdoc ^
 -doc-sources %pathtome%..\swc\src ^
@@ -22,4 +22,4 @@ call asdoc ^
 -main-title "Ray.lei %projectName% Documentation" ^
 -output %pathtome%\asdocs\tmp ^
 -lenient -keep-xml=true -skip-xsl=true ^
--library-path+=F:\Adobe\Flex_Sdk\AIR\frameworks\libs\air\airglobal.swc
+-library-path+=E:\Adobe\Flex_Sdk\AIR\frameworks\libs\air\airglobal.swc

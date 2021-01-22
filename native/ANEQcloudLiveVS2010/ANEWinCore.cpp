@@ -8,6 +8,8 @@ using std::string;
 #include "IEProxy.h"
 using namespace ie_proxy;
 
+#include "CustomURLProtocolApp.h"
+
 std::string intToStdString(int value)
 {
 	std::stringstream str_stream;
@@ -53,6 +55,7 @@ extern "C" {
 
 	bool isCrateCrashDump = false;
 
+	CustomURLProtocol m_CustomURLProtocol;
 	//≥ı ºªØ
 	FREObject isSupported(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[])
 	{
@@ -169,6 +172,50 @@ extern "C" {
 	}
 
 
+	FREObject createURLProtocol(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[])
+	{
+		uint32_t string1Length;
+		const uint8_t *val;
+		FREGetObjectAsUTF8(argv[0], &string1Length, &val);
+		std::string szProtocolName = std::string(val, val + string1Length);
+
+		FREGetObjectAsUTF8(argv[1], &string1Length, &val);
+		std::string szAppPath = std::string(val, val + string1Length);
+		
+		FREGetObjectAsUTF8(argv[2], &string1Length, &val);
+		std::string szCompanyName = std::string(val, val + string1Length);
+
+
+		printf("\n%s,%s = %ws", TAG, "createURLProtocol", szProtocolName.c_str());
+
+		m_CustomURLProtocol.setProtocolName(s2ws(szProtocolName));
+		m_CustomURLProtocol.setCompanyName(s2ws(szCompanyName));
+		m_CustomURLProtocol.setAppPath(s2ws(szAppPath));
+
+		m_CustomURLProtocol.DeleteCustomProtocol();
+
+		FREObject result;
+		auto status = FRENewObjectFromBool(m_CustomURLProtocol.CreateCustomProtocol() == ERROR_SUCCESS, &result);
+		return result;
+	}
+	
+
+	FREObject clearURLProtocol(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[])
+	{
+		uint32_t string1Length;
+		const uint8_t *val;
+		FREGetObjectAsUTF8(argv[0], &string1Length, &val);
+		std::string szProtocolName = std::string(val, val + string1Length);
+
+		printf("\n%s,%s = %ws", TAG, "clearURLProtocol", szProtocolName.c_str());
+
+		m_CustomURLProtocol.setProtocolName(s2ws(szProtocolName));
+
+		FREObject result;
+		auto status = FRENewObjectFromBool(m_CustomURLProtocol.DeleteCustomProtocol() == ERROR_SUCCESS, &result);
+		return result;
+	}
+
 	///
 	// Flash Native Extensions stuff	
 	void ANEWinCoreContextInitializer(void* extData, const uint8_t* ctxType, FREContext ctx, uint32_t* numFunctionsToSet, const FRENamedFunction** functionsToSet) {
@@ -188,6 +235,9 @@ extern "C" {
 
 			{ (const uint8_t*) "setProxyConfig",     NULL, &setProxyConfig },
 			{ (const uint8_t*) "getProxyConfig",     NULL, &getProxyConfig },
+
+			{ (const uint8_t*) "createURLProtocol",     NULL, &createURLProtocol },
+			{ (const uint8_t*) "clearURLProtocol",     NULL, &clearURLProtocol },
 		};
 
 		*numFunctionsToSet = sizeof(extensionFunctions) / sizeof(FRENamedFunction);

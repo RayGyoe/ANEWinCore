@@ -129,6 +129,39 @@ package com.vsdevelop.air.extension.wincore
 		}
 		
 		
+		
+		/**
+		 * 添加URL Protocol 协议 
+		 * @param protocolName
+		 * @param appPath
+		 * @param campanyName
+		 * @return 
+		 * 
+		 */		
+		public function createURLProtocol(protocolName:String,appPath:String,campanyName:String = 'eDoctor'):Boolean
+		{
+			if(isSupported){
+				return _extCtx.call("createURLProtocol",protocolName,appPath,campanyName) as Boolean;
+			}
+			return false;
+		}
+		
+		
+		/**
+		 * 删除URL Protocol 协议 
+		 * @param protocolName
+		 * @return Boolean
+		 * 
+		 */		
+		public function clearURLProtocol(protocolName:String):Boolean
+		{
+			if(isSupported){
+				return _extCtx.call("clearURLProtocol",protocolName) as Boolean;
+			}
+			return false;
+		}
+		
+		
 		/**
 		 * 获取窗口实际大小
 		 * 

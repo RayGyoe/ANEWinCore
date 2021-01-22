@@ -1,0 +1,130 @@
+<asdoc>
+
+<classRec name='ANEWinCore' fullname='com.vsdevelop.air.extension.wincore:ANEWinCore' sourcefile='F:\Works\eDoctor\ANEWinCore\swc\src\com\vsdevelop\air\extension\wincore\ANEWinCore.as' namespace='com.vsdevelop.air.extension.wincore' access='public' baseclass='flash.events:EventDispatcher' isFinal='false' isDynamic='false' >
+</classRec>
+<method name='ANEWinCore' fullname='com.vsdevelop.air.extension.wincore:ANEWinCore/ANEWinCore' isStatic='false' isFinal='false' isOverride='false'  result_type='*'>
+</method>
+<method name='clearURLProtocol' fullname='com.vsdevelop.air.extension.wincore:ANEWinCore/clearURLProtocol' isStatic='false' isFinal='false' isOverride='false'  param_names='protocolName' param_types='String' param_defaults='undefined' result_type='Boolean'>
+<description><![CDATA[
+
+		 删除URL Protocol 协议 
+
+		 ]]></description>
+<param><![CDATA[protocolName
+
+		 ]]></param>
+<return><![CDATA[Boolean
+
+		 
+
+		 ]]></return>
+</method>
+<method name='crashDump' fullname='com.vsdevelop.air.extension.wincore:ANEWinCore/crashDump' isStatic='false' isFinal='false' isOverride='false'  result_type='void'>
+<description><![CDATA[
+
+		 崩溃监控 
+
+		 
+
+		 ]]></description>
+</method>
+<method name='createURLProtocol' fullname='com.vsdevelop.air.extension.wincore:ANEWinCore/createURLProtocol' isStatic='false' isFinal='false' isOverride='false'  param_names='protocolName;appPath;campanyName' param_types='String;String;String' param_defaults='undefined;undefined;eDoctor' result_type='Boolean'>
+<description><![CDATA[
+
+		 添加URL Protocol 协议 
+
+		 ]]></description>
+<param><![CDATA[protocolName
+
+		 ]]></param>
+<param><![CDATA[appPath
+
+		 ]]></param>
+<param><![CDATA[campanyName
+
+		 ]]></param>
+<return><![CDATA[
+
+		 
+
+		 ]]></return>
+</method>
+<method name='getInstance' fullname='com.vsdevelop.air.extension.wincore:ANEWinCore/getInstance' isStatic='true' isFinal='false' isOverride='false'  result_type='com.vsdevelop.air.extension.wincore:ANEWinCore'>
+</method>
+<method name='getProxyConfig' fullname='com.vsdevelop.air.extension.wincore:ANEWinCore/getProxyConfig' isStatic='false' isFinal='false' isOverride='false'  result_type='String'>
+<description><![CDATA[
+
+		 获取代理地址 
+
+		 ]]></description>
+<return><![CDATA[
+
+		 
+
+		 ]]></return>
+</method>
+<method name='getScreenSize' fullname='com.vsdevelop.air.extension.wincore:ANEWinCore/getScreenSize' isStatic='false' isFinal='false' isOverride='false'  result_type='Object'>
+<description><![CDATA[
+
+		 获取窗口实际大小
+
+		 
+
+		 ]]></description>
+<return><![CDATA[
+		 ]]></return>
+</method>
+<method name='keepScreenOn' fullname='com.vsdevelop.air.extension.wincore:ANEWinCore/keepScreenOn' isStatic='false' isFinal='false' isOverride='false'  param_names='value' param_types='Boolean' param_defaults='undefined' result_type='void'>
+<description><![CDATA[
+
+		 禁止休眠 
+
+		 ]]></description>
+<param><![CDATA[value
+
+		 
+
+		 ]]></param>
+</method>
+<method name='killProcess' fullname='com.vsdevelop.air.extension.wincore:ANEWinCore/killProcess' isStatic='false' isFinal='false' isOverride='false'  result_type='void'>
+<description><![CDATA[
+
+		 强制关闭当前应用 
+
+		 
+
+		 ]]></description>
+</method>
+<method name='onStatus' fullname='com.vsdevelop.air.extension.wincore:ANEWinCore/protected:onStatus' isStatic='false' isFinal='false' isOverride='false'  param_names='event' param_types='flash.events:Event' param_defaults='undefined' result_type='void'>
+<description><![CDATA[
+
+		 事件 
+
+		 ]]></description>
+<param><![CDATA[event
+
+		 
+
+		 ]]></param>
+</method>
+<method name='setProxyConfig' fullname='com.vsdevelop.air.extension.wincore:ANEWinCore/setProxyConfig' isStatic='false' isFinal='false' isOverride='false'  param_names='url' param_types='String' param_defaults='undefined' result_type='void'>
+<description><![CDATA[
+
+		 设置代理地址 
+
+		 ]]></description>
+<param><![CDATA[url
+
+		 
+
+		 ]]></param>
+</method>
+<method name='isSupported' fullname='com.vsdevelop.air.extension.wincore:ANEWinCore/isSupported/get' isStatic='false' isFinal='false' isOverride='false'  result_type='Boolean'>
+</method>
+<field name='_extCtx' fullname='com.vsdevelop.air.extension.wincore:ANEWinCore/private:_extCtx' type='flash.external:ExtensionContext' isStatic='false' isConst='false' >
+</field>
+<field name='_instance' fullname='com.vsdevelop.air.extension.wincore:ANEWinCore/private:_instance' type='com.vsdevelop.air.extension.wincore:ANEWinCore' isStatic='true' isConst='false' >
+</field>
+<field name='_isSupported' fullname='com.vsdevelop.air.extension.wincore:ANEWinCore/private:_isSupported' type='Boolean' isStatic='false' isConst='false' >
+</field>
+</asdoc>

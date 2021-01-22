@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?><apiPackage id="com.vsdevelop.air.extension.wincore"><apiName>com.vsdevelop.air.extension.wincore</apiName><apiDetail/><apiClassifier id="com.vsdevelop.air.extension.wincore:ANEWinCore"><apiName>ANEWinCore</apiName><shortdesc/><prolog><asMetadata/></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef></apiClassifierDetail><apiConstructor id="com.vsdevelop.air.extension.wincore:ANEWinCore:ANEWinCore"><apiName>ANEWinCore</apiName><shortdesc/><prolog/><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef></apiConstructorDetail></apiConstructor><apiOperation id="com.vsdevelop.air.extension.wincore:ANEWinCore:clearURLProtocol"><apiName>clearURLProtocol</apiName><shortdesc>
+		 删除URL Protocol 协议 
+		 </shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Boolean
+		 
+		 </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>protocolName</apiItemName><apiType value="String"/><apiDesc>	 </apiDesc></apiParam></apiOperationDef><apiDesc>
+		 删除URL Protocol 协议 
+		 </apiDesc></apiOperationDetail></apiOperation><apiOperation id="com.vsdevelop.air.extension.wincore:ANEWinCore:crashDump"><apiName>crashDump</apiName><shortdesc>
+		 崩溃监控 
+		 
+		 </shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+		 崩溃监控 
+		 
+		 </apiDesc></apiOperationDetail></apiOperation><apiOperation id="com.vsdevelop.air.extension.wincore:ANEWinCore:createURLProtocol"><apiName>createURLProtocol</apiName><shortdesc>
+		 添加URL Protocol 协议 
+		 </shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>
+		 
+		 </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>protocolName</apiItemName><apiType value="String"/><apiDesc>	 </apiDesc></apiParam><apiParam><apiItemName>appPath</apiItemName><apiType value="String"/><apiDesc>	 </apiDesc></apiParam><apiParam><apiItemName>campanyName</apiItemName><apiType value="String"/><apiData>eDoctor</apiData><apiDesc>	 </apiDesc></apiParam></apiOperationDef><apiDesc>
+		 添加URL Protocol 协议 
+		 </apiDesc></apiOperationDetail></apiOperation><apiOperation id="com.vsdevelop.air.extension.wincore:ANEWinCore:getInstance"><apiName>getInstance</apiName><shortdesc/><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiOperationClassifier>com.vsdevelop.air.extension.wincore:ANEWinCore</apiOperationClassifier></apiReturn></apiOperationDef></apiOperationDetail></apiOperation><apiOperation id="com.vsdevelop.air.extension.wincore:ANEWinCore:getProxyConfig"><apiName>getProxyConfig</apiName><shortdesc>
+		 获取代理地址 
+		 </shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>
+		 
+		 </apiDesc><apiType value="String"/></apiReturn></apiOperationDef><apiDesc>
+		 获取代理地址 
+		 </apiDesc></apiOperationDetail></apiOperation><apiOperation id="com.vsdevelop.air.extension.wincore:ANEWinCore:getScreenSize"><apiName>getScreenSize</apiName><shortdesc>
+		 获取窗口实际大小
+		 
+		 </shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>
+		 </apiDesc><apiType value="Object"/></apiReturn></apiOperationDef><apiDesc>
+		 获取窗口实际大小
+		 
+		 </apiDesc></apiOperationDetail></apiOperation><apiOperation id="com.vsdevelop.air.extension.wincore:ANEWinCore:keepScreenOn"><apiName>keepScreenOn</apiName><shortdesc>
+		 禁止休眠 
+		 </shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Boolean"/><apiDesc>	 
+		 </apiDesc></apiParam></apiOperationDef><apiDesc>
+		 禁止休眠 
+		 </apiDesc></apiOperationDetail></apiOperation><apiOperation id="com.vsdevelop.air.extension.wincore:ANEWinCore:killProcess"><apiName>killProcess</apiName><shortdesc>
+		 强制关闭当前应用 
+		 
+		 </shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+		 强制关闭当前应用 
+		 
+		 </apiDesc></apiOperationDetail></apiOperation><apiOperation id="com.vsdevelop.air.extension.wincore:ANEWinCore:protected:onStatus"><apiName>onStatus</apiName><shortdesc>
+		 事件 
+		 </shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="flash.events:Event"/><apiDesc>	 
+		 </apiDesc></apiParam></apiOperationDef><apiDesc>
+		 事件 
+		 </apiDesc></apiOperationDetail></apiOperation><apiOperation id="com.vsdevelop.air.extension.wincore:ANEWinCore:setProxyConfig"><apiName>setProxyConfig</apiName><shortdesc>
+		 设置代理地址 
+		 </shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>url</apiItemName><apiType value="String"/><apiDesc>	 
+		 </apiDesc></apiParam></apiOperationDef><apiDesc>
+		 设置代理地址 
+		 </apiDesc></apiOperationDetail></apiOperation><apiValue id="com.vsdevelop.air.extension.wincore:ANEWinCore:isSupported:get"><apiName>isSupported</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef></apiValueDetail></apiValue></apiClassifier></apiPackage>
