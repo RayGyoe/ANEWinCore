@@ -162,6 +162,20 @@ package com.vsdevelop.air.extension.wincore
 		}
 		
 		
+		
+		/**
+		 * 检测是否为admin运行程序 
+		 * @param protocolName
+		 * @return 
+		 * 
+		 */		
+		public function checkAdminRun():Boolean
+		{
+			if(isSupported){
+				return _extCtx.call("isAdminRun") as Boolean;
+			}
+			return false;
+		}
 		/**
 		 * 获取窗口实际大小
 		 * 

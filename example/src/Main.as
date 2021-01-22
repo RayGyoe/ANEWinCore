@@ -22,6 +22,7 @@ package
 		private var btn:Button;
 		private var btn2:Button;
 		private var debug:TextField;
+		private var btn3:Button;
 		
 		public function Main():void 
 		{
@@ -39,8 +40,13 @@ package
 			addChild(btn2);
 			btn2.x = 200;
 			
+			btn3 = new Button(null, "是否管理员运行？");
+			addChild(btn3);
+			btn3.x = 400;
+			
 			btn.addEventListener(MouseEvent.CLICK, addURLPol);
 			btn2.addEventListener(MouseEvent.CLICK, delURLPol);
+			btn3.addEventListener(MouseEvent.CLICK, isAdmin);
 			
 			
 			debug = new TextField();
@@ -49,6 +55,11 @@ package
 			debug.width = stage.stageWidth;
 			debug.height = stage.stageHeight - debug.y;
 			addChild(debug);
+		}
+		
+		private function isAdmin(e:MouseEvent):void 
+		{
+			debug.appendText("\n isAdmin="+ANEWinCore.getInstance().checkAdminRun());
 		}
 		
 		private function delURLPol(e:MouseEvent):void 

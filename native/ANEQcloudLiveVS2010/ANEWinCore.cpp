@@ -189,7 +189,6 @@ extern "C" {
 		std::string szAppPath = getFREString(argv[1]);
 		std::string szCompanyName = getFREString(argv[2]);
 
-
 		printf("\n%s,%s = %s  = %s  = %s", TAG, "createURLProtocol", szProtocolName.c_str(), szAppPath.c_str() , szCompanyName.c_str());
 
 		
@@ -221,6 +220,39 @@ extern "C" {
 		return result;
 	}
 
+	
+	BOOL IsRunasAdmin()
+	{
+		BOOL bElevated = FALSE;
+		HANDLE hToken = NULL;
+
+		// Get current process token
+		if (!OpenProcessToken(GetCurrentProcess(), TOKEN_QUERY, &hToken))
+			return FALSE;
+
+		TOKEN_ELEVATION tokenEle;
+		DWORD dwRetLen = 0;
+
+		// Retrieve token elevation information
+		if (GetTokenInformation(hToken, TokenElevation, &tokenEle, sizeof(tokenEle), &dwRetLen))
+		{
+			if (dwRetLen == sizeof(tokenEle))
+			{
+				bElevated = tokenEle.TokenIsElevated;
+			}
+		}
+
+		CloseHandle(hToken);
+		return bElevated;
+	}
+
+	FREObject isAdminRun(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[])
+	{
+		FREObject result;
+		auto status = FRENewObjectFromBool(IsRunasAdmin()==TRUE, &result);
+		return result;
+	}
+
 	///
 	// Flash Native Extensions stuff	
 	void ANEWinCoreContextInitializer(void* extData, const uint8_t* ctxType, FREContext ctx, uint32_t* numFunctionsToSet, const FRENamedFunction** functionsToSet) {
@@ -243,6 +275,8 @@ extern "C" {
 
 			{ (const uint8_t*) "createURLProtocol",     NULL, &createURLProtocol },
 			{ (const uint8_t*) "clearURLProtocol",     NULL, &clearURLProtocol },
+
+			{ (const uint8_t*) "isAdminRun",     NULL, &isAdminRun },
 		};
 
 		*numFunctionsToSet = sizeof(extensionFunctions) / sizeof(FRENamedFunction);

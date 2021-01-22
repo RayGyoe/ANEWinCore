@@ -57,9 +57,10 @@ int CustomURLProtocol::CreateCustomProtocol()
 
 	do
 	{
+		//HKEY_CURRENT_USER  HKEY_CLASSES_ROOT
 		if((m_dwErrorCode = RegOpenKeyExW(HKEY_CLASSES_ROOT, m_wszProtocolName.c_str(), 0L,  KEY_READ, &hKey)) != ERROR_SUCCESS)
 		{
-			if((m_dwErrorCode = RegCreateKeyExW( HKEY_CLASSES_ROOT,
+			if((m_dwErrorCode = RegCreateKeyExW(HKEY_CLASSES_ROOT,
 						m_wszProtocolName.c_str(),
 						0,
 						NULL,
@@ -127,7 +128,7 @@ int CustomURLProtocol::CreateCustomProtocol()
 int CustomURLProtocol::DeleteCustomProtocol()
 {
 	HKEY hKey = NULL;
-
+	//HKEY_CURRENT_USER  HKEY_CLASSES_ROOT
 	if((m_dwErrorCode = RegOpenKeyExW(HKEY_CLASSES_ROOT, m_wszProtocolName.c_str(), 0L,  KEY_ALL_ACCESS, &hKey)) == ERROR_SUCCESS)
 	{
 		if( m_dwErrorCode = ::RegDeleteKey(hKey,URL_PROTOCOL_DEFAULTICON) == ERROR_SUCCESS)	
@@ -135,7 +136,7 @@ int CustomURLProtocol::DeleteCustomProtocol()
 				if( m_dwErrorCode = ::RegDeleteKey(hKey,URL_PROTOCOL_OPEN) == ERROR_SUCCESS)	
 					if( m_dwErrorCode = ::RegDeleteKey(hKey,URL_PROTOCOL_SHELL) == ERROR_SUCCESS)
 						if( m_dwErrorCode = ::RegCloseKey(hKey) == ERROR_SUCCESS)
-							m_dwErrorCode = ::RegDeleteKey(HKEY_CLASSES_ROOT,m_wszProtocolName.c_str());						
+							m_dwErrorCode = ::RegDeleteKey(HKEY_CLASSES_ROOT,m_wszProtocolName.c_str());
 	}
 	if(m_dwErrorCode != ERROR_SUCCESS)
 		FormatErrorMsg();
