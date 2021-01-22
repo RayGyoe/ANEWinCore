@@ -1,0 +1,23 @@
+<extension xmlns="http://ns.adobe.com/air/extension/21.0">
+  <id>com.vsdevelop.air.extension.wincore</id>
+  <versionNumber>1.0</versionNumber>
+  <platforms>
+    <platform name="Windows-x86">
+        <applicationDeployment>
+            <nativeLibrary>ANEWinCore.dll</nativeLibrary> 
+            <initializer>ANEWinCoreExtInitializer</initializer> 
+            <finalizer>ANEWinCoreExtFinalizer</finalizer> 
+        </applicationDeployment>
+    </platform>
+    <!--<platform name="Windows-x86-64">
+        <applicationDeployment>
+            <nativeLibrary>ANEQcloudLive.dll</nativeLibrary> 
+            <initializer>ANEWinCoreExtInitializer</initializer> 
+            <finalizer>ANEWinCoreExtFinalizer</finalizer>
+        </applicationDeployment>
+    </platform>-->
+    <platform name="default">
+        <applicationDeployment />
+    </platform>
+  </platforms>
+</extension>

@@ -1,6 +1,8 @@
 #include "ANEWinCore.h"
 #include <sstream>
 
+#include <iostream>
+#include <string>
 
 #include <vector>
 using std::string;
@@ -46,6 +48,15 @@ std::wstring s2ws(const std::string& s)
 	}
 
 	return NULL;
+}
+
+
+std::string getFREString(FREObject value)
+{
+	uint32_t string1Length;
+	const uint8_t *val;
+	auto status = FREGetObjectAsUTF8(value, &string1Length, &val);
+	return std::string(val, val + string1Length);
 }
 
 extern "C" {
@@ -174,20 +185,14 @@ extern "C" {
 
 	FREObject createURLProtocol(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[])
 	{
-		uint32_t string1Length;
-		const uint8_t *val;
-		FREGetObjectAsUTF8(argv[0], &string1Length, &val);
-		std::string szProtocolName = std::string(val, val + string1Length);
+		std::string szProtocolName = getFREString(argv[0]);
+		std::string szAppPath = getFREString(argv[1]);
+		std::string szCompanyName = getFREString(argv[2]);
 
-		FREGetObjectAsUTF8(argv[1], &string1Length, &val);
-		std::string szAppPath = std::string(val, val + string1Length);
+
+		printf("\n%s,%s = %s  = %s  = %s", TAG, "createURLProtocol", szProtocolName.c_str(), szAppPath.c_str() , szCompanyName.c_str());
+
 		
-		FREGetObjectAsUTF8(argv[2], &string1Length, &val);
-		std::string szCompanyName = std::string(val, val + string1Length);
-
-
-		printf("\n%s,%s = %ws", TAG, "createURLProtocol", szProtocolName.c_str());
-
 		m_CustomURLProtocol.setProtocolName(s2ws(szProtocolName));
 		m_CustomURLProtocol.setCompanyName(s2ws(szCompanyName));
 		m_CustomURLProtocol.setAppPath(s2ws(szAppPath));
