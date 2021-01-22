@@ -2,12 +2,6 @@
 #include <sstream>
 
 
-
-//#include "websocket\include\libwebsockets.h"
-
-//#include <libwebsockets.h>
-
-
 #include <vector>
 using std::string;
 
