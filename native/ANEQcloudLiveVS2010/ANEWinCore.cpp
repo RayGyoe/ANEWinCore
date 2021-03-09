@@ -253,6 +253,20 @@ extern "C" {
 		return result;
 	}
 
+
+	FREObject getProcessHWnds(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[])
+	{
+
+		std::string hwnds = "";
+		////
+
+
+
+		/////
+		FREObject result;
+		auto status = FRENewObjectFromUTF8(uint32_t(strlen(hwnds.c_str())) + 1, reinterpret_cast<const uint8_t *>(hwnds.c_str()), &result);
+		return result;
+	}
 	///
 	// Flash Native Extensions stuff	
 	void ANEWinCoreContextInitializer(void* extData, const uint8_t* ctxType, FREContext ctx, uint32_t* numFunctionsToSet, const FRENamedFunction** functionsToSet) {
@@ -277,6 +291,8 @@ extern "C" {
 			{ (const uint8_t*) "clearURLProtocol",     NULL, &clearURLProtocol },
 
 			{ (const uint8_t*) "isAdminRun",     NULL, &isAdminRun },
+
+			{ (const uint8_t*) "getProcessHWnds",     NULL, &getProcessHWnds },
 		};
 
 		*numFunctionsToSet = sizeof(extensionFunctions) / sizeof(FRENamedFunction);
