@@ -45,6 +45,14 @@ package com.vsdevelop.air.extension.wincore
 			return _isSupported;
 		}
 
+		
+		
+		public function get context():ExtensionContext{
+			
+			if(_isSupported)return _extCtx;
+			return null;
+		}
+		
 		/**
 		 * 事件 
 		 * @param event

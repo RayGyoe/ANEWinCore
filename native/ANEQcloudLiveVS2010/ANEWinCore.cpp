@@ -12,6 +12,7 @@ using namespace ie_proxy;
 
 #include "CustomURLProtocolApp.h"
 
+
 std::string intToStdString(int value)
 {
 	std::stringstream str_stream;
@@ -50,6 +51,12 @@ std::wstring s2ws(const std::string& s)
 	return NULL;
 }
 
+bool isFREResultOK(FREResult errorCode, std::string errorMessage) {
+	if (FRE_OK == errorCode) return true;
+	printf("isFREResultOK = %s", errorMessage.c_str());
+	return false;
+}
+
 
 std::string getFREString(FREObject value)
 {
@@ -57,6 +64,13 @@ std::string getFREString(FREObject value)
 	const uint8_t *val;
 	auto status = FREGetObjectAsUTF8(value, &string1Length, &val);
 	return std::string(val, val + string1Length);
+}
+
+int32_t getInt32(FREObject freObject) {
+	int32_t result = 0;
+	auto status = FREGetObjectAsInt32(freObject, &result);
+	isFREResultOK(status, "Could not convert FREObject to int32_t.");
+	return result;
 }
 
 extern "C" {
@@ -267,6 +281,44 @@ extern "C" {
 		auto status = FRENewObjectFromUTF8(uint32_t(strlen(hwnds.c_str())) + 1, reinterpret_cast<const uint8_t *>(hwnds.c_str()), &result);
 		return result;
 	}
+
+
+	FREObject setProcessDpiAwareness(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[])
+	{
+		//
+		//SetProcessDpiAwarenessContext();
+		
+		int awareness = getInt32(argv[0]);
+		SetProcessDpiAwareness((PROCESS_DPI_AWARENESS)awareness);
+		//SetProcessDPIAware();
+
+		printf("\nsetProcessDpiAwareness=%i\n", awareness);
+
+		FREObject result;
+		auto status = FRENewObjectFromBool(true, &result);
+		return result;
+	}
+
+	// 开启对话框Per-Monitor DPI Aware支持(至少Win10)
+	inline BOOL EnablePerMonitorDialogScaling()
+	{
+		typedef BOOL(WINAPI *PFN_EnablePerMonitorDialogScaling)();
+		PFN_EnablePerMonitorDialogScaling pEnablePerMonitorDialogScaling = (PFN_EnablePerMonitorDialogScaling)GetProcAddress(GetModuleHandleW(L"user32.dll"), (LPCSTR)2577);
+		if (pEnablePerMonitorDialogScaling) return pEnablePerMonitorDialogScaling();
+		return false;
+	}
+
+	// 开启子窗体DPI消息(至少Win10)
+	inline BOOL EnableChildWindowDpiMessage(
+		_In_ HWND hWnd,
+		_In_ BOOL bEnable)
+	{
+		typedef BOOL(WINAPI *PFN_EnableChildWindowDpiMessage)(HWND, BOOL);
+		PFN_EnableChildWindowDpiMessage pEnableChildWindowDpiMessage = (PFN_EnableChildWindowDpiMessage)GetProcAddress(GetModuleHandleW(L"user32.dll"), "EnableChildWindowDpiMessage");
+		if (pEnableChildWindowDpiMessage)return pEnableChildWindowDpiMessage(hWnd, bEnable);
+		return false;
+	}
+
 	///
 	// Flash Native Extensions stuff	
 	void ANEWinCoreContextInitializer(void* extData, const uint8_t* ctxType, FREContext ctx, uint32_t* numFunctionsToSet, const FRENamedFunction** functionsToSet) {
@@ -293,6 +345,8 @@ extern "C" {
 			{ (const uint8_t*) "isAdminRun",     NULL, &isAdminRun },
 
 			{ (const uint8_t*) "getProcessHWnds",     NULL, &getProcessHWnds },
+
+			{ (const uint8_t*) "setProcessDpiAwareness",     NULL, &setProcessDpiAwareness },
 		};
 
 		*numFunctionsToSet = sizeof(extensionFunctions) / sizeof(FRENamedFunction);
