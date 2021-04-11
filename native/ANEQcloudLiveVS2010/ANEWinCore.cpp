@@ -282,7 +282,7 @@ extern "C" {
 		return result;
 	}
 
-
+	/*
 	FREObject setProcessDpiAwareness(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[])
 	{
 		//
@@ -293,6 +293,51 @@ extern "C" {
 		//SetProcessDPIAware();
 
 		printf("\nsetProcessDpiAwareness=%i\n", awareness);
+
+		FREObject result;
+		auto status = FRENewObjectFromBool(true, &result);
+		return result;
+	}*/
+
+
+
+	int f(FREObject AirClass, std::string &funname)
+	{
+		std::cout << "start" << std::endl;
+		std::cout << "this thread id = " << std::this_thread::get_id() << std::endl;
+		std::cout << "end" << std::endl;
+
+		std::this_thread::sleep_for(std::chrono::milliseconds(5000));
+
+		FREObject  re;
+		FREResult es = FRECallObjectMethod(AirClass, reinterpret_cast<const uint8_t *>(funname.data()), 0, NULL, &re, NULL);
+		printf("\n runCoroutine = result=%i\n", es);
+
+		//std::this_thread::yield();
+
+		return 100;
+	}
+
+
+	FREObject runCoroutine(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[])
+	{
+		printf("\n runCoroutine = threadId=%i\n", GetCurrentThreadId());
+
+		std::string funname = getFREString(argv[1]);
+		FREObject AirClass = argv[0];
+		std::thread run([&](FREObject AirClass,std::string &funname) {
+			printf("\n segmentAI GetCurrentThreadId %d\n", GetCurrentThreadId());
+			
+			FREObject  re;
+			FREResult es = FRECallObjectMethod(AirClass, reinterpret_cast<const uint8_t *>(funname.data()), 0, NULL, &re, NULL);
+			printf("\n runCoroutine = result=%i\n", es);
+		}, AirClass,funname);
+		run.detach();
+
+
+		//std::future<int> fu = std::async(f, argv[0], funname);
+		//std::cout << fu.get() << std::endl;
+
 
 		FREObject result;
 		auto status = FRENewObjectFromBool(true, &result);
@@ -346,7 +391,9 @@ extern "C" {
 
 			{ (const uint8_t*) "getProcessHWnds",     NULL, &getProcessHWnds },
 
-			{ (const uint8_t*) "setProcessDpiAwareness",     NULL, &setProcessDpiAwareness },
+			//{ (const uint8_t*) "setProcessDpiAwareness",     NULL, &setProcessDpiAwareness },
+
+			{ (const uint8_t*) "runCoroutine",     NULL, &runCoroutine },
 		};
 
 		*numFunctionsToSet = sizeof(extensionFunctions) / sizeof(FRENamedFunction);

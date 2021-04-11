@@ -3,6 +3,7 @@ package
 	//import flash.desktop.NativeApplication;
 	import com.vsdevelop.air.filesystem.FileCore;
 	import com.vsdevelop.controls.Button;
+	import com.vsdevelop.controls.Fps;
 	import flash.events.Event;
 	import flash.display.Sprite;
 	import flash.display.StageAlign;
@@ -23,6 +24,7 @@ package
 		private var btn2:Button;
 		private var debug:TextField;
 		private var btn3:Button;
+		private var btn4:Button;
 		
 		public function Main():void 
 		{
@@ -35,18 +37,29 @@ package
 			
 			btn = new Button(null, "添加URL启动项目");
 			addChild(btn);
+			btn.addEventListener(MouseEvent.CLICK, addURLPol);
 			
 			btn2 = new Button(null, "删除URL启动");
 			addChild(btn2);
+			btn2.addEventListener(MouseEvent.CLICK, delURLPol);
 			btn2.x = 200;
 			
 			btn3 = new Button(null, "是否管理员运行？");
 			addChild(btn3);
+			btn3.addEventListener(MouseEvent.CLICK, isAdmin);
 			btn3.x = 400;
 			
-			btn.addEventListener(MouseEvent.CLICK, addURLPol);
-			btn2.addEventListener(MouseEvent.CLICK, delURLPol);
-			btn3.addEventListener(MouseEvent.CLICK, isAdmin);
+			btn4 = new Button(null, "退出程序");
+			addChild(btn4);
+			btn4.addEventListener(MouseEvent.CLICK, exitApp);
+			btn4.x = 560;
+			
+			
+			btn4 = new Button(null, "异步运行");
+			addChild(btn4);
+			btn4.addEventListener(MouseEvent.CLICK, runCoroutine);
+			btn4.y = 60;
+			
 			
 			
 			debug = new TextField();
@@ -55,6 +68,36 @@ package
 			debug.width = stage.stageWidth;
 			debug.height = stage.stageHeight - debug.y;
 			addChild(debug);
+			
+			
+			addChild(new Fps()).y = stage.stageHeight - 100;
+		}
+		
+		private function runCoroutine(e:MouseEvent):void 
+		{
+			trace(e);
+			
+			//ANEWinCore.getInstance().actionScriptData['runTest'] = runTest;
+			ANEWinCore.getInstance().context.call("runCoroutine",this,"runTest");
+			//runTest();
+		}
+		
+		public function runTest():void{
+			
+			trace("runTest");
+			var i:int = 0;
+			
+			var il:int = 0;
+			while (i++< 100000000){
+				il += i;
+			}
+			
+			trace(il);
+		}
+		
+		private function exitApp(e:MouseEvent):void 
+		{
+			ANEWinCore.getInstance().killProcess();
 		}
 		
 		private function isAdmin(e:MouseEvent):void 

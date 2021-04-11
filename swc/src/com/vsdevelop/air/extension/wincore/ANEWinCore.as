@@ -12,6 +12,8 @@ package com.vsdevelop.air.extension.wincore
 		private var _extCtx:ExtensionContext;
 		private var _isSupported:Boolean;
 		
+		private var _actionScriptData:Object = {};
+		
 		public function ANEWinCore()
 		{
 			if (!_instance)
@@ -22,6 +24,11 @@ package com.vsdevelop.air.extension.wincore
 				{
 					
 					_isSupported = _extCtx.call("isSupported") as Boolean;
+					
+					if(_isSupported)
+					{
+						_extCtx.actionScriptData = actionScriptData;
+					}
 					
 					_extCtx.addEventListener(StatusEvent.STATUS, onStatus);
 				} else
@@ -35,6 +42,12 @@ package com.vsdevelop.air.extension.wincore
 				throw Error( 'This is a singleton, use getInstance, do not call the constructor directly');
 			}
 		}
+
+		public function get actionScriptData():Object
+		{
+			return _actionScriptData;
+		}
+		
 		public static function getInstance() : ANEWinCore
 		{
 			return _instance ? _instance : new ANEWinCore();

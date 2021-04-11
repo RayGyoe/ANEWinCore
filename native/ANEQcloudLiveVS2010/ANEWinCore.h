@@ -8,12 +8,17 @@
 #include <Windows.h>
 #include <tchar.h>
 
-
+#include <thread>
 #include <winuser.h>
-#include <ShellScalingAPI.h>
-#pragma comment(lib, "Shcore.lib")     //不加这个库的话，程序会提醒SetProcessDpiAwareness无法解析的外部符号
+//#include <ShellScalingAPI.h>  //vs140
+//#pragma comment(lib, "Shcore.lib")     //不加这个库的话，程序会提醒SetProcessDpiAwareness无法解析的外部符号
 
 
+
+#include<mutex>
+#include<condition_variable>
+#include<future>
+#include<chrono>
 /*
 #include <windows.h>
 #include <string>
