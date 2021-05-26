@@ -1,11 +1,5 @@
 #include "ANEWinCore.h"
-#include <sstream>
 
-#include <iostream>
-#include <string>
-
-#include <vector>
-using std::string;
 
 #include "IEProxy.h"
 using namespace ie_proxy;
@@ -72,6 +66,7 @@ int32_t getInt32(FREObject freObject) {
 	isFREResultOK(status, "Could not convert FREObject to int32_t.");
 	return result;
 }
+
 
 extern "C" {
 

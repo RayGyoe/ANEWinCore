@@ -14,7 +14,14 @@
 //#pragma comment(lib, "Shcore.lib")     //不加这个库的话，程序会提醒SetProcessDpiAwareness无法解析的外部符号
 
 
+#include <sstream>
 
+#include <iostream>
+#include <string>
+
+using std::string;
+
+#include <vector>
 #include<mutex>
 #include<condition_variable>
 #include<future>
@@ -26,6 +33,9 @@
 #include <stdio.h>
 #include <assert.h>
 */
+
+
+
 
 
 extern "C"

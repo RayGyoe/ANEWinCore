@@ -112,12 +112,13 @@ package
 		
 		private function addURLPol(e:MouseEvent):void 
 		{
-			
+		
 			var appPath:File = new File(File.applicationDirectory.nativePath + "/example.exe");
+			//appPath = new File("F:/Works/eDoctor/ANEWinCore/example/bin-release/examplebundle1.0.exe/example.exe");
 			trace(appPath.nativePath);
 			if (appPath.exists)
 			{
-				debug.appendText("\n remove URL Protocol=createURLProtocol"+ANEWinCore.getInstance().createURLProtocol("airwincore",appPath.nativePath));
+				debug.appendText("\n add URL Protocol=createURLProtocol="+ANEWinCore.getInstance().createURLProtocol("airwincore",appPath.nativePath));
 			}
 			else{
 				debug.appendText("程序不存在");
