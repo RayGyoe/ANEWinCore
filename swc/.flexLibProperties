@@ -2,6 +2,7 @@
 <flexLibProperties includeAllClasses="true" useMultiPlatformConfig="false" version="3">
   <includeClasses>
     <classEntry path="com.vsdevelop.air.extension.wincore.ANEWinCore"/>
+    <classEntry path="com.vsdevelop.air.extension.wincore.ANEHKeyType"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests/>

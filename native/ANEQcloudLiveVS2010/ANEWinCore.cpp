@@ -219,12 +219,14 @@ extern "C" {
 		FREGetObjectAsUTF8(argv[0], &string1Length, &val);
 		std::string szProtocolName = std::string(val, val + string1Length);
 
-		printf("\n%s,%s = %ws", TAG, "existURLProtocol", szProtocolName.c_str());
+		printf("\n%s,%s = %s", TAG, "existURLProtocol", szProtocolName.c_str());
 
 		m_CustomURLProtocol.setProtocolName(s2ws(szProtocolName));
 
+		int keyType = getInt32(argv[1]);
+
 		FREObject result;
-		auto status = FRENewObjectFromBool(m_CustomURLProtocol.existCustomProtocol(), &result);
+		auto status = FRENewObjectFromBool(m_CustomURLProtocol.existCustomProtocol(keyType), &result);
 		return result;
 	}
 
@@ -236,7 +238,7 @@ extern "C" {
 		FREGetObjectAsUTF8(argv[0], &string1Length, &val);
 		std::string szProtocolName = std::string(val, val + string1Length);
 
-		printf("\n%s,%s = %ws", TAG, "clearURLProtocol", szProtocolName.c_str());
+		printf("\n%s,%s = %s", TAG, "clearURLProtocol", szProtocolName.c_str());
 
 		m_CustomURLProtocol.setProtocolName(s2ws(szProtocolName));
 

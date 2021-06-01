@@ -1,6 +1,7 @@
 package
 {
 	//import flash.desktop.NativeApplication;
+	import com.vsdevelop.air.extension.wincore.ANEHKeyType;
 	import com.vsdevelop.air.filesystem.FileCore;
 	import com.vsdevelop.controls.Button;
 	import com.vsdevelop.controls.Fps;
@@ -112,20 +113,23 @@ package
 			debug.appendText("\n isAdmin="+ANEWinCore.getInstance().checkAdminRun());
 		}
 		
+		
+		private var urlName:String = "airwincore";//talkmedmeetingdev	airwincore
+		
 		private function delURLPol(e:MouseEvent):void 
 		{
-			debug.appendText("\n remove URL Protocol="+ANEWinCore.getInstance().clearURLProtocol("airwincore"));
+			debug.appendText("\n remove URL Protocol="+ANEWinCore.getInstance().clearURLProtocol(urlName));
 		}
 		
 		private function addURLPol(e:MouseEvent):void 
 		{
 		
 			var appPath:File = new File(File.applicationDirectory.nativePath + "/example.exe");
-			//appPath = new File("F:/Works/eDoctor/ANEWinCore/example/bin-release/examplebundle1.0.exe/example.exe");
+			appPath = new File("F:/Works/eDoctor/ANEWinCore/example/bin-release/examplebundle1.0.exe/example.exe");
 			trace(appPath.nativePath);
 			if (appPath.exists)
 			{
-				debug.appendText("\n add URL Protocol=createURLProtocol="+ANEWinCore.getInstance().createURLProtocol("airwincore",appPath.nativePath));
+				debug.appendText("\n add URL Protocol=createURLProtocol="+ANEWinCore.getInstance().createURLProtocol(urlName,appPath.nativePath));
 			}
 			else{
 				debug.appendText("\n 程序不存在");
@@ -134,7 +138,7 @@ package
 		
 		private function checkURLPol(e:MouseEvent):void 
 		{
-			debug.appendText("\n 启动命令存在："+ANEWinCore.getInstance().existURLProtocol("airwincore"));
+			debug.appendText("\n 启动命令存在："+(ANEWinCore.getInstance().existURLProtocol(urlName) || ANEWinCore.getInstance().existURLProtocol(urlName,ANEHKeyType.HKEY_LOCAL_MACHINE)));
 		}
 		
 		

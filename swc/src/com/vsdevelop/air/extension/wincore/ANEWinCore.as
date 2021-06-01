@@ -169,15 +169,15 @@ package com.vsdevelop.air.extension.wincore
 		
 		
 		/**
-		 * 检测次 protocol 是否存在 
+		 * 检测次 protocol 是否存在  
 		 * @param protocolName
+		 * @param hkeyType ANEHKeyType
 		 * @return 
-		 * 
 		 */		
-		public function existURLProtocol(protocolName:String):Boolean
+		public function existURLProtocol(protocolName:String,hkeyType:int = ANEHKeyType.HKEY_CURRENT_USER):Boolean
 		{
 			if(isSupported){
-				return _extCtx.call("existURLProtocol",protocolName) as Boolean;
+				return _extCtx.call("existURLProtocol",protocolName,hkeyType) as Boolean;
 			}
 			return false;
 		}

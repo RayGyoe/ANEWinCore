@@ -10,7 +10,18 @@
   </features>
   <libraries>
     <library path="library.swf">
-      <script name="com/vsdevelop/air/extension/wincore/ANEWinCore" mod="1622563148719" signatureChecksum="935137994" >
+      <script name="_77596387eb0e63d4e7658b3b3ebd7c9185692e297e3a31b3a58d6180b9d14aba_flash_display_Sprite" mod="1622567472348" signatureChecksum="247101949" >
+        <def id="_77596387eb0e63d4e7658b3b3ebd7c9185692e297e3a31b3a58d6180b9d14aba_flash_display_Sprite" /> 
+        <dep id="flash.system:Security" type="e" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="flash.display:Sprite" type="i" /> 
+      </script>
+      <script name="com/vsdevelop/air/extension/wincore/ANEHKeyType" mod="1622567427535" signatureChecksum="1327320513" >
+        <def id="com.vsdevelop.air.extension.wincore:ANEHKeyType" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="Object" type="i" /> 
+      </script>
+      <script name="com/vsdevelop/air/extension/wincore/ANEWinCore" mod="1622567467176" signatureChecksum="942413096" >
         <def id="com.vsdevelop.air.extension.wincore:ANEWinCore" /> 
         <dep id="trace" type="e" /> 
         <dep id="flash.events:StatusEvent" type="e" /> 
@@ -20,17 +31,12 @@
         <dep id="flash.events:Event" type="s" /> 
         <dep id="flash.filesystem:File" type="s" /> 
         <dep id="flash.external:ExtensionContext" type="s" /> 
+        <dep id="com.vsdevelop.air.extension.wincore:ANEHKeyType" type="s" /> 
         <dep id="AS3" type="n" /> 
         <dep id="flash.events:EventDispatcher" type="i" /> 
       </script>
-      <script name="_b0fa5a0ce49eab8bb467680b2ccf0bd8bd2cd465dea26305f894f6aba0032376_flash_display_Sprite" mod="1622563159019" signatureChecksum="4068310085" >
-        <def id="_b0fa5a0ce49eab8bb467680b2ccf0bd8bd2cd465dea26305f894f6aba0032376_flash_display_Sprite" /> 
-        <dep id="flash.system:Security" type="e" /> 
-        <dep id="AS3" type="n" /> 
-        <dep id="flash.display:Sprite" type="i" /> 
-      </script>
       <digests>
-        <digest type="SHA-256" signed="false" value="d348cf14b85c6e7ca33af8be33882946acb9b12bdd9df092a5ae63a90124cf68"   />
+        <digest type="SHA-256" signed="false" value="dc2f1568c0616562ea79c1c0968e844aa4ec1934f27fd096c9a6895e9f45a0c1"   />
       </digests>
     </library>
   </libraries>

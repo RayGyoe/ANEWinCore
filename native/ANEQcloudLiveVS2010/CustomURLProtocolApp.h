@@ -36,5 +36,5 @@ class CustomURLProtocol
 
 		int CreateCustomProtocol();
 		int DeleteCustomProtocol();
-		bool existCustomProtocol();
+		bool existCustomProtocol(int keyType);
 };
