@@ -2,10 +2,14 @@
 C:\Program Files (x86)\Microsoft SDKs\Windows\v7.1A\include\DbgHelp.h(1540): warning C4091: “typedef ”: 没有声明变量时忽略“”的左侧
 C:\Program Files (x86)\Microsoft SDKs\Windows\v7.1A\include\DbgHelp.h(3056): warning C4091: “typedef ”: 没有声明变量时忽略“”的左侧
 f:\works\edoctor\anewincore\native\aneqcloudlivevs2010\IEProxy.h(88): warning C4800: “BOOL”: 将值强制为布尔值“true”或“false”(性能警告)
-ANEWinCore.cpp(223): warning C4477: “printf”: 格式字符串“%ws”需要类型“wchar_t *”的参数，但可变参数 3 拥有了类型“const char *”
-  ANEWinCore.cpp(223): note: 请考虑在格式字符串中使用“%hs”
-  ANEWinCore.cpp(223): note: 请考虑在格式字符串中使用“%s”
-  ANEWinCore.cpp(223): note: 请考虑在格式字符串中使用“%Ts”
+ANEWinCore.cpp(222): warning C4477: “printf”: 格式字符串“%ws”需要类型“wchar_t *”的参数，但可变参数 3 拥有了类型“const char *”
+  ANEWinCore.cpp(222): note: 请考虑在格式字符串中使用“%hs”
+  ANEWinCore.cpp(222): note: 请考虑在格式字符串中使用“%s”
+  ANEWinCore.cpp(222): note: 请考虑在格式字符串中使用“%Ts”
+ANEWinCore.cpp(239): warning C4477: “printf”: 格式字符串“%ws”需要类型“wchar_t *”的参数，但可变参数 3 拥有了类型“const char *”
+  ANEWinCore.cpp(239): note: 请考虑在格式字符串中使用“%hs”
+  ANEWinCore.cpp(239): note: 请考虑在格式字符串中使用“%s”
+  ANEWinCore.cpp(239): note: 请考虑在格式字符串中使用“%Ts”
   CustomURLProtocolApp.cpp
 C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\tchar.h(98): warning C4005: “_ftcscat”: 宏重定义
   C:\Program Files (x86)\Microsoft SDKs\Windows\v7.1A\include\Strsafe.h(9685): note: 参见“_ftcscat”的前一个定义
@@ -20,7 +24,7 @@ C:\Program Files (x86)\Microsoft SDKs\Windows\v7.1A\include\DbgHelp.h(1540): war
 C:\Program Files (x86)\Microsoft SDKs\Windows\v7.1A\include\DbgHelp.h(3056): warning C4091: “typedef ”: 没有声明变量时忽略“”的左侧
     正在创建库 F:\Works\eDoctor\ANEWinCore\native\Release\ANEWinCore.lib 和对象 F:\Works\eDoctor\ANEWinCore\native\Release\ANEWinCore.exp
   正在生成代码
-  All 439 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  All 441 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
   已完成代码的生成
   ANEQcloudLiveVS2010.vcxproj -> F:\Works\eDoctor\ANEWinCore\native\Release\ANEWinCore.dll
   ANEQcloudLiveVS2010.vcxproj -> F:\Works\eDoctor\ANEWinCore\native\Release\ANEWinCore.pdb (Full PDB)

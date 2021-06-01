@@ -196,5 +196,15 @@ int CustomURLProtocol::DeleteCustomProtocol()
 	return m_dwErrorCode;
 }
 
+bool CustomURLProtocol::existCustomProtocol()
+{
+	HKEY hKey = NULL;
+	std::string protocolName = "Software\\Classes\\" + WStringToString(m_wszProtocolName);
+	std::wstring wsProtocolName = StringToWString(protocolName);
 
-
+	if ((m_dwErrorCode = RegOpenKeyExW(HKEY_CURRENT_USER, wsProtocolName.c_str(), 0L, KEY_ALL_ACCESS, &hKey)) == ERROR_SUCCESS)
+	{
+		return true;
+	}
+	return false;
+}

@@ -211,7 +211,23 @@ extern "C" {
 		auto status = FRENewObjectFromBool(m_CustomURLProtocol.CreateCustomProtocol() == ERROR_SUCCESS, &result);
 		return result;
 	}
-	
+
+	FREObject existURLProtocol(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[])
+	{
+		uint32_t string1Length;
+		const uint8_t *val;
+		FREGetObjectAsUTF8(argv[0], &string1Length, &val);
+		std::string szProtocolName = std::string(val, val + string1Length);
+
+		printf("\n%s,%s = %ws", TAG, "existURLProtocol", szProtocolName.c_str());
+
+		m_CustomURLProtocol.setProtocolName(s2ws(szProtocolName));
+
+		FREObject result;
+		auto status = FRENewObjectFromBool(m_CustomURLProtocol.existCustomProtocol(), &result);
+		return result;
+	}
+
 
 	FREObject clearURLProtocol(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[])
 	{
@@ -380,6 +396,7 @@ extern "C" {
 			{ (const uint8_t*) "getProxyConfig",     NULL, &getProxyConfig },
 
 			{ (const uint8_t*) "createURLProtocol",     NULL, &createURLProtocol },
+			{ (const uint8_t*) "existURLProtocol",     NULL, &existURLProtocol },
 			{ (const uint8_t*) "clearURLProtocol",     NULL, &clearURLProtocol },
 
 			{ (const uint8_t*) "isAdminRun",     NULL, &isAdminRun },

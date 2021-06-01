@@ -35,8 +35,14 @@ package
 			
 			// entry point
 			
+			btn = new Button(null, "存在URL嘛");
+			addChild(btn);
+			btn.addEventListener(MouseEvent.CLICK, checkURLPol);
+			
+			
 			btn = new Button(null, "添加URL启动项目");
 			addChild(btn);
+			btn.x = 100;
 			btn.addEventListener(MouseEvent.CLICK, addURLPol);
 			
 			btn2 = new Button(null, "删除URL启动");
@@ -72,6 +78,7 @@ package
 			
 			addChild(new Fps()).y = stage.stageHeight - 100;
 		}
+		
 		
 		private function runCoroutine(e:MouseEvent):void 
 		{
@@ -121,10 +128,14 @@ package
 				debug.appendText("\n add URL Protocol=createURLProtocol="+ANEWinCore.getInstance().createURLProtocol("airwincore",appPath.nativePath));
 			}
 			else{
-				debug.appendText("程序不存在");
+				debug.appendText("\n 程序不存在");
 			}
 		}
 		
+		private function checkURLPol(e:MouseEvent):void 
+		{
+			debug.appendText("\n 启动命令存在："+ANEWinCore.getInstance().existURLProtocol("airwincore"));
+		}
 		
 		
 	}

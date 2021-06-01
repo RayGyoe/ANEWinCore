@@ -169,6 +169,21 @@ package com.vsdevelop.air.extension.wincore
 		
 		
 		/**
+		 * 检测次 protocol 是否存在 
+		 * @param protocolName
+		 * @return 
+		 * 
+		 */		
+		public function existURLProtocol(protocolName:String):Boolean
+		{
+			if(isSupported){
+				return _extCtx.call("existURLProtocol",protocolName) as Boolean;
+			}
+			return false;
+		}
+		
+		
+		/**
 		 * 删除URL Protocol 协议 
 		 * @param protocolName
 		 * @return Boolean
