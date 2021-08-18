@@ -246,5 +246,18 @@ package com.vsdevelop.air.extension.wincore
 			return rect;
 		}
 		
+		
+		/**
+		 *
+		 * 运行外部exe
+		 * 
+		 */ 
+		public function runExec(cmdLine:String):Boolean
+		{
+			if(isSupported){
+				return _extCtx.call("runExec",cmdLine) as Boolean;
+			}
+			return false;
+		}
 	}
 }

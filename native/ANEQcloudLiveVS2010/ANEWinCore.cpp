@@ -357,6 +357,23 @@ extern "C" {
 		return result;
 	}
 
+	// 运行外部exe
+	FREObject runExec(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[])
+	{
+		printf("\n runExec = threadId=%i\n", GetCurrentThreadId());
+
+		std::string runString = getFREString(argv[0]);
+
+		printf("\n runExec = %s\n", runString.c_str());
+
+		LPCSTR path = runString.c_str();
+		WinExec(path, WM_SHOWWINDOW);
+
+		FREObject result;
+		auto status = FRENewObjectFromBool(true, &result);
+		return result;
+	}
+
 	// 开启对话框Per-Monitor DPI Aware支持(至少Win10)
 	inline BOOL EnablePerMonitorDialogScaling()
 	{
@@ -408,6 +425,8 @@ extern "C" {
 			//{ (const uint8_t*) "setProcessDpiAwareness",     NULL, &setProcessDpiAwareness },
 
 			{ (const uint8_t*) "runCoroutine",     NULL, &runCoroutine },
+
+			{ (const uint8_t*) "runExec",     NULL, &runExec },
 		};
 
 		*numFunctionsToSet = sizeof(extensionFunctions) / sizeof(FRENamedFunction);
