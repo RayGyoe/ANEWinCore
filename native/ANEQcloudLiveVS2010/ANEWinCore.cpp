@@ -68,6 +68,37 @@ int32_t getInt32(FREObject freObject) {
 }
 
 
+std::wstring UTF82Wide(const std::string& strUTF8)
+{
+	int nWide = ::MultiByteToWideChar(CP_UTF8, 0, strUTF8.c_str(), strUTF8.size(), NULL, 0);
+
+	std::unique_ptr<wchar_t[]> buffer(new wchar_t[nWide + 1]);
+	if (!buffer)
+	{
+		return L"";
+	}
+
+	::MultiByteToWideChar(CP_UTF8, 0, strUTF8.c_str(), strUTF8.size(), buffer.get(), nWide);
+	buffer[nWide] = L'\0';
+
+	return buffer.get();
+}
+std::string ws2s(const std::wstring &ws)
+{
+	size_t i;
+	std::string curLocale = setlocale(LC_ALL, NULL);
+	setlocale(LC_ALL, "chs");
+	const wchar_t* _source = ws.c_str();
+	size_t _dsize = 2 * ws.size() + 1;
+	char* _dest = new char[_dsize];
+	memset(_dest, 0x0, _dsize);
+	wcstombs_s(&i, _dest, _dsize, _source, _dsize);
+	std::string result = _dest;
+	delete[] _dest;
+	setlocale(LC_ALL, curLocale.c_str());
+	return result;
+}
+
 extern "C" {
 
 	const char *TAG = "ANEWinCore:";
@@ -362,7 +393,7 @@ extern "C" {
 	{
 		printf("\n runExec = threadId=%i\n", GetCurrentThreadId());
 
-		std::string runString = getFREString(argv[0]);
+		std::string runString = ws2s(UTF82Wide(getFREString(argv[0])));
 
 		printf("\n runExec = %s\n", runString.c_str());
 

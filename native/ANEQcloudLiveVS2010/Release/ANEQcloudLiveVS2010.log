@@ -16,9 +16,7 @@ C:\Program Files (x86)\Microsoft SDKs\Windows\v7.1A\include\DbgHelp.h(1540): war
 C:\Program Files (x86)\Microsoft SDKs\Windows\v7.1A\include\DbgHelp.h(3056): warning C4091: “typedef ”: 没有声明变量时忽略“”的左侧
     正在创建库 G:\Works\TalkMEDAndroid-Company\anewincore\native\Release\ANEWinCore.lib 和对象 G:\Works\TalkMEDAndroid-Company\anewincore\native\Release\ANEWinCore.exp
   正在生成代码
-  442 of 444 functions (99.5%) were compiled, the rest were copied from previous compilation.
-    3 functions were new in current compilation
-    0 functions had inline decision re-evaluated but remain unchanged
+  All 460 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
   已完成代码的生成
   ANEQcloudLiveVS2010.vcxproj -> G:\Works\TalkMEDAndroid-Company\anewincore\native\Release\ANEWinCore.dll
   ANEQcloudLiveVS2010.vcxproj -> G:\Works\TalkMEDAndroid-Company\anewincore\native\Release\ANEWinCore.pdb (Full PDB)

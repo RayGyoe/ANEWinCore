@@ -125,7 +125,7 @@ package
 		{
 		
 			var appPath:File = new File(File.applicationDirectory.nativePath + "/example.exe");
-			appPath = new File("F:/Works/eDoctor/ANEWinCore/example/bin-release/examplebundle1.0.exe/example.exe");
+			appPath = new File("G:/Works/TalkMEDAndroid-Company/anewincore/example/bin-release/examplebundle1.0.exe/example.exe");
 			trace(appPath.nativePath);
 			if (appPath.exists)
 			{
