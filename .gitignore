@@ -2,3 +2,5 @@
 temp
 .db
 native/ANEWinCore.VC.db
+*.txt
+.docx
