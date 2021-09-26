@@ -1,4 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?><apiPackage id="com.vsdevelop.air.extension.wincore"><apiName>com.vsdevelop.air.extension.wincore</apiName><apiDetail/><apiClassifier id="com.vsdevelop.air.extension.wincore:ANEWinCore"><apiName>ANEWinCore</apiName><shortdesc/><prolog><asMetadata/></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef></apiClassifierDetail><apiConstructor id="com.vsdevelop.air.extension.wincore:ANEWinCore:ANEWinCore"><apiName>ANEWinCore</apiName><shortdesc/><prolog/><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef></apiConstructorDetail></apiConstructor><apiOperation id="com.vsdevelop.air.extension.wincore:ANEWinCore:clearURLProtocol"><apiName>clearURLProtocol</apiName><shortdesc>
+<?xml version="1.0" encoding="UTF-8"?><apiPackage id="com.vsdevelop.air.extension.wincore"><apiName>com.vsdevelop.air.extension.wincore</apiName><apiDetail/><apiClassifier id="com.vsdevelop.air.extension.wincore:ANEWinCore"><apiName>ANEWinCore</apiName><shortdesc/><prolog><asMetadata/></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef></apiClassifierDetail><apiConstructor id="com.vsdevelop.air.extension.wincore:ANEWinCore:ANEWinCore"><apiName>ANEWinCore</apiName><shortdesc/><prolog/><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef></apiConstructorDetail></apiConstructor><apiOperation id="com.vsdevelop.air.extension.wincore:ANEWinCore:checkAdminRun"><apiName>checkAdminRun</apiName><shortdesc>
+		 检测是否为admin运行程序 
+		 </shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>
+		 
+		 </apiDesc><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+		 检测是否为admin运行程序 
+		 </apiDesc></apiOperationDetail></apiOperation><apiOperation id="com.vsdevelop.air.extension.wincore:ANEWinCore:clearURLProtocol"><apiName>clearURLProtocol</apiName><shortdesc>
 		 删除URL Protocol 协议 
 		 </shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Boolean
 		 
@@ -16,6 +22,12 @@
 		 
 		 </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>protocolName</apiItemName><apiType value="String"/><apiDesc>	 </apiDesc></apiParam><apiParam><apiItemName>appPath</apiItemName><apiType value="String"/><apiDesc>	 </apiDesc></apiParam><apiParam><apiItemName>campanyName</apiItemName><apiType value="String"/><apiData>eDoctor</apiData><apiDesc>	 </apiDesc></apiParam></apiOperationDef><apiDesc>
 		 添加URL Protocol 协议 
+		 </apiDesc></apiOperationDetail></apiOperation><apiOperation id="com.vsdevelop.air.extension.wincore:ANEWinCore:existURLProtocol"><apiName>existURLProtocol</apiName><shortdesc>
+		 检测次 protocol 是否存在  
+		 </shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>
+		 </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>protocolName</apiItemName><apiType value="String"/><apiDesc>	 </apiDesc></apiParam><apiParam><apiItemName>hkeyType</apiItemName><apiType value="int"/><apiData>unknown</apiData><apiDesc>ANEHKeyType
+		 </apiDesc></apiParam></apiOperationDef><apiDesc>
+		 检测次 protocol 是否存在  
 		 </apiDesc></apiOperationDetail></apiOperation><apiOperation id="com.vsdevelop.air.extension.wincore:ANEWinCore:getInstance"><apiName>getInstance</apiName><shortdesc/><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiOperationClassifier>com.vsdevelop.air.extension.wincore:ANEWinCore</apiOperationClassifier></apiReturn></apiOperationDef></apiOperationDetail></apiOperation><apiOperation id="com.vsdevelop.air.extension.wincore:ANEWinCore:getProxyConfig"><apiName>getProxyConfig</apiName><shortdesc>
 		 获取代理地址 
 		 </shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>
@@ -45,9 +57,17 @@
 		 </shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="flash.events:Event"/><apiDesc>	 
 		 </apiDesc></apiParam></apiOperationDef><apiDesc>
 		 事件 
+		 </apiDesc></apiOperationDetail></apiOperation><apiOperation id="com.vsdevelop.air.extension.wincore:ANEWinCore:runExec"><apiName>runExec</apiName><shortdesc>
+		 
+		 运行外部exe
+		 
+		 </shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>cmdLine</apiItemName><apiType value="String"/></apiParam></apiOperationDef><apiDesc>
+		 
+		 运行外部exe
+		 
 		 </apiDesc></apiOperationDetail></apiOperation><apiOperation id="com.vsdevelop.air.extension.wincore:ANEWinCore:setProxyConfig"><apiName>setProxyConfig</apiName><shortdesc>
 		 设置代理地址 
 		 </shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>url</apiItemName><apiType value="String"/><apiDesc>	 
 		 </apiDesc></apiParam></apiOperationDef><apiDesc>
 		 设置代理地址 
-		 </apiDesc></apiOperationDetail></apiOperation><apiValue id="com.vsdevelop.air.extension.wincore:ANEWinCore:isSupported:get"><apiName>isSupported</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef></apiValueDetail></apiValue></apiClassifier></apiPackage>
+		 </apiDesc></apiOperationDetail></apiOperation><apiValue id="com.vsdevelop.air.extension.wincore:ANEWinCore:actionScriptData:get"><apiName>actionScriptData</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Object"/></apiValueDef></apiValueDetail></apiValue><apiValue id="com.vsdevelop.air.extension.wincore:ANEWinCore:context:get"><apiName>context</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="flash.external:ExtensionContext"/></apiValueDef></apiValueDetail></apiValue><apiValue id="com.vsdevelop.air.extension.wincore:ANEWinCore:isSupported:get"><apiName>isSupported</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef></apiValueDetail></apiValue></apiClassifier><apiClassifier id="com.vsdevelop.air.extension.wincore:ANEHKeyType"><apiName>ANEHKeyType</apiName><shortdesc/><prolog><asMetadata/></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef></apiClassifierDetail><apiValue id="com.vsdevelop.air.extension.wincore:ANEHKeyType:HKEY_CLASSES_ROOT"><apiName>HKEY_CLASSES_ROOT</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0</apiData><apiType value="int"/></apiValueDef></apiValueDetail></apiValue><apiValue id="com.vsdevelop.air.extension.wincore:ANEHKeyType:HKEY_CURRENT_USER"><apiName>HKEY_CURRENT_USER</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>1</apiData><apiType value="int"/></apiValueDef></apiValueDetail></apiValue><apiValue id="com.vsdevelop.air.extension.wincore:ANEHKeyType:HKEY_LOCAL_MACHINE"><apiName>HKEY_LOCAL_MACHINE</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>2</apiData><apiType value="int"/></apiValueDef></apiValueDetail></apiValue><apiValue id="com.vsdevelop.air.extension.wincore:ANEHKeyType:HKEY_USERS"><apiName>HKEY_USERS</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>3</apiData><apiType value="int"/></apiValueDef></apiValueDetail></apiValue></apiClassifier></apiPackage>

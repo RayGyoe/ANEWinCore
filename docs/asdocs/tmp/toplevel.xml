@@ -1,8 +1,33 @@
 <asdoc>
 
+<classRec name='ANEHKeyType' fullname='com.vsdevelop.air.extension.wincore:ANEHKeyType' sourcefile='F:\Works\eDoctor\ANEWinCore\swc\src\com\vsdevelop\air\extension\wincore\ANEHKeyType.as' namespace='com.vsdevelop.air.extension.wincore' access='public' baseclass='Object' isFinal='false' isDynamic='false' >
+</classRec>
+<field name='HKEY_CLASSES_ROOT' fullname='com.vsdevelop.air.extension.wincore:ANEHKeyType/HKEY_CLASSES_ROOT' type='int' isStatic='true' isConst='true' defaultValue='0' >
+</field>
+<field name='HKEY_CURRENT_USER' fullname='com.vsdevelop.air.extension.wincore:ANEHKeyType/HKEY_CURRENT_USER' type='int' isStatic='true' isConst='true' defaultValue='1' >
+</field>
+<field name='HKEY_LOCAL_MACHINE' fullname='com.vsdevelop.air.extension.wincore:ANEHKeyType/HKEY_LOCAL_MACHINE' type='int' isStatic='true' isConst='true' defaultValue='2' >
+</field>
+<field name='HKEY_USERS' fullname='com.vsdevelop.air.extension.wincore:ANEHKeyType/HKEY_USERS' type='int' isStatic='true' isConst='true' defaultValue='3' >
+</field>
 <classRec name='ANEWinCore' fullname='com.vsdevelop.air.extension.wincore:ANEWinCore' sourcefile='F:\Works\eDoctor\ANEWinCore\swc\src\com\vsdevelop\air\extension\wincore\ANEWinCore.as' namespace='com.vsdevelop.air.extension.wincore' access='public' baseclass='flash.events:EventDispatcher' isFinal='false' isDynamic='false' >
 </classRec>
 <method name='ANEWinCore' fullname='com.vsdevelop.air.extension.wincore:ANEWinCore/ANEWinCore' isStatic='false' isFinal='false' isOverride='false'  result_type='*'>
+</method>
+<method name='checkAdminRun' fullname='com.vsdevelop.air.extension.wincore:ANEWinCore/checkAdminRun' isStatic='false' isFinal='false' isOverride='false'  result_type='Boolean'>
+<description><![CDATA[
+
+		 检测是否为admin运行程序 
+
+		 ]]></description>
+<param><![CDATA[protocolName
+
+		 ]]></param>
+<return><![CDATA[
+
+		 
+
+		 ]]></return>
 </method>
 <method name='clearURLProtocol' fullname='com.vsdevelop.air.extension.wincore:ANEWinCore/clearURLProtocol' isStatic='false' isFinal='false' isOverride='false'  param_names='protocolName' param_types='String' param_defaults='undefined' result_type='Boolean'>
 <description><![CDATA[
@@ -46,6 +71,22 @@
 <return><![CDATA[
 
 		 
+
+		 ]]></return>
+</method>
+<method name='existURLProtocol' fullname='com.vsdevelop.air.extension.wincore:ANEWinCore/existURLProtocol' isStatic='false' isFinal='false' isOverride='false'  param_names='protocolName;hkeyType' param_types='String;int' param_defaults='undefined;unknown' result_type='Boolean'>
+<description><![CDATA[
+
+		 检测次 protocol 是否存在  
+
+		 ]]></description>
+<param><![CDATA[protocolName
+
+		 ]]></param>
+<param><![CDATA[hkeyType ANEHKeyType
+
+		 ]]></param>
+<return><![CDATA[
 
 		 ]]></return>
 </method>
@@ -107,6 +148,16 @@
 
 		 ]]></param>
 </method>
+<method name='runExec' fullname='com.vsdevelop.air.extension.wincore:ANEWinCore/runExec' isStatic='false' isFinal='false' isOverride='false'  param_names='cmdLine' param_types='String' param_defaults='undefined' result_type='Boolean'>
+<description><![CDATA[
+
+		 
+		 运行外部exe
+
+		 
+
+		 ]]></description>
+</method>
 <method name='setProxyConfig' fullname='com.vsdevelop.air.extension.wincore:ANEWinCore/setProxyConfig' isStatic='false' isFinal='false' isOverride='false'  param_names='url' param_types='String' param_defaults='undefined' result_type='void'>
 <description><![CDATA[
 
@@ -119,8 +170,14 @@
 
 		 ]]></param>
 </method>
+<method name='actionScriptData' fullname='com.vsdevelop.air.extension.wincore:ANEWinCore/actionScriptData/get' isStatic='false' isFinal='false' isOverride='false'  result_type='Object'>
+</method>
+<method name='context' fullname='com.vsdevelop.air.extension.wincore:ANEWinCore/context/get' isStatic='false' isFinal='false' isOverride='false'  result_type='flash.external:ExtensionContext'>
+</method>
 <method name='isSupported' fullname='com.vsdevelop.air.extension.wincore:ANEWinCore/isSupported/get' isStatic='false' isFinal='false' isOverride='false'  result_type='Boolean'>
 </method>
+<field name='_actionScriptData' fullname='com.vsdevelop.air.extension.wincore:ANEWinCore/private:_actionScriptData' type='Object' isStatic='false' isConst='false' defaultValue='unknown' >
+</field>
 <field name='_extCtx' fullname='com.vsdevelop.air.extension.wincore:ANEWinCore/private:_extCtx' type='flash.external:ExtensionContext' isStatic='false' isConst='false' >
 </field>
 <field name='_instance' fullname='com.vsdevelop.air.extension.wincore:ANEWinCore/private:_instance' type='com.vsdevelop.air.extension.wincore:ANEWinCore' isStatic='true' isConst='false' >
