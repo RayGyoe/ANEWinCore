@@ -394,11 +394,23 @@ extern "C" {
 		printf("\n runExec = threadId=%i\n", GetCurrentThreadId());
 
 		std::string runString = ws2s(UTF82Wide(getFREString(argv[0])));
-
+		int type = getInt32(argv[1]);
 		printf("\n runExec = %s\n", runString.c_str());
 
 		LPCSTR path = runString.c_str();
-		WinExec(path, WM_SHOWWINDOW);
+		
+
+		switch (type)
+		{
+			case 24:
+				WinExec(path, WM_SHOWWINDOW);
+				break;
+			default:
+				WinExec(path, (UINT)type);
+				break;
+		}
+		
+
 
 		FREObject result;
 		auto status = FRENewObjectFromBool(true, &result);

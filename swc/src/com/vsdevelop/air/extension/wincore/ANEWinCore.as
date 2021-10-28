@@ -252,10 +252,10 @@ package com.vsdevelop.air.extension.wincore
 		 * 运行外部exe
 		 * 
 		 */ 
-		public function runExec(cmdLine:String):Boolean
+		public function runExec(cmdLine:String,type:int = 24):Boolean
 		{
 			if(isSupported){
-				return _extCtx.call("runExec",cmdLine) as Boolean;
+				return _extCtx.call("runExec",cmdLine,type) as Boolean;
 			}
 			return false;
 		}
