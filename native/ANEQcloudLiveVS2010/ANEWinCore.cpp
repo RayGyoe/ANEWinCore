@@ -399,7 +399,7 @@ extern "C" {
 
 		LPCSTR path = runString.c_str();
 		
-
+		//SW_SHOWNORMAL 1
 		switch (type)
 		{
 			case 24:

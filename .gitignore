@@ -5,3 +5,4 @@ native/ANEWinCore.VC.db
 *.txt
 .docx
 apm
+native/.vs
