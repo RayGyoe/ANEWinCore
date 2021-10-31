@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include  <Locale.h>
 
 #define URL_PROTOCOL_STRING			L"URL:%s Protocol"
 #define URL_PROTOCOL				L"URL Protocol"

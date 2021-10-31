@@ -16,17 +16,8 @@ std::string intToStdString(int value)
 	return str;
 }
 
-std::wstring s2ws(const std::string& s)
+std::wstring s2ws2(const std::string& s)
 {
-	int len;
-	int slength = (int)s.length() + 1;
-	len = MultiByteToWideChar(CP_ACP, 0, s.c_str(), slength, 0, 0);
-	wchar_t* buf = new wchar_t[len];
-	MultiByteToWideChar(CP_ACP, 0, s.c_str(), slength, buf, len);
-	std::wstring r(buf);
-	delete[] buf;
-	return r;
-
 	std::vector<wchar_t> buff(s.size());
 	std::locale loc("zh-CN");
 	wchar_t* pwszNext = nullptr;
@@ -43,6 +34,32 @@ std::wstring s2ws(const std::string& s)
 	}
 
 	return NULL;
+}
+BOOL stringToWString(const std::string &str, std::wstring &wstr)
+{
+
+
+	int nLen = (int)str.length();
+	wstr.resize(nLen, L' ');
+	int nResult = MultiByteToWideChar(CP_ACP, 0, (LPCSTR)str.c_str(), nLen, (LPWSTR)wstr.c_str(), nLen);
+	if (nResult == 0)
+	{
+		return FALSE;
+	}
+	return TRUE;
+}
+
+std::wstring s2ws(const std::string& s)
+{
+
+	int len;
+	int slength = (int)s.length() + 1;
+	len = MultiByteToWideChar(CP_ACP, 0, s.c_str(), slength, 0, 0);
+	wchar_t* buf = new wchar_t[len];
+	MultiByteToWideChar(CP_ACP, 0, s.c_str(), slength, buf, len);
+	std::wstring r(buf);
+	delete[] buf;
+	return r;
 }
 
 bool isFREResultOK(FREResult errorCode, std::string errorMessage) {
@@ -234,7 +251,11 @@ extern "C" {
 		
 		m_CustomURLProtocol.setProtocolName(s2ws(szProtocolName));
 		m_CustomURLProtocol.setCompanyName(s2ws(szCompanyName));
-		m_CustomURLProtocol.setAppPath(s2ws(szAppPath));
+
+		//std::wstring path;
+		//stringToWString(szAppPath, path);
+		//m_CustomURLProtocol.setAppPath(path);
+		m_CustomURLProtocol.setAppPath(s2ws2(szAppPath));
 
 		m_CustomURLProtocol.DeleteCustomProtocol();
 
