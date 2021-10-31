@@ -243,7 +243,7 @@ extern "C" {
 	FREObject createURLProtocol(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[])
 	{
 		std::string szProtocolName = getFREString(argv[0]);
-		std::string szAppPath = getFREString(argv[1]);
+		std::string szAppPath = ws2s(UTF82Wide(getFREString(argv[1])));// getFREString(argv[1]);
 		std::string szCompanyName = getFREString(argv[2]);
 
 		printf("\n%s,%s = %s  = %s  = %s", TAG, "createURLProtocol", szProtocolName.c_str(), szAppPath.c_str() , szCompanyName.c_str());
@@ -255,6 +255,7 @@ extern "C" {
 		//std::wstring path;
 		//stringToWString(szAppPath, path);
 		//m_CustomURLProtocol.setAppPath(path);
+		
 		m_CustomURLProtocol.setAppPath(s2ws2(szAppPath));
 
 		m_CustomURLProtocol.DeleteCustomProtocol();
