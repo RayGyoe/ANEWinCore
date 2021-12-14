@@ -6,6 +6,7 @@ using namespace ie_proxy;
 
 #include "CustomURLProtocolApp.h"
 
+#include "FontLoader.h"
 
 std::string intToStdString(int value)
 {
@@ -385,6 +386,39 @@ extern "C" {
 	}
 
 
+	FREObject fontLoader(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[])
+	{
+		printf("\n fontLoader = \n");
+
+		std::string font_path = getFREString(argv[0]);
+
+
+		// ...
+		IDWriteFactory* pDWriteFactory;
+		IDWriteFontCollection *fCollection;
+		IDWriteTextFormat* pTextFormat;
+		// ...
+		MFFontContext fContext(pDWriteFactory);
+		std::vector<std::wstring> filePaths; // vector containing ABSOLUTE file paths of the font files which are to be added to the collection
+		std::wstring fontFileFilePath = L"C:\\xyz\\abc.ttf";
+		filePaths.push_back(fontFileFilePath);
+		HRESULT hr = fContext.CreateFontCollection(filePaths, &fCollection); // create custom font collection
+		hr = pDWriteFactory->CreateTextFormat(
+			L"Font Family",    // Font family name
+			fCollection,
+			DWRITE_FONT_WEIGHT_REGULAR,
+			DWRITE_FONT_STYLE_NORMAL,
+			DWRITE_FONT_STRETCH_NORMAL,
+			16.0f,
+			L"en-us",
+			&pTextFormat       // IDWriteTextFormat object
+		);
+
+		FREObject result;
+		auto status = FRENewObjectFromBool(true, &result);
+		return result;
+	}
+
 	FREObject runCoroutine(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[])
 	{
 		printf("\n runCoroutine = threadId=%i\n", GetCurrentThreadId());
@@ -488,6 +522,8 @@ extern "C" {
 			{ (const uint8_t*) "getProcessHWnds",     NULL, &getProcessHWnds },
 
 			//{ (const uint8_t*) "setProcessDpiAwareness",     NULL, &setProcessDpiAwareness },
+
+			{ (const uint8_t*) "fontLoader",     NULL, &fontLoader },
 
 			{ (const uint8_t*) "runCoroutine",     NULL, &runCoroutine },
 

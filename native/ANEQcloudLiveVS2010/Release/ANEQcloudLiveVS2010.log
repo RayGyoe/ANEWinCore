@@ -11,14 +11,14 @@ C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\tchar.h(220): w
   C:\Program Files (x86)\Microsoft SDKs\Windows\v7.1A\include\Strsafe.h(9686): note: 参见“_stprintf”的前一个定义
 C:\Program Files (x86)\Microsoft SDKs\Windows\v7.1A\include\DbgHelp.h(1540): warning C4091: “typedef ”: 没有声明变量时忽略“”的左侧
 C:\Program Files (x86)\Microsoft SDKs\Windows\v7.1A\include\DbgHelp.h(3056): warning C4091: “typedef ”: 没有声明变量时忽略“”的左侧
+  FontLoader.cpp
   MiniDump.cpp
 C:\Program Files (x86)\Microsoft SDKs\Windows\v7.1A\include\DbgHelp.h(1540): warning C4091: “typedef ”: 没有声明变量时忽略“”的左侧
 C:\Program Files (x86)\Microsoft SDKs\Windows\v7.1A\include\DbgHelp.h(3056): warning C4091: “typedef ”: 没有声明变量时忽略“”的左侧
     正在创建库 F:\Works\eDoctor\ANEWinCore\native\Release\ANEWinCore.lib 和对象 F:\Works\eDoctor\ANEWinCore\native\Release\ANEWinCore.exp
   正在生成代码
-  459 of 461 functions (99.6%) were compiled, the rest were copied from previous compilation.
-    2 functions were new in current compilation
-    0 functions had inline decision re-evaluated but remain unchanged
+f:\works\edoctor\anewincore\native\aneqcloudlivevs2010\anewincore.cpp(401): warning C4700: 使用了未初始化的局部变量“pDWriteFactory”
+  All 772 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
   已完成代码的生成
   ANEQcloudLiveVS2010.vcxproj -> F:\Works\eDoctor\ANEWinCore\native\Release\ANEWinCore.dll
   ANEQcloudLiveVS2010.vcxproj -> F:\Works\eDoctor\ANEWinCore\native\Release\ANEWinCore.pdb (Full PDB)

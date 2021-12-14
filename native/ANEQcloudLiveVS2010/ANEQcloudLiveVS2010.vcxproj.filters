@@ -30,6 +30,12 @@
     <ClInclude Include="IEProxy.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="Common.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="FontLoader.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Library Include="FlashRuntimeExtensions.lib">
@@ -44,6 +50,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="CustomURLProtocolApp.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="FontLoader.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
