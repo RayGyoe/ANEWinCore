@@ -18,3 +18,7 @@
 | [killProcess](#killProcess())():void强制关闭当前应用         |
 | [runExec](#runExec())(cmdLine:String):Boolean运行外部exe     |
 | [setProxyConfig](#setProxyConfig())(url:String):void设置代理地址 |
+
+
+
+快速清理内存：https://cxybb.com/article/u013207660/18081343
