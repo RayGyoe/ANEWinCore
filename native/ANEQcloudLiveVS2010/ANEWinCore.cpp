@@ -8,6 +8,9 @@ using namespace ie_proxy;
 
 #include "FontLoader.h"
 
+#include <psapi.h>
+#pragma comment(lib,"psapi.lib")
+
 std::string intToStdString(int value)
 {
 	std::stringstream str_stream;
@@ -473,6 +476,31 @@ extern "C" {
 		return result;
 	}
 
+	
+	FREObject memoryCollation(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[])
+	{
+		printf("\n memoryCollation = threadId=%i\n", GetCurrentThreadId());
+
+		int maxMemory = getInt32(argv[0]);
+		printf("\n maxMemory = %i\n", maxMemory);
+
+		HANDLE handle = GetCurrentProcess();
+		PROCESS_MEMORY_COUNTERS pmc;
+		GetProcessMemoryInfo(handle, &pmc, sizeof(pmc));
+		float memoryUsage_M = pmc.WorkingSetSize / (1024.0 *1024.0);
+
+		std::cout <<  "内存使用:" << memoryUsage_M << "M" << std::endl;
+
+		if (memoryUsage_M > maxMemory) {
+			EmptyWorkingSet(handle);
+			std::cout << "运行内存整理" << std::endl;
+		}
+
+		FREObject result;
+		auto status = FRENewObjectFromBool(true, &result);
+		return result;
+	}
+
 	// 开启对话框Per-Monitor DPI Aware支持(至少Win10)
 	inline BOOL EnablePerMonitorDialogScaling()
 	{
@@ -528,6 +556,8 @@ extern "C" {
 			{ (const uint8_t*) "runCoroutine",     NULL, &runCoroutine },
 
 			{ (const uint8_t*) "runExec",     NULL, &runExec },
+
+			{ (const uint8_t*) "memoryCollation",     NULL, &memoryCollation },
 		};
 
 		*numFunctionsToSet = sizeof(extensionFunctions) / sizeof(FRENamedFunction);

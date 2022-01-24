@@ -1,7 +1,8 @@
 ﻿  ANEWinCore.cpp
 C:\Program Files (x86)\Microsoft SDKs\Windows\v7.1A\include\DbgHelp.h(1540): warning C4091: “typedef ”: 没有声明变量时忽略“”的左侧
 C:\Program Files (x86)\Microsoft SDKs\Windows\v7.1A\include\DbgHelp.h(3056): warning C4091: “typedef ”: 没有声明变量时忽略“”的左侧
-f:\works\edoctor\anewincore\native\aneqcloudlivevs2010\IEProxy.h(88): warning C4800: “BOOL”: 将值强制为布尔值“true”或“false”(性能警告)
+d:\works\works\talkmedandroid-company\anewincore\native\aneqcloudlivevs2010\IEProxy.h(88): warning C4800: “BOOL”: 将值强制为布尔值“true”或“false”(性能警告)
+ANEWinCore.cpp(490): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
   CustomURLProtocolApp.cpp
 C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\tchar.h(98): warning C4005: “_ftcscat”: 宏重定义
   C:\Program Files (x86)\Microsoft SDKs\Windows\v7.1A\include\Strsafe.h(9685): note: 参见“_ftcscat”的前一个定义
@@ -15,10 +16,10 @@ C:\Program Files (x86)\Microsoft SDKs\Windows\v7.1A\include\DbgHelp.h(3056): war
   MiniDump.cpp
 C:\Program Files (x86)\Microsoft SDKs\Windows\v7.1A\include\DbgHelp.h(1540): warning C4091: “typedef ”: 没有声明变量时忽略“”的左侧
 C:\Program Files (x86)\Microsoft SDKs\Windows\v7.1A\include\DbgHelp.h(3056): warning C4091: “typedef ”: 没有声明变量时忽略“”的左侧
-    正在创建库 F:\Works\eDoctor\ANEWinCore\native\Release\ANEWinCore.lib 和对象 F:\Works\eDoctor\ANEWinCore\native\Release\ANEWinCore.exp
+    正在创建库 D:\Works\Works\TalkMEDAndroid-Company\anewincore\native\Release\ANEWinCore.lib 和对象 D:\Works\Works\TalkMEDAndroid-Company\anewincore\native\Release\ANEWinCore.exp
   正在生成代码
-f:\works\edoctor\anewincore\native\aneqcloudlivevs2010\anewincore.cpp(401): warning C4700: 使用了未初始化的局部变量“pDWriteFactory”
-  All 772 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+d:\works\works\talkmedandroid-company\anewincore\native\aneqcloudlivevs2010\anewincore.cpp(404): warning C4700: 使用了未初始化的局部变量“pDWriteFactory”
+  All 775 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
   已完成代码的生成
-  ANEQcloudLiveVS2010.vcxproj -> F:\Works\eDoctor\ANEWinCore\native\Release\ANEWinCore.dll
-  ANEQcloudLiveVS2010.vcxproj -> F:\Works\eDoctor\ANEWinCore\native\Release\ANEWinCore.pdb (Full PDB)
+  ANEQcloudLiveVS2010.vcxproj -> D:\Works\Works\TalkMEDAndroid-Company\anewincore\native\Release\ANEWinCore.dll
+  ANEQcloudLiveVS2010.vcxproj -> D:\Works\Works\TalkMEDAndroid-Company\anewincore\native\Release\ANEWinCore.pdb (Full PDB)

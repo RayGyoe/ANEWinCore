@@ -259,5 +259,21 @@ package com.vsdevelop.air.extension.wincore
 			}
 			return false;
 		}
+		
+		
+		
+		/**
+		 * 强制内存整理 
+		 * @param maxMemory 500
+		 * @return 
+		 * 
+		 */		
+		public function memoryCollation(maxMemory:int = 500):Boolean
+		{
+			if(isSupported){
+				return _extCtx.call("memoryCollation",maxMemory) as Boolean;
+			}
+			return false;
+		}
 	}
 }
