@@ -3,8 +3,6 @@
 #include <iostream>
 #include "FlashRuntimeExtensions.h"
 
-#include "MiniDump.h"
-
 #include <Windows.h>
 #include <tchar.h>
 

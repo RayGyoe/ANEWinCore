@@ -36,6 +36,9 @@
     <ClInclude Include="FontLoader.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="crash-report.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Library Include="FlashRuntimeExtensions.lib">
@@ -53,6 +56,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="FontLoader.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="crash-report.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

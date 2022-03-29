@@ -26,6 +26,7 @@ package
 		private var debug:TextField;
 		private var btn3:Button;
 		private var btn4:Button;
+		private var btn5:Button;
 		
 		public function Main():void 
 		{
@@ -35,6 +36,8 @@ package
 			Multitouch.inputMode = MultitouchInputMode.TOUCH_POINT;
 			
 			// entry point
+			
+			ANEWinCore.getInstance().crashDump();
 			
 			btn = new Button(null, "存在URL嘛");
 			addChild(btn);
@@ -67,6 +70,12 @@ package
 			btn4.addEventListener(MouseEvent.CLICK, runCoroutine);
 			btn4.y = 60;
 			
+			btn5 = new Button(null, "加载字体");
+			addChild(btn5);
+			btn5.addEventListener(MouseEvent.CLICK, fontTest);
+			btn5.y = 60;
+			btn5.x = 100;
+			
 			
 			
 			debug = new TextField();
@@ -78,6 +87,11 @@ package
 			
 			
 			addChild(new Fps()).y = stage.stageHeight - 100;
+		}
+		
+		private function fontTest(e:MouseEvent):void 
+		{
+			ANEWinCore.getInstance().context.call("fontLoader","");
 		}
 		
 		

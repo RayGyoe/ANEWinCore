@@ -191,6 +191,7 @@
   <ItemGroup>
     <ClInclude Include="ANEWinCore.h" />
     <ClInclude Include="Common.h" />
+    <ClInclude Include="crash-report.h" />
     <ClInclude Include="CustomURLProtocolApp.h" />
     <ClInclude Include="FlashRuntimeExtensions.h" />
     <ClInclude Include="FontLoader.h" />
@@ -199,6 +200,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ANEWinCore.cpp" />
+    <ClCompile Include="crash-report.cpp" />
     <ClCompile Include="CustomURLProtocolApp.cpp" />
     <ClCompile Include="FontLoader.cpp" />
     <ClCompile Include="MiniDump.cpp" />

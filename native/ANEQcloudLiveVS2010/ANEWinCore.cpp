@@ -6,6 +6,8 @@ using namespace ie_proxy;
 
 #include "CustomURLProtocolApp.h"
 
+#include "crash-report.h"
+
 #include "FontLoader.h"
 
 #include <psapi.h>
@@ -122,7 +124,7 @@ std::string ws2s(const std::wstring &ws)
 
 extern "C" {
 
-	const char *TAG = "ANEWinCore:";
+	const char *TAG = "ANEWinCore";
 	
 
 	bool isCrateCrashDump = false;
@@ -144,8 +146,11 @@ extern "C" {
 		printf("\n%s,%s", TAG, "crashDump");
 
 		if (isCrateCrashDump == false) {
-			MiniDump::EnableAutoDump(true);
-			printf("\n%s,%s", TAG, "crashDump EnableAutoDump");
+			
+			CrashReporter crashReporter;
+			(void)crashReporter; //prevents unused warnings
+
+			printf("\n\n%s,%s", TAG, "crashDump EnableAutoDump");
 		}
 		isCrateCrashDump = true;
 
@@ -154,6 +159,16 @@ extern "C" {
 		return result;
 	}
 
+	FREObject crashTest(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[])
+	{
+
+		int *test;
+		*test = 0;
+
+		return NULL;
+	}
+
+	///
 
 	//强制关闭程序
 	FREObject killProcess(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[])
@@ -396,27 +411,33 @@ extern "C" {
 		std::string font_path = getFREString(argv[0]);
 
 
-		// ...
-		IDWriteFactory* pDWriteFactory;
-		IDWriteFontCollection *fCollection;
-		IDWriteTextFormat* pTextFormat;
-		// ...
-		MFFontContext fContext(pDWriteFactory);
-		std::vector<std::wstring> filePaths; // vector containing ABSOLUTE file paths of the font files which are to be added to the collection
-		std::wstring fontFileFilePath = L"C:\\xyz\\abc.ttf";
-		filePaths.push_back(fontFileFilePath);
-		HRESULT hr = fContext.CreateFontCollection(filePaths, &fCollection); // create custom font collection
-		hr = pDWriteFactory->CreateTextFormat(
-			L"Font Family",    // Font family name
-			fCollection,
-			DWRITE_FONT_WEIGHT_REGULAR,
-			DWRITE_FONT_STYLE_NORMAL,
-			DWRITE_FONT_STRETCH_NORMAL,
-			16.0f,
-			L"en-us",
-			&pTextFormat       // IDWriteTextFormat object
-		);
+		try {
+			// ...
+			IDWriteFactory* pDWriteFactory;
+			IDWriteFontCollection *fCollection;
+			IDWriteTextFormat* pTextFormat;
+			// ...
+			MFFontContext fContext(pDWriteFactory);
+			std::vector<std::wstring> filePaths; // vector containing ABSOLUTE file paths of the font files which are to be added to the collection
+			std::wstring fontFileFilePath = L"C:\\Users\\Admin\\Desktop\\dincondensedbold.ttf";
+			filePaths.push_back(fontFileFilePath);
+			HRESULT hr = fContext.CreateFontCollection(filePaths, &fCollection); // create custom font collection
+			hr = pDWriteFactory->CreateTextFormat(
+				L"dincondensed-bold",    // Font family name
+				fCollection,
+				DWRITE_FONT_WEIGHT_REGULAR,
+				DWRITE_FONT_STYLE_NORMAL,
+				DWRITE_FONT_STRETCH_NORMAL,
+				16.0f,
+				L"en-us",
+				&pTextFormat       // IDWriteTextFormat object
+			);
+		}
+		catch (std::exception &err) {
 
+		}
+
+		
 		FREObject result;
 		auto status = FRENewObjectFromBool(true, &result);
 		return result;
@@ -487,7 +508,7 @@ extern "C" {
 		HANDLE handle = GetCurrentProcess();
 		PROCESS_MEMORY_COUNTERS pmc;
 		GetProcessMemoryInfo(handle, &pmc, sizeof(pmc));
-		float memoryUsage_M = pmc.WorkingSetSize / (1024.0 *1024.0);
+		double memoryUsage_M = pmc.WorkingSetSize / (1024.0 *1024.0);
 
 		std::cout <<  "内存使用:" << memoryUsage_M << "M" << std::endl;
 
@@ -530,7 +551,8 @@ extern "C" {
 			{ (const uint8_t*) "isSupported",     NULL, &isSupported },
 
 			{ (const uint8_t*) "crashDump",     NULL, &crashDump },
-
+			{ (const uint8_t*) "crashTest",     NULL, &crashTest },
+			
 			{ (const uint8_t*) "killProcess",     NULL, &killProcess },
 
 			{ (const uint8_t*) "keepScreenOn",     NULL, &keepScreenOn },
