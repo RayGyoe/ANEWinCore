@@ -2,7 +2,7 @@
 f:\works\edoctor\anewincore\native\aneqcloudlivevs2010\IEProxy.h(88): warning C4800: “BOOL”: 将值强制为布尔值“true”或“false”(性能警告)
 C:\Program Files (x86)\Microsoft SDKs\Windows\v7.1A\include\DbgHelp.h(1540): warning C4091: “typedef ”: 没有声明变量时忽略“”的左侧
 C:\Program Files (x86)\Microsoft SDKs\Windows\v7.1A\include\DbgHelp.h(3056): warning C4091: “typedef ”: 没有声明变量时忽略“”的左侧
-ANEWinCore.cpp(436): warning C4101: “err”: 未引用的局部变量
+ANEWinCore.cpp(440): warning C4101: “err”: 未引用的局部变量
   crash-report.cpp
 C:\Program Files (x86)\Microsoft SDKs\Windows\v7.1A\include\DbgHelp.h(1540): warning C4091: “typedef ”: 没有声明变量时忽略“”的左侧
 C:\Program Files (x86)\Microsoft SDKs\Windows\v7.1A\include\DbgHelp.h(3056): warning C4091: “typedef ”: 没有声明变量时忽略“”的左侧
@@ -20,9 +20,9 @@ C:\Program Files (x86)\Microsoft SDKs\Windows\v7.1A\include\DbgHelp.h(1540): war
 C:\Program Files (x86)\Microsoft SDKs\Windows\v7.1A\include\DbgHelp.h(3056): warning C4091: “typedef ”: 没有声明变量时忽略“”的左侧
     正在创建库 F:\Works\eDoctor\ANEWinCore\native\Release\ANEWinCore.lib 和对象 F:\Works\eDoctor\ANEWinCore\native\Release\ANEWinCore.exp
   正在生成代码
-f:\works\edoctor\anewincore\native\aneqcloudlivevs2010\anewincore.cpp(166): warning C4700: 使用了未初始化的局部变量“test”
-f:\works\edoctor\anewincore\native\aneqcloudlivevs2010\anewincore.cpp(420): warning C4700: 使用了未初始化的局部变量“pDWriteFactory”
-  All 782 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+f:\works\edoctor\anewincore\native\aneqcloudlivevs2010\anewincore.cpp(170): warning C4700: 使用了未初始化的局部变量“test”
+f:\works\edoctor\anewincore\native\aneqcloudlivevs2010\anewincore.cpp(424): warning C4700: 使用了未初始化的局部变量“pDWriteFactory”
+  All 787 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
   已完成代码的生成
   ANEQcloudLiveVS2010.vcxproj -> F:\Works\eDoctor\ANEWinCore\native\Release\ANEWinCore.dll
   ANEQcloudLiveVS2010.vcxproj -> F:\Works\eDoctor\ANEWinCore\native\Release\ANEWinCore.pdb (Full PDB)

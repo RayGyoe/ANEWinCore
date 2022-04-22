@@ -275,5 +275,21 @@ package com.vsdevelop.air.extension.wincore
 			}
 			return false;
 		}
+		
+		
+		/**
+		 * 获取网址的ip4v地址 
+		 * @param url
+		 * @return 
+		 * 
+		 */		
+		public function getHostByName(url:String):String
+		{
+			if(isSupported){
+				return _extCtx.call("getHostByName",url) as String;
+			}
+			return null;
+		}
+		
 	}
 }

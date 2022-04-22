@@ -28,6 +28,9 @@ package
 		private var btn4:Button;
 		private var btn5:Button;
 		
+		private var urlName:String = "airwincore";//talkmedmeetingdev	airwincore
+		private var btn6:Button;
+		
 		public function Main():void 
 		{
 			
@@ -77,6 +80,13 @@ package
 			btn5.x = 100;
 			
 			
+			btn6 = new Button(null, "获取网址ip");
+			addChild(btn6);
+			btn6.addEventListener(MouseEvent.CLICK, getHostIp);
+			btn6.y = 60;
+			btn6.x = 200;
+			
+			
 			
 			debug = new TextField();
 			debug.wordWrap = true;
@@ -87,6 +97,17 @@ package
 			
 			
 			addChild(new Fps()).y = stage.stageHeight - 100;
+		}
+		
+		private function getHostIp(e:MouseEvent):void 
+		{
+			trace(e);
+			
+			var str:String = Math.random() > 0.5?"www.talkmed.com":"meeting.talkmed.com";
+			var ipAddr:String = ANEWinCore.getInstance().getHostByName(str);
+			trace("ip:", ipAddr);
+			
+			debug.appendText(str+"  ip="+ipAddr+"\n");
 		}
 		
 		private function fontTest(e:MouseEvent):void 
@@ -128,7 +149,6 @@ package
 		}
 		
 		
-		private var urlName:String = "airwincore";//talkmedmeetingdev	airwincore
 		
 		private function delURLPol(e:MouseEvent):void 
 		{

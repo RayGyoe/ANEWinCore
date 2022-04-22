@@ -33,7 +33,8 @@ using std::string;
 */
 
 
-
+#include <winsock.h>
+#pragma comment(lib, "ws2_32.lib")
 
 
 extern "C"

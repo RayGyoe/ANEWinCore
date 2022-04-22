@@ -89,7 +89,11 @@ int32_t getInt32(FREObject freObject) {
 	isFREResultOK(status, "Could not convert FREObject to int32_t.");
 	return result;
 }
-
+FREObject newFREObject(const char *value) {
+	FREObject result;
+	auto status = FRENewObjectFromUTF8(uint32_t(strlen(value)) + 1, reinterpret_cast<const uint8_t *>(value), &result);
+	return result;
+}
 
 std::wstring UTF82Wide(const std::string& strUTF8)
 {
@@ -542,6 +546,54 @@ extern "C" {
 		return false;
 	}
 
+
+	//
+	FREObject getHostByName(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[])
+	{
+		
+		std::string url = getFREString(argv[0]);
+		printf("\n getHostByName = %s\n", url.c_str());
+
+		WSADATA wsaData;
+		WSAStartup(MAKEWORD(2, 2), &wsaData);
+
+		struct hostent* hostAddr = gethostbyname(url.c_str());
+		if (hostAddr == nullptr) {
+			std::cout << "无法找到主机" << std::endl;
+			return NULL;
+		}
+
+		//IP地址
+
+		char *ipv4 = new char[48];
+		sprintf(ipv4, "%d.%d.%d.%d", 
+			(hostAddr->h_addr_list[0][0] & 0x00ff),
+			(hostAddr->h_addr_list[0][1] & 0x00ff),
+			(hostAddr->h_addr_list[0][2] & 0x00ff),
+			(hostAddr->h_addr_list[0][3] & 0x00ff));
+
+		WSACleanup();
+
+		printf("ip:%s", ipv4);
+
+		return newFREObject(ipv4);
+
+		for (int i = 0; hostAddr->h_addr_list[i]; i++) {
+			//这里使用标准转换运算符reinterpret_cast,强制转换会出现警告
+			struct in_addr tmpAddr = *reinterpret_cast<struct in_addr*>(hostAddr->h_addr_list[i]);
+			char *ch = inet_ntoa(tmpAddr);
+			strcat(ipv4, ch);
+		}
+
+
+
+		FREObject result;
+		auto status = FRENewObjectFromUTF8(uint32_t(strlen(ipv4)) + 1, reinterpret_cast<const uint8_t *>(ipv4), &result);
+		return result;
+
+	}
+
+
 	///
 	// Flash Native Extensions stuff	
 	void ANEWinCoreContextInitializer(void* extData, const uint8_t* ctxType, FREContext ctx, uint32_t* numFunctionsToSet, const FRENamedFunction** functionsToSet) {
@@ -580,6 +632,8 @@ extern "C" {
 			{ (const uint8_t*) "runExec",     NULL, &runExec },
 
 			{ (const uint8_t*) "memoryCollation",     NULL, &memoryCollation },
+
+			{ (const uint8_t*) "getHostByName",     NULL, &getHostByName },
 		};
 
 		*numFunctionsToSet = sizeof(extensionFunctions) / sizeof(FRENamedFunction);
