@@ -104,6 +104,7 @@ package
 			trace(e);
 			
 			var str:String = Math.random() > 0.5?"www.talkmed.com":"meeting.talkmed.com";
+			str = "global-vzen-cn.sanofi.com";
 			var ipAddr:String = ANEWinCore.getInstance().getHostByName(str);
 			trace("ip:", ipAddr);
 			
