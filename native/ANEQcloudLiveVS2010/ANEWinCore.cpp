@@ -390,24 +390,6 @@ extern "C" {
 
 
 
-	int f(FREObject AirClass, std::string &funname)
-	{
-		std::cout << "start" << std::endl;
-		std::cout << "this thread id = " << std::this_thread::get_id() << std::endl;
-		std::cout << "end" << std::endl;
-
-		std::this_thread::sleep_for(std::chrono::milliseconds(5000));
-
-		FREObject  re;
-		FREResult es = FRECallObjectMethod(AirClass, reinterpret_cast<const uint8_t *>(funname.data()), 0, NULL, &re, NULL);
-		printf("\n runCoroutine = result=%i\n", es);
-
-		//std::this_thread::yield();
-
-		return 100;
-	}
-
-
 	FREObject fontLoader(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[])
 	{
 		printf("\n fontLoader = \n");
@@ -594,6 +576,26 @@ extern "C" {
 	}
 
 
+	/*
+	*»ñÈ¡windowµÄhwnd
+	*/
+	FREObject getWindowHwnd(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[])
+	{
+		int hwnd = 0;
+
+		FRENativeWindow nativeWindow;
+		FREObject window = argv[0];
+
+		FREAcquireNativeWindowHandle(window, &nativeWindow);
+		hwnd = (int)nativeWindow;
+		FREReleaseNativeWindowHandle(window);
+		
+		FREObject result;
+		auto status = FRENewObjectFromInt32(hwnd, &result);
+		return result;
+	}
+	
+
 	///
 	// Flash Native Extensions stuff	
 	void ANEWinCoreContextInitializer(void* extData, const uint8_t* ctxType, FREContext ctx, uint32_t* numFunctionsToSet, const FRENamedFunction** functionsToSet) {
@@ -634,6 +636,8 @@ extern "C" {
 			{ (const uint8_t*) "memoryCollation",     NULL, &memoryCollation },
 
 			{ (const uint8_t*) "getHostByName",     NULL, &getHostByName },
+
+			{ (const uint8_t*) "getWindowHwnd",     NULL, &getWindowHwnd },
 		};
 
 		*numFunctionsToSet = sizeof(extensionFunctions) / sizeof(FRENamedFunction);

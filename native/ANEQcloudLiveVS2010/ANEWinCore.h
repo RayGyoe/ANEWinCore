@@ -1,7 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <iostream>
-#include "FlashRuntimeExtensions.h"
 
 #include <Windows.h>
 #include <tchar.h>
@@ -32,9 +31,11 @@ using std::string;
 #include <assert.h>
 */
 
-
 #include <winsock.h>
 #pragma comment(lib, "ws2_32.lib")
+
+
+#include "FlashRuntimeExtensions.h"
 
 
 extern "C"

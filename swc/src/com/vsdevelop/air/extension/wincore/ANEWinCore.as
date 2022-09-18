@@ -1,5 +1,7 @@
 package com.vsdevelop.air.extension.wincore
 {
+	import flash.display.NativeWindow;
+	import flash.display.Stage;
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
 	import flash.events.StatusEvent;
@@ -289,6 +291,22 @@ package com.vsdevelop.air.extension.wincore
 				return _extCtx.call("getHostByName",url) as String;
 			}
 			return null;
+		}
+		
+		
+		
+		/**
+		 * 传递window的stage
+		 * @param	stage
+		 * @return
+		 */
+		public function getWindowHwnd(window:NativeWindow):int
+		{
+			var hwnd:int;
+			if(isSupported){
+				hwnd =  int(_extCtx.call("getWindowHwnd", window));
+			}
+			return hwnd;
 		}
 		
 	}
