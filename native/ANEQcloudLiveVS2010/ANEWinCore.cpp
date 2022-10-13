@@ -55,17 +55,41 @@ BOOL stringToWString(const std::string &str, std::wstring &wstr)
 	return TRUE;
 }
 
-std::wstring s2ws(const std::string& s)
+std::wstring s2ws(const std::string& str)
 {
 
-	int len;
-	int slength = (int)s.length() + 1;
-	len = MultiByteToWideChar(CP_ACP, 0, s.c_str(), slength, 0, 0);
-	wchar_t* buf = new wchar_t[len];
-	MultiByteToWideChar(CP_ACP, 0, s.c_str(), slength, buf, len);
-	std::wstring r(buf);
-	delete[] buf;
-	return r;
+	//定义一个空的std::wstring
+	std::wstring wstr = L"";
+
+	/**
+	* CodePage:该参数决定执行转换时使用的编码格式,本机使用编码格式为UTF8,所以使用CP_UTF8.
+	*dwFlags:使用0即可
+	*lpMultiByteStr:要转换的字符串指针,使用c_str()即可获得
+	*cbMultiByte:要转换的字符串的长度,字节为单位,可以使用size()获得
+	*lpWideCharStr:指向接收转换后字符串的缓冲区的指针
+	*cchWideChar:缓冲区大小,如果为0,则返回所需要的缓冲区大小
+	*详见https://docs.microsoft.com/zh-cn/windows/win32/api/stringapiset/nf-stringapiset-multibytetowidechar?redirectedfrom=MSDN
+	*/
+
+	//lpWideCharStr设为NULL,cchWideChar设为0,该步骤用于获取缓冲区大小
+	int len = MultiByteToWideChar(CP_UTF8, 0, str.c_str(), str.size(), NULL, 0);
+
+	//创建wchar_t数组作为缓冲区,用于接收转换出来的内容,数组长度为len+1的原因是字符串需要以'\0'结尾,所以+1用来存储'\0'
+	wchar_t* wchar = new wchar_t[len + 1];
+
+	//缓冲区和所需缓冲区大小都已确定,执行转换
+	MultiByteToWideChar(CP_UTF8, 0, str.c_str(), str.size(), wchar, len);
+
+	//使用'\0'结尾
+	wchar[len] = '\0';
+
+	//缓冲区拼接到std::wstring
+	wstr.append(wchar);
+
+	//切记要清空缓冲区,否则内存泄漏
+	delete[]wchar;
+
+	return wstr;
 }
 
 bool isFREResultOK(FREResult errorCode, std::string errorMessage) {
@@ -390,42 +414,35 @@ extern "C" {
 
 
 
-	FREObject fontLoader(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[])
+	FREObject addFont(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[])
 	{
-		printf("\n fontLoader = \n");
+		printf("\n addFont = \n");
 
-		std::string font_path = getFREString(argv[0]);
-
-
-		try {
-			// ...
-			IDWriteFactory* pDWriteFactory;
-			IDWriteFontCollection *fCollection;
-			IDWriteTextFormat* pTextFormat;
-			// ...
-			MFFontContext fContext(pDWriteFactory);
-			std::vector<std::wstring> filePaths; // vector containing ABSOLUTE file paths of the font files which are to be added to the collection
-			std::wstring fontFileFilePath = L"C:\\Users\\Admin\\Desktop\\dincondensedbold.ttf";
-			filePaths.push_back(fontFileFilePath);
-			HRESULT hr = fContext.CreateFontCollection(filePaths, &fCollection); // create custom font collection
-			hr = pDWriteFactory->CreateTextFormat(
-				L"dincondensed-bold",    // Font family name
-				fCollection,
-				DWRITE_FONT_WEIGHT_REGULAR,
-				DWRITE_FONT_STYLE_NORMAL,
-				DWRITE_FONT_STRETCH_NORMAL,
-				16.0f,
-				L"en-us",
-				&pTextFormat       // IDWriteTextFormat object
-			);
-		}
-		catch (std::exception &err) {
-
-		}
-
+		std::wstring m_szFontFile = s2ws(getFREString(argv[0]));
+		int m_nResults = AddFontResourceEx(
+											m_szFontFile.c_str(), // font file name
+											FR_PRIVATE,             // font characteristics
+											NULL);
 		
 		FREObject result;
-		auto status = FRENewObjectFromBool(true, &result);
+		auto status = FRENewObjectFromBool(m_nResults == 0, &result);
+		return result;
+	}
+
+
+	FREObject removeFont(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[])
+	{
+		printf("\n removeFont = \n");
+
+		std::wstring m_szFontFile = s2ws(getFREString(argv[0]));
+		BOOL m_nResults = RemoveFontResourceEx(
+			m_szFontFile.c_str(),  // name of font file
+			FR_PRIVATE,            // font characteristics
+			NULL            // Reserved.
+			);
+
+		FREObject result;
+		auto status = FRENewObjectFromBool(m_nResults == 0, &result);
 		return result;
 	}
 
@@ -583,13 +600,13 @@ extern "C" {
 	{
 		int hwnd = 0;
 
+		/*
 		FRENativeWindow nativeWindow;
 		FREObject window = argv[0];
-
 		FREAcquireNativeWindowHandle(window, &nativeWindow);
 		hwnd = (int)nativeWindow;
 		FREReleaseNativeWindowHandle(window);
-		
+		*/
 		FREObject result;
 		auto status = FRENewObjectFromInt32(hwnd, &result);
 		return result;
@@ -627,7 +644,8 @@ extern "C" {
 
 			//{ (const uint8_t*) "setProcessDpiAwareness",     NULL, &setProcessDpiAwareness },
 
-			{ (const uint8_t*) "fontLoader",     NULL, &fontLoader },
+			{ (const uint8_t*) "addFont",     NULL, &addFont },
+			{ (const uint8_t*) "removeFont",     NULL, &removeFont },
 
 			{ (const uint8_t*) "runCoroutine",     NULL, &runCoroutine },
 

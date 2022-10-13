@@ -12,6 +12,7 @@ package
 	import flash.events.MouseEvent;
 	import flash.filesystem.File;
 	import flash.text.TextField;
+	import flash.text.TextFormat;
 	import flash.ui.Multitouch;
 	import flash.ui.MultitouchInputMode;
 	import com.vsdevelop.air.extension.wincore.ANEWinCore;
@@ -113,7 +114,32 @@ package
 		
 		private function fontTest(e:MouseEvent):void 
 		{
-			ANEWinCore.getInstance().context.call("fontLoader","");
+			
+			//var font:File = new File(File.applicationDirectory.nativePath + "/assets/SkiCargo.ttf");
+			var font:File = new File(File.applicationDirectory.nativePath + "/assets/MiSans-Regular.ttf");
+			ANEWinCore.getInstance().context.call("addFont", font.nativePath);
+			
+			font = new File(File.applicationDirectory.nativePath + "/assets/HarmonyOS_Sans_SC_Regular.ttf");
+			ANEWinCore.getInstance().context.call("addFont", font.nativePath);
+			
+			
+			var txt:TextField = new TextField();
+			txt.y = 140;
+			//
+			txt.defaultTextFormat = new TextFormat("MiSans",24);
+			txt.width = stage.stageWidth;
+			txt.height = 36;
+			txt.text = "MIUI 13 采用全新系统字体 MiSans；The quick brown fox jumps over the lazy dog!";
+			addChild(txt);
+			
+			txt = new TextField();
+			txt.y = 180;
+			//
+			txt.defaultTextFormat = new TextFormat("HarmonyOS Sans SC",24);
+			txt.width = stage.stageWidth;
+			txt.height = 36;
+			txt.text = "MIUI 13 采用全新系统字体 MiSans；The quick brown fox jumps over the lazy dog!";
+			addChild(txt);
 		}
 		
 		
