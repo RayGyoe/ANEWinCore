@@ -309,5 +309,34 @@ package com.vsdevelop.air.extension.wincore
 			return hwnd;
 		}
 		
+		
+		/**
+		 * 加载本地字体
+		 * @param	font
+		 * @return
+		 */
+		public function addFont(font:File):Boolean
+		{
+			if (isSupported){
+				if (font.exists) return _extCtx.call("addFont", font.nativePath) as Boolean;
+				else trace("Font is Exists");
+			}
+			return false;
+		}
+		
+		/**
+		 * 卸载本地字体
+		 * @param	font
+		 * @return
+		 */
+		public function removeFont(font:File):Boolean
+		{
+			if (isSupported){
+				if (font.exists) return _extCtx.call("removeFont", font.nativePath) as Boolean;
+				else trace("Font is Exists");
+			}
+			return false;
+		}
+		
 	}
 }

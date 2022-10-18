@@ -98,6 +98,9 @@ package
 			
 			
 			addChild(new Fps()).y = stage.stageHeight - 100;
+			
+			
+			debug.appendText("getWindowHwnd="+ANEWinCore.getInstance().getWindowHwnd(stage.nativeWindow));
 		}
 		
 		private function getHostIp(e:MouseEvent):void 
@@ -114,31 +117,29 @@ package
 		
 		private function fontTest(e:MouseEvent):void 
 		{
-			
-			//var font:File = new File(File.applicationDirectory.nativePath + "/assets/SkiCargo.ttf");
 			var font:File = new File(File.applicationDirectory.nativePath + "/assets/MiSans-Regular.ttf");
-			ANEWinCore.getInstance().context.call("addFont", font.nativePath);
+			ANEWinCore.getInstance().addFont(font);
 			
-			font = new File(File.applicationDirectory.nativePath + "/assets/HarmonyOS_Sans_SC_Regular.ttf");
-			ANEWinCore.getInstance().context.call("addFont", font.nativePath);
+			font = new File(File.applicationDirectory.nativePath + "/assets/中文/HarmonyOS_Sans_SC_Regular.ttf");
+			ANEWinCore.getInstance().addFont(font);
 			
 			
 			var txt:TextField = new TextField();
 			txt.y = 140;
 			//
-			txt.defaultTextFormat = new TextFormat("MiSans",24);
+			txt.defaultTextFormat = new TextFormat("MiSans",14);
 			txt.width = stage.stageWidth;
 			txt.height = 36;
-			txt.text = "MIUI 13 采用全新系统字体 MiSans；The quick brown fox jumps over the lazy dog!";
+			txt.text = "MIUI 13 采用全新系统字体 MiSans；The over the lazy dog! 0123456789";
 			addChild(txt);
 			
 			txt = new TextField();
 			txt.y = 180;
 			//
-			txt.defaultTextFormat = new TextFormat("HarmonyOS Sans SC",24);
+			txt.defaultTextFormat = new TextFormat("HarmonyOS Sans SC",14);
 			txt.width = stage.stageWidth;
 			txt.height = 36;
-			txt.text = "MIUI 13 采用全新系统字体 MiSans；The quick brown fox jumps over the lazy dog!";
+			txt.text = "MIUI 13 采用全新系统字体 MiSans；The over the lazy dog! 0123456789";
 			addChild(txt);
 		}
 		

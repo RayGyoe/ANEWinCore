@@ -498,6 +498,20 @@ typedef struct {
 } FREByteArray;
 
 /**
+* Creates a new byte array using optional input information (length and optional byte)
+*
+* @return  FRE_OK
+*          FRE_INVALID_ARGUMENT
+*          FRE_WRONG_THREAD
+*          FRE_ILLEGAL_STATE
+*/
+
+FREResult FRENewByteArray(
+    FREByteArray* byteArrayData,
+    FREObject *handle
+);
+
+/**
  * Referenced data is valid only for duration of the call
  * to a registered function.
  *
@@ -595,6 +609,79 @@ FREResult FRESetArrayElementAt(
         FREObject  arrayOrVector,
         uint32_t   index        ,
         FREObject  value
+);
+
+/* NativeWindow Access ***********************************************************/
+
+#if defined(WIN32)
+  typedef HWND FRENativeWindow;
+#elif defined(__APPLE__)
+  #if defined(FR_SDK_COCOA_TOUCH)
+  typedef /*UIWindow*/void* FRENativeWindow;
+  #else
+  typedef NSWindow* FRENativeWindow;
+  #endif // FR_SDK_COCOA_TOUCH
+#elif defined(__linux__) && !defined(ANDROID)
+  /*Note: we use a dummy value here rather than adding a hard dependency on gtk for
+    all Linux ANEs. So if you do want to use FRENativeWindow types (aka GtkWindow)
+    please include the headers for GTK before the inclusion of this file.
+    Dependencies can be added via $(pkg-config --cflags --libs gtk+-2.0) */
+  #ifndef GTK_TYPE_WINDOW
+    typedef struct { int if_using_FRENativeWindow_please_include_gtk_headers_before_this_one; } GtkWindow;
+  #endif // GTK_TYPE_WINDOW
+  typedef GtkWindow* FRENativeWindow;
+#else
+  typedef void* FRENativeWindow;
+#endif
+
+/**
+* Referenced handle is valid only for duration of the call
+* to a registered function.
+*
+* @return  FRE_OK
+*          FRE_TYPE_MISMATCH
+*          FRE_INVALID_OBJECT
+*          FRE_INVALID_ARGUMENT
+*          FRE_WRONG_THREAD
+*          FRE_ILLEGAL_STATE
+*/
+
+FREResult FREAcquireNativeWindowHandle(
+    FREObject        nativeWindow,
+    FRENativeWindow* handle
+);
+
+/**
+* @return  FRE_OK
+*          FRE_INVALID_OBJECT
+*          FRE_ILLEGAL_STATE
+*          FRE_WRONG_THREAD
+*/
+
+FREResult FREReleaseNativeWindowHandle(FREObject nativeWindow);
+
+
+/* Extension Context Access ***********************************************************/
+
+/**
+* Get the FREContext object associated with any ExtensionContext object. Note that
+* the FREContext object may become invalid based on what happens with the other ExtensionContext,
+* so this value should not be cached between function calls.
+*
+* @param objExtensionContext The ExtensionContext (ActionScript object) for which the FREContext handle is required.
+*
+* @param pContext The FREContext (C handle) associated with the given ExtensionContext.
+*
+* @return  FRE_OK
+*          FRE_TYPE_MISMATCH
+*          FRE_INVALID_OBJECT
+*          FRE_INVALID_ARGUMENT
+*          FRE_WRONG_THREAD
+*          FRE_ILLEGAL_STATE
+*/
+FREResult FREGetFREContextFromExtensionContext(
+    FREObject        objExtensionContext,
+    FREContext*      pContext
 );
 
 /* Callbacks ******************************************************************/

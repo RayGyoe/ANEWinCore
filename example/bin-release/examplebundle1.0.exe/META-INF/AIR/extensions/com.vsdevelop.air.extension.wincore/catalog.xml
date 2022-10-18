@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding ="utf-8"?>
+<swc xmlns="http://www.adobe.com/flash/swccatalog/9">
+  <versions>
+    <swc version="1.2" />
+    <flex version="4.6.0" build="23201" minimumSupportedVersion="3.0.0" />
+  </versions>
+  <features>
+    <feature-script-deps />
+    <feature-files />
+  </features>
+  <libraries>
+    <library path="library.swf">
+      <script name="com/vsdevelop/air/extension/wincore/ANEWinCore" mod="1663512638427" signatureChecksum="2898288027" >
+        <def id="com.vsdevelop.air.extension.wincore:ANEWinCore" /> 
+        <dep id="flash.display:NativeWindow" type="s" /> 
+        <dep id="flash.filesystem:File" type="s" /> 
+        <dep id="com.vsdevelop.air.extension.wincore:ANEHKeyType" type="s" /> 
+        <dep id="flash.external:ExtensionContext" type="s" /> 
+        <dep id="flash.events:Event" type="s" /> 
+        <dep id="trace" type="e" /> 
+        <dep id="flash.events:StatusEvent" type="e" /> 
+        <dep id="flash.filesystem:File" type="e" /> 
+        <dep id="Error" type="e" /> 
+        <dep id="flash.external:ExtensionContext" type="e" /> 
+        <dep id="flash.events:EventDispatcher" type="i" /> 
+        <dep id="AS3" type="n" /> 
+      </script>
+      <script name="_f305a28f240d1d447b5ded2e23d4f0c397d9e198760da27851224e216c69daf5_flash_display_Sprite" mod="1663512646657" signatureChecksum="303593943" >
+        <def id="_f305a28f240d1d447b5ded2e23d4f0c397d9e198760da27851224e216c69daf5_flash_display_Sprite" /> 
+        <dep id="flash.system:Security" type="e" /> 
+        <dep id="flash.display:Sprite" type="i" /> 
+        <dep id="AS3" type="n" /> 
+      </script>
+      <script name="com/vsdevelop/air/extension/wincore/ANEHKeyType" mod="1622567427535" signatureChecksum="1327320513" >
+        <def id="com.vsdevelop.air.extension.wincore:ANEHKeyType" /> 
+        <dep id="Object" type="i" /> 
+        <dep id="AS3" type="n" /> 
+      </script>
+      <digests>
+        <digest type="SHA-256" signed="false" value="61c572162bcc962ad7b53d6c59c2ff416defeabcfc94985e896557c902ee313e"   />
+      </digests>
+    </library>
+  </libraries>
+  <files>
+  </files>
+</swc>

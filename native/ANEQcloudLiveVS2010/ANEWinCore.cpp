@@ -600,13 +600,13 @@ extern "C" {
 	{
 		int hwnd = 0;
 
-		/*
 		FRENativeWindow nativeWindow;
 		FREObject window = argv[0];
-		FREAcquireNativeWindowHandle(window, &nativeWindow);
-		hwnd = (int)nativeWindow;
-		FREReleaseNativeWindowHandle(window);
-		*/
+		FREResult ret = FREAcquireNativeWindowHandle(window, &nativeWindow);
+		if (ret == FRE_OK) {
+			hwnd = (int)nativeWindow;
+			FREReleaseNativeWindowHandle(window);
+		}
 		FREObject result;
 		auto status = FRENewObjectFromInt32(hwnd, &result);
 		return result;

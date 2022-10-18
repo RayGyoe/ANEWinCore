@@ -1,4 +1,4 @@
-﻿生成启动时间为 2022/10/14 02:07:24。
+﻿生成启动时间为 2022/10/18 23:20:10。
      1>项目“E:\Works\eDoctor\ANEWinCore\native\ANEQcloudLiveVS2010\ANEQcloudLiveVS2010.vcxproj”在节点 2 上(Rebuild 个目标)。
      1>ClCompile:
          C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\CL.exe /c /Zi /nologo /W3 /WX- /O2 /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _WINDOWS /D _USRDLL /D ANEQCLOUDLIVEVS2010_EXPORTS /D _CRT_SECURE_NO_DEPRECATE /D _USING_V110_SDK71_ /D _WINDLL /D _UNICODE /D UNICODE /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Release\\" /Fd"Release\vc140.pdb" /Gd /TP /analyze- /errorReport:prompt ANEWinCore.cpp "crash-report.cpp" CustomURLProtocolApp.cpp FontLoader.cpp MiniDump.cpp
@@ -38,4 +38,4 @@
 
 已成功生成。
 
-已用时间 00:00:03.51
+已用时间 00:00:03.28

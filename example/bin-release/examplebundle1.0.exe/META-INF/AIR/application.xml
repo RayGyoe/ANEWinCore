@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<application xmlns="http://ns.adobe.com/air/application/33.1">
+  <id>cn.edoctor.example</id>
+  <versionNumber>1.0</versionNumber>
+  <!--<supportedProfiles>tv extendedTV desktop mobileDevice extendedDesktop</supportedProfiles>-->
+  <supportedProfiles>extendedDesktop</supportedProfiles>
+  <programMenuFolder>eDoctor</programMenuFolder>
+  <filename>example</filename>
+  <name>
+		<text xml:lang="en">example</text>
+		<text xml:lang="zh_Hans">example</text>
+		<text xml:lang="zh_Hant">example</text>
+  </name>
+  <copyright>Copyright (C) 2016 By eDoctor Healthcare Communications. All Rights Reserved.‎</copyright>
+  
+  <initialWindow>
+    <title>example</title>
+    <content>example.swf</content>
+    <visible>true</visible>
+    <fullScreen>false</fullScreen>
+    <!-- cpu,gpu,direct -->
+    <renderMode>direct</renderMode>
+    <depthAndStencil>true</depthAndStencil>
+    <!-- standard,none -->
+    <systemChrome>standard</systemChrome>
+    <transparent>false</transparent>
+    <!-- landscape,portrait -->
+    <aspectRatio>landscape</aspectRatio>
+    <autoOrients>true</autoOrients>
+  </initialWindow>
+  <icon>
+		<!--android icon-->
+		<!--<image36x36>icons/36.png</image36x36>
+		<image48x48>icons/48.png</image48x48>
+		<image72x72>icons/72.png</image72x72>
+		<image96x96>icons/96.png</image96x96>
+		<image144x144>icons/144.png</image144x144>-->
+		
+  </icon>
+  <extensions>
+		<!--<extensionID></extensionID>-->
+		
+        <extensionID>com.vsdevelop.air.extension.wincore</extensionID>
+		
+  </extensions>
+  <!-- 
+	AIR options:
+	http://livedocs.adobe.com/flex/3/html/File_formats_1.html#1043413
+	
+	AIR mobile options:
+	http://help.adobe.com/en_US/air/build/WSfffb011ac560372f-5d0f4f25128cc9cd0cb-7ffe.html
+	
+	Android manifest documentation:
+	http://developer.android.com/guide/topics/manifest/manifest-intro.html
+	-->
+</application>
