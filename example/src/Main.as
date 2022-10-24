@@ -10,12 +10,14 @@ package
 	import flash.display.StageAlign;
 	import flash.display.StageScaleMode;
 	import flash.events.MouseEvent;
+	import flash.events.TimerEvent;
 	import flash.filesystem.File;
 	import flash.text.TextField;
 	import flash.text.TextFormat;
 	import flash.ui.Multitouch;
 	import flash.ui.MultitouchInputMode;
 	import com.vsdevelop.air.extension.wincore.ANEWinCore;
+	import flash.utils.Timer;
 	/**
 	 * ...
 	 * @author eDoctor DSN - Ray.Lei
@@ -31,11 +33,14 @@ package
 		
 		private var urlName:String = "airwincore";//talkmedmeetingdev	airwincore
 		private var btn6:Button;
+		private var btn7:Button;
+		private var initd3d:Boolean;
 		
 		public function Main():void 
 		{
 			
-			stage.scaleMode = StageScaleMode.SHOW_ALL;
+			stage.scaleMode = StageScaleMode.NO_SCALE;
+			stage.align = "TL";
 			// touch or gesture?
 			Multitouch.inputMode = MultitouchInputMode.TOUCH_POINT;
 			
@@ -87,6 +92,12 @@ package
 			btn6.y = 60;
 			btn6.x = 200;
 			
+			btn7 = new Button(null, "Direct3D-9");
+			addChild(btn7);
+			btn7.addEventListener(MouseEvent.CLICK, initD3d);
+			btn7.y = 60;
+			btn7.x = 280;
+			
 			
 			
 			debug = new TextField();
@@ -101,6 +112,23 @@ package
 			
 			
 			debug.appendText("getWindowHwnd="+ANEWinCore.getInstance().getWindowHwnd(stage.nativeWindow));
+		}
+		
+		private function initD3d(e:MouseEvent):void 
+		{
+			if (!initd3d){
+				var file:File = new File(File.applicationDirectory.nativePath + "/assets/test_yuv420p_320x180.yuv");
+				initd3d = ANEWinCore.getInstance().context.call("initD3d", stage.nativeWindow,file.nativePath) as Boolean;
+				
+				if (initd3d) {
+					trace("initD3d",initd3d);
+					var timer:Timer = new Timer(1000 / 24);
+					timer.addEventListener(TimerEvent.TIMER, function(e:TimerEvent):void{
+						ANEWinCore.getInstance().context.call("d3dRender");
+					});
+					timer.start();
+				}
+			}
 		}
 		
 		private function getHostIp(e:MouseEvent):void 

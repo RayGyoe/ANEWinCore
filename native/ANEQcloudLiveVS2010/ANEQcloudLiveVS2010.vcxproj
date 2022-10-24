@@ -163,7 +163,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalLibraryDirectories>.;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>shlwapi.lib;User32.lib;FlashRuntimeExtensions.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>shlwapi.lib;User32.lib;FlashRuntimeExtensions.lib;d3d9.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Manifest>
       <EnableDpiAwareness>PerMonitorHighDPIAware</EnableDpiAwareness>
@@ -193,6 +193,7 @@
     <ClInclude Include="Common.h" />
     <ClInclude Include="crash-report.h" />
     <ClInclude Include="CustomURLProtocolApp.h" />
+    <ClInclude Include="D3DStage.h" />
     <ClInclude Include="FlashRuntimeExtensions.h" />
     <ClInclude Include="FontLoader.h" />
     <ClInclude Include="IEProxy.h" />
@@ -202,6 +203,7 @@
     <ClCompile Include="ANEWinCore.cpp" />
     <ClCompile Include="crash-report.cpp" />
     <ClCompile Include="CustomURLProtocolApp.cpp" />
+    <ClCompile Include="D3DStage.cpp" />
     <ClCompile Include="FontLoader.cpp" />
     <ClCompile Include="MiniDump.cpp" />
   </ItemGroup>

@@ -10,8 +10,12 @@ using namespace ie_proxy;
 
 #include "FontLoader.h"
 
+
 #include <psapi.h>
 #pragma comment(lib,"psapi.lib")
+
+
+#include "D3DStage.h"
 
 std::string intToStdString(int value)
 {
@@ -156,6 +160,8 @@ extern "C" {
 	
 
 	bool isCrateCrashDump = false;
+
+	D3DStage *d3dpp;
 
 	CustomURLProtocol m_CustomURLProtocol;
 	//³õÊ¼»¯
@@ -416,9 +422,10 @@ extern "C" {
 
 	FREObject addFont(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[])
 	{
-		printf("\n addFont = \n");
-
 		std::wstring m_szFontFile = s2ws(getFREString(argv[0]));
+
+		printf("\n addFont = %ls \n",m_szFontFile);
+
 		int m_nResults = AddFontResourceEx(
 											m_szFontFile.c_str(), // font file name
 											FR_PRIVATE,             // font characteristics
@@ -432,9 +439,9 @@ extern "C" {
 
 	FREObject removeFont(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[])
 	{
-		printf("\n removeFont = \n");
 
 		std::wstring m_szFontFile = s2ws(getFREString(argv[0]));
+		printf("\n removeFont = %ls \n", m_szFontFile);
 		BOOL m_nResults = RemoveFontResourceEx(
 			m_szFontFile.c_str(),  // name of font file
 			FR_PRIVATE,            // font characteristics
@@ -611,8 +618,37 @@ extern "C" {
 		auto status = FRENewObjectFromInt32(hwnd, &result);
 		return result;
 	}
-	
 
+
+	FREObject initD3d(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[])
+	{
+
+		FRENativeWindow nativeWindow;
+		FREObject window = argv[0];
+		FREResult ret = FREAcquireNativeWindowHandle(window, &nativeWindow);
+		if (ret == FRE_OK) {
+			std::string url = getFREString(argv[1]);
+			d3dpp = new D3DStage((HWND)nativeWindow, 320, 180, url);
+
+			FREReleaseNativeWindowHandle(window);
+		}
+
+		FREObject result;
+		auto status = FRENewObjectFromBool(true, &result);
+		return result;
+	}
+
+	FREObject d3dRender(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[])
+	{
+		bool ret = false;
+		if (d3dpp != nullptr)
+		{
+			ret = d3dpp->Render();
+		}
+		FREObject result;
+		auto status = FRENewObjectFromBool(ret, &result);
+		return result;
+	}
 	///
 	// Flash Native Extensions stuff	
 	void ANEWinCoreContextInitializer(void* extData, const uint8_t* ctxType, FREContext ctx, uint32_t* numFunctionsToSet, const FRENamedFunction** functionsToSet) {
@@ -656,6 +692,10 @@ extern "C" {
 			{ (const uint8_t*) "getHostByName",     NULL, &getHostByName },
 
 			{ (const uint8_t*) "getWindowHwnd",     NULL, &getWindowHwnd },
+
+
+			{ (const uint8_t*) "initD3d",     NULL, &initD3d },
+			{ (const uint8_t*) "d3dRender",     NULL, &d3dRender },
 		};
 
 		*numFunctionsToSet = sizeof(extensionFunctions) / sizeof(FRENamedFunction);
