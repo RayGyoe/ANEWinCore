@@ -620,6 +620,14 @@ extern "C" {
 	}
 
 
+
+	BOOL CALLBACK EnumChildProc(HWND hwndChild, LPARAM lParam)
+	{
+		int idChild = GetWindowLong(hwndChild, GWL_ID);
+		printf("\n EnumChildProc idChild= %d\n", idChild);
+		//ShowWindow(hwndChild, SW_SHOW);
+		return TRUE;
+	}
 	FREObject initD3d(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[])
 	{
 
@@ -630,6 +638,13 @@ extern "C" {
 			std::string url = getFREString(argv[1]);
 			d3dpp = new D3DStage((HWND)nativeWindow, 320, 180, url);
 
+			//遍历窗口中的子窗口
+			EnumChildWindows((HWND)nativeWindow, EnumChildProc,NULL);
+			//HWND child1 = GetWindow((HWND)nativeWindow, GW_CHILD);
+			//HWND child2 = GetWindow((HWND)nativeWindow, GW_HWNDNEXT);
+			//printf("\n GetWindow child1= %d  child2=%d \n", child1, child2);
+			//SetWindowPos(child2, HWND_TOP, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_FRAMECHANGED);
+
 			FREReleaseNativeWindowHandle(window);
 		}
 
@@ -637,6 +652,8 @@ extern "C" {
 		auto status = FRENewObjectFromBool(true, &result);
 		return result;
 	}
+
+
 
 	FREObject d3dRender(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[])
 	{

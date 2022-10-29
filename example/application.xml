@@ -27,6 +27,8 @@
     <!-- landscape,portrait -->
     <aspectRatio>landscape</aspectRatio>
     <autoOrients>true</autoOrients>
+	<allowLowQuality>true</allowLowQuality>
+    <requestedDisplayResolution>high</requestedDisplayResolution>
   </initialWindow>
   <icon>
 		<!--android icon-->

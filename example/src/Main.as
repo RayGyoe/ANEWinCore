@@ -5,6 +5,7 @@ package
 	import com.vsdevelop.air.filesystem.FileCore;
 	import com.vsdevelop.controls.Button;
 	import com.vsdevelop.controls.Fps;
+	import flash.display.StageQuality;
 	import flash.events.Event;
 	import flash.display.Sprite;
 	import flash.display.StageAlign;
@@ -12,6 +13,7 @@ package
 	import flash.events.MouseEvent;
 	import flash.events.TimerEvent;
 	import flash.filesystem.File;
+	import flash.text.AntiAliasType;
 	import flash.text.TextField;
 	import flash.text.TextFormat;
 	import flash.ui.Multitouch;
@@ -41,8 +43,7 @@ package
 			
 			stage.scaleMode = StageScaleMode.NO_SCALE;
 			stage.align = "TL";
-			// touch or gesture?
-			Multitouch.inputMode = MultitouchInputMode.TOUCH_POINT;
+			stage.quality = StageQuality.MEDIUM;
 			
 			// entry point
 			
@@ -144,6 +145,8 @@ package
 		
 		private function fontTest(e:MouseEvent):void 
 		{
+			btn5.removeEventListener(MouseEvent.CLICK, fontTest);
+			
 			var font:File = new File(File.applicationDirectory.nativePath + "/assets/MiSans-Regular.ttf");
 			ANEWinCore.getInstance().addFont(font);
 			
@@ -151,13 +154,17 @@ package
 			ANEWinCore.getInstance().addFont(font);
 			
 			
+			font = new File(File.applicationDirectory.nativePath + "/assets/TwitterColorEmoji-SVGinOT.ttf");
+			ANEWinCore.getInstance().addFont(font);
+			
+			
 			var txt:TextField = new TextField();
 			txt.y = 140;
 			//
-			txt.defaultTextFormat = new TextFormat("MiSans",14);
+			txt.defaultTextFormat = new TextFormat("MiSans,Twitter Color Emoji",14);
 			txt.width = stage.stageWidth;
 			txt.height = 36;
-			txt.text = "MIUI 13 采用全新系统字体 MiSans；The over the lazy dog! 0123456789";
+			txt.text = "MIUI 13 采用全新系统字体 MiSans；The over the lazy dog! 😮‍💨🥰💀✌️🌴🐢🐐🍄⚽🍻👑📸";
 			addChild(txt);
 			
 			txt = new TextField();
@@ -166,7 +173,7 @@ package
 			txt.defaultTextFormat = new TextFormat("HarmonyOS Sans SC",14);
 			txt.width = stage.stageWidth;
 			txt.height = 36;
-			txt.text = "MIUI 13 采用全新系统字体 MiSans；The over the lazy dog! 0123456789";
+			txt.text = "MIUI 13 采用全新系统字体 MiSans；The over the lazy dog! 🥰💀✌️🌴🐢🐐🍄⚽🍻👑📸";
 			addChild(txt);
 		}
 		

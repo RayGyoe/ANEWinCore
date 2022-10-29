@@ -53,12 +53,6 @@ D3DStage::D3DStage(HWND hwnd, unsigned long lWidth, unsigned long lHeight, std::
 	else {
 		printf("\n open yuv file.\n");
 	}
-
-	HWND hWnd;
-	hWnd = GetDlgItem(hwnd, D3DPRESENTFLAG_VIDEO);
-
-	printf("\n D3DPRESENTFLAG_VIDEO=%d \n", (int)hWnd);
-	//SetDlgItemInt();
 }
 
 
@@ -105,9 +99,13 @@ bool D3DStage::Render()
 
 	m_pDirect3DDevice->Clear(0, NULL, D3DCLEAR_TARGET, D3DCOLOR_XRGB(0, 0, 0), 1.0f, 0);
 	m_pDirect3DDevice->BeginScene();
+	//开始渲染
+
 	IDirect3DSurface9 * pBackBuffer = NULL;
 	m_pDirect3DDevice->GetBackBuffer(0, 0, D3DBACKBUFFER_TYPE_MONO, &pBackBuffer);
 	m_pDirect3DDevice->StretchRect(m_pDirect3DSurfaceRender, NULL, pBackBuffer, &m_rtViewport, D3DTEXF_LINEAR);
+
+	//结束场景渲染
 	m_pDirect3DDevice->EndScene();
 	m_pDirect3DDevice->Present(&m_rtViewport, &m_rtViewport, NULL, NULL);
 	return true;

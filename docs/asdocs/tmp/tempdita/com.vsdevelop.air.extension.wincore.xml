@@ -1,4 +1,9 @@
-<?xml version="1.0" encoding="UTF-8"?><apiPackage id="com.vsdevelop.air.extension.wincore"><apiName>com.vsdevelop.air.extension.wincore</apiName><apiDetail/><apiClassifier id="com.vsdevelop.air.extension.wincore:ANEWinCore"><apiName>ANEWinCore</apiName><shortdesc/><prolog><asMetadata/></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef></apiClassifierDetail><apiConstructor id="com.vsdevelop.air.extension.wincore:ANEWinCore:ANEWinCore"><apiName>ANEWinCore</apiName><shortdesc/><prolog/><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef></apiConstructorDetail></apiConstructor><apiOperation id="com.vsdevelop.air.extension.wincore:ANEWinCore:checkAdminRun"><apiName>checkAdminRun</apiName><shortdesc>
+<?xml version="1.0" encoding="UTF-8"?><apiPackage id="com.vsdevelop.air.extension.wincore"><apiName>com.vsdevelop.air.extension.wincore</apiName><apiDetail/><apiClassifier id="com.vsdevelop.air.extension.wincore:ANEWinCore"><apiName>ANEWinCore</apiName><shortdesc/><prolog><asMetadata/></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef></apiClassifierDetail><apiConstructor id="com.vsdevelop.air.extension.wincore:ANEWinCore:ANEWinCore"><apiName>ANEWinCore</apiName><shortdesc/><prolog/><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef></apiConstructorDetail></apiConstructor><apiOperation id="com.vsdevelop.air.extension.wincore:ANEWinCore:addFont"><apiName>addFont</apiName><shortdesc>
+		 加载本地字体
+		 </shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>
+		 </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>font</apiItemName><apiType value="flash.filesystem:File"/><apiDesc>	 </apiDesc></apiParam></apiOperationDef><apiDesc>
+		 加载本地字体
+		 </apiDesc></apiOperationDetail></apiOperation><apiOperation id="com.vsdevelop.air.extension.wincore:ANEWinCore:checkAdminRun"><apiName>checkAdminRun</apiName><shortdesc>
 		 检测是否为admin运行程序 
 		 </shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>
 		 
@@ -28,6 +33,12 @@
 		 </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>protocolName</apiItemName><apiType value="String"/><apiDesc>	 </apiDesc></apiParam><apiParam><apiItemName>hkeyType</apiItemName><apiType value="int"/><apiData>unknown</apiData><apiDesc>ANEHKeyType
 		 </apiDesc></apiParam></apiOperationDef><apiDesc>
 		 检测次 protocol 是否存在  
+		 </apiDesc></apiOperationDetail></apiOperation><apiOperation id="com.vsdevelop.air.extension.wincore:ANEWinCore:getHostByName"><apiName>getHostByName</apiName><shortdesc>
+		 获取网址的ip4v地址 
+		 </shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>
+		 
+		 </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>url</apiItemName><apiType value="String"/><apiDesc>	 </apiDesc></apiParam></apiOperationDef><apiDesc>
+		 获取网址的ip4v地址 
 		 </apiDesc></apiOperationDetail></apiOperation><apiOperation id="com.vsdevelop.air.extension.wincore:ANEWinCore:getInstance"><apiName>getInstance</apiName><shortdesc/><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiOperationClassifier>com.vsdevelop.air.extension.wincore:ANEWinCore</apiOperationClassifier></apiReturn></apiOperationDef></apiOperationDetail></apiOperation><apiOperation id="com.vsdevelop.air.extension.wincore:ANEWinCore:getProxyConfig"><apiName>getProxyConfig</apiName><shortdesc>
 		 获取代理地址 
 		 </shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>
@@ -41,6 +52,11 @@
 		 </apiDesc><apiType value="Object"/></apiReturn></apiOperationDef><apiDesc>
 		 获取窗口实际大小
 		 
+		 </apiDesc></apiOperationDetail></apiOperation><apiOperation id="com.vsdevelop.air.extension.wincore:ANEWinCore:getWindowHwnd"><apiName>getWindowHwnd</apiName><shortdesc>
+		 传递window的stage
+		 </shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>
+		 </apiDesc><apiType value="int"/></apiReturn><apiParam><apiItemName>window</apiItemName><apiType value="flash.display:NativeWindow"/><apiDesc>	 </apiDesc></apiParam></apiOperationDef><apiDesc>
+		 传递window的stage
 		 </apiDesc></apiOperationDetail></apiOperation><apiOperation id="com.vsdevelop.air.extension.wincore:ANEWinCore:keepScreenOn"><apiName>keepScreenOn</apiName><shortdesc>
 		 禁止休眠 
 		 </shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Boolean"/><apiDesc>	 
@@ -52,16 +68,28 @@
 		 </shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
 		 强制关闭当前应用 
 		 
+		 </apiDesc></apiOperationDetail></apiOperation><apiOperation id="com.vsdevelop.air.extension.wincore:ANEWinCore:memoryCollation"><apiName>memoryCollation</apiName><shortdesc>
+		 强制内存整理 
+		 </shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>
+		 
+		 </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>maxMemory</apiItemName><apiType value="int"/><apiData>500</apiData><apiDesc>500
+		 </apiDesc></apiParam></apiOperationDef><apiDesc>
+		 强制内存整理 
 		 </apiDesc></apiOperationDetail></apiOperation><apiOperation id="com.vsdevelop.air.extension.wincore:ANEWinCore:protected:onStatus"><apiName>onStatus</apiName><shortdesc>
 		 事件 
 		 </shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="flash.events:Event"/><apiDesc>	 
 		 </apiDesc></apiParam></apiOperationDef><apiDesc>
 		 事件 
+		 </apiDesc></apiOperationDetail></apiOperation><apiOperation id="com.vsdevelop.air.extension.wincore:ANEWinCore:removeFont"><apiName>removeFont</apiName><shortdesc>
+		 卸载本地字体
+		 </shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>
+		 </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>font</apiItemName><apiType value="flash.filesystem:File"/><apiDesc>	 </apiDesc></apiParam></apiOperationDef><apiDesc>
+		 卸载本地字体
 		 </apiDesc></apiOperationDetail></apiOperation><apiOperation id="com.vsdevelop.air.extension.wincore:ANEWinCore:runExec"><apiName>runExec</apiName><shortdesc>
 		 
 		 运行外部exe
 		 
-		 </shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>cmdLine</apiItemName><apiType value="String"/></apiParam></apiOperationDef><apiDesc>
+		 </shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>cmdLine</apiItemName><apiType value="String"/></apiParam><apiParam><apiItemName>type</apiItemName><apiType value="int"/><apiData>24</apiData></apiParam></apiOperationDef><apiDesc>
 		 
 		 运行外部exe
 		 

@@ -1,6 +1,6 @@
 <asdoc>
 
-<classRec name='ANEHKeyType' fullname='com.vsdevelop.air.extension.wincore:ANEHKeyType' sourcefile='F:\Works\eDoctor\ANEWinCore\swc\src\com\vsdevelop\air\extension\wincore\ANEHKeyType.as' namespace='com.vsdevelop.air.extension.wincore' access='public' baseclass='Object' isFinal='false' isDynamic='false' >
+<classRec name='ANEHKeyType' fullname='com.vsdevelop.air.extension.wincore:ANEHKeyType' sourcefile='E:\Works\eDoctor\ANEWinCore\swc\src\com\vsdevelop\air\extension\wincore\ANEHKeyType.as' namespace='com.vsdevelop.air.extension.wincore' access='public' baseclass='Object' isFinal='false' isDynamic='false' >
 </classRec>
 <field name='HKEY_CLASSES_ROOT' fullname='com.vsdevelop.air.extension.wincore:ANEHKeyType/HKEY_CLASSES_ROOT' type='int' isStatic='true' isConst='true' defaultValue='0' >
 </field>
@@ -10,9 +10,21 @@
 </field>
 <field name='HKEY_USERS' fullname='com.vsdevelop.air.extension.wincore:ANEHKeyType/HKEY_USERS' type='int' isStatic='true' isConst='true' defaultValue='3' >
 </field>
-<classRec name='ANEWinCore' fullname='com.vsdevelop.air.extension.wincore:ANEWinCore' sourcefile='F:\Works\eDoctor\ANEWinCore\swc\src\com\vsdevelop\air\extension\wincore\ANEWinCore.as' namespace='com.vsdevelop.air.extension.wincore' access='public' baseclass='flash.events:EventDispatcher' isFinal='false' isDynamic='false' >
+<classRec name='ANEWinCore' fullname='com.vsdevelop.air.extension.wincore:ANEWinCore' sourcefile='E:\Works\eDoctor\ANEWinCore\swc\src\com\vsdevelop\air\extension\wincore\ANEWinCore.as' namespace='com.vsdevelop.air.extension.wincore' access='public' baseclass='flash.events:EventDispatcher' isFinal='false' isDynamic='false' >
 </classRec>
 <method name='ANEWinCore' fullname='com.vsdevelop.air.extension.wincore:ANEWinCore/ANEWinCore' isStatic='false' isFinal='false' isOverride='false'  result_type='*'>
+</method>
+<method name='addFont' fullname='com.vsdevelop.air.extension.wincore:ANEWinCore/addFont' isStatic='false' isFinal='false' isOverride='false'  param_names='font' param_types='flash.filesystem:File' param_defaults='undefined' result_type='Boolean'>
+<description><![CDATA[
+
+		 加载本地字体
+
+		 ]]></description>
+<param><![CDATA[font
+
+		 ]]></param>
+<return><![CDATA[
+		 ]]></return>
 </method>
 <method name='checkAdminRun' fullname='com.vsdevelop.air.extension.wincore:ANEWinCore/checkAdminRun' isStatic='false' isFinal='false' isOverride='false'  result_type='Boolean'>
 <description><![CDATA[
@@ -90,6 +102,21 @@
 
 		 ]]></return>
 </method>
+<method name='getHostByName' fullname='com.vsdevelop.air.extension.wincore:ANEWinCore/getHostByName' isStatic='false' isFinal='false' isOverride='false'  param_names='url' param_types='String' param_defaults='undefined' result_type='String'>
+<description><![CDATA[
+
+		 获取网址的ip4v地址 
+
+		 ]]></description>
+<param><![CDATA[url
+
+		 ]]></param>
+<return><![CDATA[
+
+		 
+
+		 ]]></return>
+</method>
 <method name='getInstance' fullname='com.vsdevelop.air.extension.wincore:ANEWinCore/getInstance' isStatic='true' isFinal='false' isOverride='false'  result_type='com.vsdevelop.air.extension.wincore:ANEWinCore'>
 </method>
 <method name='getProxyConfig' fullname='com.vsdevelop.air.extension.wincore:ANEWinCore/getProxyConfig' isStatic='false' isFinal='false' isOverride='false'  result_type='String'>
@@ -115,6 +142,18 @@
 <return><![CDATA[
 		 ]]></return>
 </method>
+<method name='getWindowHwnd' fullname='com.vsdevelop.air.extension.wincore:ANEWinCore/getWindowHwnd' isStatic='false' isFinal='false' isOverride='false'  param_names='window' param_types='flash.display:NativeWindow' param_defaults='undefined' result_type='int'>
+<description><![CDATA[
+
+		 传递window的stage
+
+		 ]]></description>
+<param><![CDATA[stage
+
+		 ]]></param>
+<return><![CDATA[
+		 ]]></return>
+</method>
 <method name='keepScreenOn' fullname='com.vsdevelop.air.extension.wincore:ANEWinCore/keepScreenOn' isStatic='false' isFinal='false' isOverride='false'  param_names='value' param_types='Boolean' param_defaults='undefined' result_type='void'>
 <description><![CDATA[
 
@@ -136,6 +175,21 @@
 
 		 ]]></description>
 </method>
+<method name='memoryCollation' fullname='com.vsdevelop.air.extension.wincore:ANEWinCore/memoryCollation' isStatic='false' isFinal='false' isOverride='false'  param_names='maxMemory' param_types='int' param_defaults='500' result_type='Boolean'>
+<description><![CDATA[
+
+		 强制内存整理 
+
+		 ]]></description>
+<param><![CDATA[maxMemory 500
+
+		 ]]></param>
+<return><![CDATA[
+
+		 
+
+		 ]]></return>
+</method>
 <method name='onStatus' fullname='com.vsdevelop.air.extension.wincore:ANEWinCore/protected:onStatus' isStatic='false' isFinal='false' isOverride='false'  param_names='event' param_types='flash.events:Event' param_defaults='undefined' result_type='void'>
 <description><![CDATA[
 
@@ -148,7 +202,19 @@
 
 		 ]]></param>
 </method>
-<method name='runExec' fullname='com.vsdevelop.air.extension.wincore:ANEWinCore/runExec' isStatic='false' isFinal='false' isOverride='false'  param_names='cmdLine' param_types='String' param_defaults='undefined' result_type='Boolean'>
+<method name='removeFont' fullname='com.vsdevelop.air.extension.wincore:ANEWinCore/removeFont' isStatic='false' isFinal='false' isOverride='false'  param_names='font' param_types='flash.filesystem:File' param_defaults='undefined' result_type='Boolean'>
+<description><![CDATA[
+
+		 卸载本地字体
+
+		 ]]></description>
+<param><![CDATA[font
+
+		 ]]></param>
+<return><![CDATA[
+		 ]]></return>
+</method>
+<method name='runExec' fullname='com.vsdevelop.air.extension.wincore:ANEWinCore/runExec' isStatic='false' isFinal='false' isOverride='false'  param_names='cmdLine;type' param_types='String;int' param_defaults='undefined;24' result_type='Boolean'>
 <description><![CDATA[
 
 		 
