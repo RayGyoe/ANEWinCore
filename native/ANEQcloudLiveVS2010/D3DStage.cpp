@@ -1,11 +1,65 @@
 #include "D3DStage.h"
 
 
+LRESULT CALLBACK ChildWndProc(HWND hwnd, UINT message,WPARAM wParam, LPARAM lParam)
+{
+
+	if (message == WM_CREATE)
+	{
+		// ÉèÖÃ·Ö²ãÊôÐÔ
+		SetWindowLong(hwnd, GWL_EXSTYLE, GetWindowLong(hwnd, GWL_EXSTYLE) | WS_EX_LAYERED);
+	}
+	return DefWindowProc(hwnd, message, wParam, lParam);
+}
+
 D3DStage::D3DStage(HWND hwnd, unsigned long lWidth, unsigned long lHeight, std::string url)
 {
+	HRESULT hr = S_OK;
+
 	HRESULT lRet;
 	InitializeCriticalSection(&m_critial);
 	Cleanup();
+
+	WNDCLASSEXW wcex;
+	wcex.cbSize = sizeof(wcex);
+	wcex.style = 0;
+	wcex.lpfnWndProc = ChildWndProc;
+	wcex.cbClsExtra = 0;
+	wcex.cbWndExtra = 0;
+	wcex.hInstance = NULL;
+	wcex.hIcon = NULL;
+	wcex.hCursor = LoadCursor(NULL, IDC_ARROW);
+	wcex.hbrBackground = (HBRUSH)GetStockObject(GRAY_BRUSH);
+	wcex.lpszMenuName = NULL;
+	wcex.lpszClassName = L"D3DChildWindow";
+	wcex.hIconSm = NULL;
+	RegisterClassExW(&wcex);
+	/*
+	HDC hdc = GetDC(NULL);
+	if (hdc)
+	{
+		ReleaseDC(NULL, hdc);
+	}*/
+	m_hwndLayeredChild = CreateWindowEx(0,L"D3DChildWindow",NULL,WS_CHILD | WS_CLIPSIBLINGS,0,0,320,240,hwnd,NULL, NULL,NULL);
+
+
+	printf("\n CreateWindowEx \n");
+
+	hr = m_hwndLayeredChild ? S_OK : E_FAIL;
+	if (SUCCEEDED(hr))
+	{
+		printf("\n m_hwndLayeredChild ok\n");
+		if (!SetLayeredWindowAttributes(m_hwndLayeredChild, 0, 255, LWA_ALPHA))// LWA_ALPHA
+		{
+			printf("\n SetLayeredWindowAttributes error\n");
+			return;
+		}
+	}
+	
+	ShowWindow(m_hwndLayeredChild, SW_SHOWNORMAL);
+	SetWindowPos(m_hwndLayeredChild, HWND_BOTTOM, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_FRAMECHANGED);
+	//UpdateWindow(m_hwndLayeredChild);
+
 
 	m_pDirect3D9 = Direct3DCreate9(D3D_SDK_VERSION);
 	if (m_pDirect3D9 == NULL)
@@ -16,22 +70,20 @@ D3DStage::D3DStage(HWND hwnd, unsigned long lWidth, unsigned long lHeight, std::
 	d3dpp.SwapEffect = D3DSWAPEFFECT_DISCARD;//D3DSWAPEFFECT_FLIP
 	d3dpp.BackBufferFormat = D3DFMT_UNKNOWN;
 	d3dpp.Windowed = TRUE;
-	d3dpp.hDeviceWindow = hwnd;
+	d3dpp.hDeviceWindow = m_hwndLayeredChild;
 	d3dpp.EnableAutoDepthStencil = TRUE;
 	d3dpp.AutoDepthStencilFormat = D3DFMT_D24S8;
 	d3dpp.Flags = D3DPRESENTFLAG_VIDEO;
 
 	//d3dpp.BackBufferWidth = lWidth;
 	//d3dpp.BackBufferHeight = lHeight;
-	GetClientRect(hwnd, &m_rtViewport);
+	GetClientRect(m_hwndLayeredChild, &m_rtViewport);
 
-	m_rtViewport.bottom = 180;
-	m_rtViewport.right = 320;
 
 	//D3DCREATE_HARDWARE_VERTEXPROCESSING
 	lRet = m_pDirect3D9->CreateDevice(D3DADAPTER_DEFAULT,
 		D3DDEVTYPE_HAL,
-		hwnd,
+		m_hwndLayeredChild,
 		D3DCREATE_SOFTWARE_VERTEXPROCESSING,
 		&d3dpp,
 		&m_pDirect3DDevice);
@@ -58,6 +110,9 @@ D3DStage::D3DStage(HWND hwnd, unsigned long lWidth, unsigned long lHeight, std::
 
 bool D3DStage::Render()
 {
+	if (m_pDirect3DDevice == NULL)
+		return false;
+
 	HRESULT lRet;
 	//Read Data
 	//RGB
@@ -94,8 +149,6 @@ bool D3DStage::Render()
 	if (FAILED(lRet))
 		return false;
 
-	if (m_pDirect3DDevice == NULL)
-		return false;
 
 	m_pDirect3DDevice->Clear(0, NULL, D3DCLEAR_TARGET, D3DCOLOR_XRGB(0, 0, 0), 1.0f, 0);
 	m_pDirect3DDevice->BeginScene();

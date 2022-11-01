@@ -20,6 +20,7 @@
     <fullScreen>false</fullScreen>
     <!-- cpu,gpu,direct -->
     <renderMode>auto</renderMode>
+    <!--<renderMode>direct</renderMode>-->
     <!--<depthAndStencil>true</depthAndStencil>-->
     <!-- standard,none -->
     <systemChrome>standard</systemChrome>

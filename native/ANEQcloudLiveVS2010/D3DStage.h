@@ -6,6 +6,10 @@
 using namespace std;
 
 
+#ifndef HINST_THISCOMPONENT
+EXTERN_C IMAGE_DOS_HEADER __ImageBase;
+#define HINST_THISCOMPONENT ((HINSTANCE)&__ImageBase)
+#endif
 
 class D3DStage
 {
@@ -20,6 +24,8 @@ private:
 	IDirect3DDevice9 *m_pDirect3DDevice = NULL;
 	IDirect3DSurface9 *m_pDirect3DSurfaceRender = NULL;
 	RECT m_rtViewport;
+
+	HWND m_hwndLayeredChild;
 
 	FILE *fp = NULL;
 	int bpp = 12;
