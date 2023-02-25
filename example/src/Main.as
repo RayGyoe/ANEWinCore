@@ -5,6 +5,9 @@ package
 	import com.vsdevelop.air.filesystem.FileCore;
 	import com.vsdevelop.controls.Button;
 	import com.vsdevelop.controls.Fps;
+	import flash.display.NativeWindow;
+	import flash.display.NativeWindowInitOptions;
+	import flash.display.Screen;
 	import flash.display.StageQuality;
 	import flash.events.Event;
 	import flash.display.Sprite;
@@ -37,6 +40,8 @@ package
 		private var btn6:Button;
 		private var btn7:Button;
 		private var initd3d:Boolean;
+		private var w2:flash.display.NativeWindow;
+		private var btn8:com.vsdevelop.controls.Button;
 		
 		public function Main():void 
 		{
@@ -99,6 +104,12 @@ package
 			btn7.y = 60;
 			btn7.x = 280;
 			
+			btn8 = new Button(null, "是否深色模式");
+			addChild(btn8);
+			btn8.addEventListener(MouseEvent.CLICK, checkisDarkMode);
+			btn8.y = 60;
+			btn8.x = 380;
+			
 			
 			
 			debug = new TextField();
@@ -115,21 +126,50 @@ package
 			debug.appendText("getWindowHwnd="+ANEWinCore.getInstance().getWindowHwnd(stage.nativeWindow));
 		}
 		
+		private function checkisDarkMode(e:MouseEvent):void 
+		{
+			trace('checkisDarkMode', ANEWinCore.getInstance().context.call("isDarkMode"));
+			
+			debug.appendText("\n 系统深色模式："+ ANEWinCore.getInstance().context.call("isDarkMode"));
+		}
+		
 		private function initD3d(e:MouseEvent):void 
 		{
+			
 			if (!initd3d){
+				
+				var op:NativeWindowInitOptions = new NativeWindowInitOptions();
+				w2 = new NativeWindow(op);
+				w2.width = w2.height = 400;
+				w2.stage.scaleMode = StageScaleMode.NO_SCALE;
+				w2.stage.align = "TL";
+				w2.stage.addChild(new Fps());
+				w2.stage.addEventListener(Event.RESIZE, resizeWindow);
+				w2.activate();
+				
+				
 				var file:File = new File(File.applicationDirectory.nativePath + "/assets/test_yuv420p_320x180.yuv");
-				initd3d = ANEWinCore.getInstance().context.call("initD3d", stage.nativeWindow,file.nativePath) as Boolean;
+			
+				initd3d = ANEWinCore.getInstance().context.call("initD3d", w2.stage.nativeWindow,file.nativePath) as Boolean;
 				
 				if (initd3d) {
+					//ANEWinCore.getInstance().context.call("d3dResize", 0, 100, w2.stage.stageWidth,w2.stage.stageHeight);
 					trace("initD3d",initd3d);
-					var timer:Timer = new Timer(1000 / 24);
+					var timer:Timer = new Timer(1000 / 60);
 					timer.addEventListener(TimerEvent.TIMER, function(e:TimerEvent):void{
 						ANEWinCore.getInstance().context.call("d3dRender");
 					});
 					timer.start();
 				}
+			}else{
+				
 			}
+		}
+		
+		private function resizeWindow(e:Event):void 
+		{
+			trace(Screen.mainScreen.contentsScaleFactor);
+			ANEWinCore.getInstance().context.call("d3dResize", 0, 100, int(w2.stage.stageWidth * Screen.mainScreen.contentsScaleFactor),int(Screen.mainScreen.contentsScaleFactor* w2.stage.stageHeight));
 		}
 		
 		private function getHostIp(e:MouseEvent):void 

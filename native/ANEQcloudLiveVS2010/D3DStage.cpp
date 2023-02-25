@@ -1,6 +1,5 @@
 #include "D3DStage.h"
 
-
 LRESULT CALLBACK ChildWndProc(HWND hwnd, UINT message,WPARAM wParam, LPARAM lParam)
 {
 
@@ -20,30 +19,10 @@ D3DStage::D3DStage(HWND hwnd, unsigned long lWidth, unsigned long lHeight, std::
 	InitializeCriticalSection(&m_critial);
 	Cleanup();
 
-	WNDCLASSEXW wcex;
-	wcex.cbSize = sizeof(wcex);
-	wcex.style = 0;
-	wcex.lpfnWndProc = ChildWndProc;
-	wcex.cbClsExtra = 0;
-	wcex.cbWndExtra = 0;
-	wcex.hInstance = NULL;
-	wcex.hIcon = NULL;
-	wcex.hCursor = LoadCursor(NULL, IDC_ARROW);
-	wcex.hbrBackground = (HBRUSH)GetStockObject(GRAY_BRUSH);
-	wcex.lpszMenuName = NULL;
-	wcex.lpszClassName = L"D3DChildWindow";
-	wcex.hIconSm = NULL;
-	RegisterClassExW(&wcex);
-	/*
-	HDC hdc = GetDC(NULL);
-	if (hdc)
-	{
-		ReleaseDC(NULL, hdc);
-	}*/
-	m_hwndLayeredChild = CreateWindowEx(0,L"D3DChildWindow",NULL,WS_CHILD | WS_CLIPSIBLINGS,0,0,320,240,hwnd,NULL, NULL,NULL);
+	m_hwndLayeredChild = CreateWindowEx(0,L"D3DChildWindow",NULL,WS_CHILD | WS_CLIPSIBLINGS,0,0, lWidth, lHeight,hwnd,NULL, NULL,NULL);
 
 
-	printf("\n CreateWindowEx \n");
+	printf("\n CreateWindowEx w:%d  h:%d \n", lWidth, lHeight);
 
 	hr = m_hwndLayeredChild ? S_OK : E_FAIL;
 	if (SUCCEEDED(hr))
@@ -57,7 +36,7 @@ D3DStage::D3DStage(HWND hwnd, unsigned long lWidth, unsigned long lHeight, std::
 	}
 	
 	ShowWindow(m_hwndLayeredChild, SW_SHOWNORMAL);
-	SetWindowPos(m_hwndLayeredChild, HWND_BOTTOM, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_FRAMECHANGED);
+	//SetWindowPos(m_hwndLayeredChild, HWND_BOTTOM, 0, 0, 0, 0,  SWP_FRAMECHANGED);
 	//UpdateWindow(m_hwndLayeredChild);
 
 
@@ -74,26 +53,40 @@ D3DStage::D3DStage(HWND hwnd, unsigned long lWidth, unsigned long lHeight, std::
 	d3dpp.EnableAutoDepthStencil = TRUE;
 	d3dpp.AutoDepthStencilFormat = D3DFMT_D24S8;
 	d3dpp.Flags = D3DPRESENTFLAG_VIDEO;
+	d3dpp.BackBufferWidth = lWidth;
+	d3dpp.BackBufferHeight = lHeight;
 
-	//d3dpp.BackBufferWidth = lWidth;
-	//d3dpp.BackBufferHeight = lHeight;
-	GetClientRect(m_hwndLayeredChild, &m_rtViewport);
+	//GetClientRect(m_hwndLayeredChild, &m_rtViewport);
 
-
-	//D3DCREATE_HARDWARE_VERTEXPROCESSING
+	//
 	lRet = m_pDirect3D9->CreateDevice(D3DADAPTER_DEFAULT,
 		D3DDEVTYPE_HAL,
 		m_hwndLayeredChild,
-		D3DCREATE_SOFTWARE_VERTEXPROCESSING,
+		D3DCREATE_SOFTWARE_VERTEXPROCESSING,//D3DCREATE_SOFTWARE_VERTEXPROCESSING	D3DCREATE_HARDWARE_VERTEXPROCESSING
 		&d3dpp,
 		&m_pDirect3DDevice);
 
+
+	if (m_pDirect3DDevice == NULL) {
+
+		printf("\n not m_pDirect3DDevice. = %d\n", lRet);
+		return;
+	}
+
+	
 	lRet = m_pDirect3DDevice->CreateOffscreenPlainSurface(
 		lWidth, lHeight,
 		(D3DFORMAT)MAKEFOURCC('Y', 'V', '1', '2'),
 		D3DPOOL_DEFAULT,
 		&m_pDirect3DSurfaceRender,
 		NULL);
+
+	if (m_pDirect3DSurfaceRender == NULL)
+	{
+		printf("\n not m_pDirect3DSurfaceRender. = %d\n", lRet);
+		return;
+	}
+
 
 	printf("\n yuv file,%s.\n",url.c_str());
 	fp = fopen(url.c_str(), "rb+");
@@ -112,6 +105,11 @@ bool D3DStage::Render()
 {
 	if (m_pDirect3DDevice == NULL)
 		return false;
+
+
+	if (fp == NULL) {
+		return false;
+	}
 
 	HRESULT lRet;
 	//Read Data
@@ -156,12 +154,21 @@ bool D3DStage::Render()
 
 	IDirect3DSurface9 * pBackBuffer = NULL;
 	m_pDirect3DDevice->GetBackBuffer(0, 0, D3DBACKBUFFER_TYPE_MONO, &pBackBuffer);
-	m_pDirect3DDevice->StretchRect(m_pDirect3DSurfaceRender, NULL, pBackBuffer, &m_rtViewport, D3DTEXF_LINEAR);
+	m_pDirect3DDevice->StretchRect(m_pDirect3DSurfaceRender, NULL, pBackBuffer, NULL, D3DTEXF_LINEAR);
 
 	//½áÊø³¡¾°äÖÈ¾
 	m_pDirect3DDevice->EndScene();
-	m_pDirect3DDevice->Present(&m_rtViewport, &m_rtViewport, NULL, NULL);
+	m_pDirect3DDevice->Present(NULL, NULL, NULL, NULL);
 	return true;
+}
+
+void D3DStage::Resize(int x, int y, int w, int h)
+{
+	printf("\n Resize %d,%d,%d,%d\n", x,y,w,h);
+	SetWindowPos(m_hwndLayeredChild, HWND_BOTTOM, x, y, w, h,  SWP_FRAMECHANGED);//SWP_NOMOVE | SWP_NOSIZE |
+
+	//D3DVIEWPORT9 viewData = { 0, 0, w, h, 0.0f, 1.0f };
+	//m_pDirect3DDevice->SetViewport(&viewData);
 }
 
 D3DStage::~D3DStage()

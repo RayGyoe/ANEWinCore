@@ -14,9 +14,11 @@ using namespace ie_proxy;
 #include <psapi.h>
 #pragma comment(lib,"psapi.lib")
 
-
 #include "D3DStage.h"
 
+
+
+//===================================================================
 std::string intToStdString(int value)
 {
 	std::stringstream str_stream;
@@ -158,6 +160,26 @@ extern "C" {
 
 	const char *TAG = "ANEWinCore";
 	
+
+	using fnRtlGetNtVersionNumbers = void (WINAPI *)(LPDWORD major, LPDWORD minor, LPDWORD build);
+
+	using fnShouldSystemUseDarkMode = bool (WINAPI *)(); // ordinal 138
+	using fnIsDarkModeAllowedForApp = bool (WINAPI *)(); // ordinal 139
+
+
+	DWORD g_buildNumber = 0;
+	constexpr bool CheckBuildNumber(DWORD buildNumber)
+	{
+		return (buildNumber == 17763 || // 1809
+			buildNumber == 18362 || // 1903
+			buildNumber == 18363 || // 1909
+			buildNumber >= 19041); // 2004
+	}
+
+	fnShouldSystemUseDarkMode _ShouldSystemUseDarkMode = nullptr;
+
+
+
 
 	bool isCrateCrashDump = false;
 
@@ -621,6 +643,37 @@ extern "C" {
 
 
 
+	FREObject isDarkMode(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[])
+	{
+		bool ret = false;
+
+		auto RtlGetNtVersionNumbers = reinterpret_cast<fnRtlGetNtVersionNumbers>(GetProcAddress(GetModuleHandleW(L"ntdll.dll"), "RtlGetNtVersionNumbers"));
+		if (RtlGetNtVersionNumbers)
+		{
+			DWORD major, minor;
+			RtlGetNtVersionNumbers(&major, &minor, &g_buildNumber);
+			g_buildNumber &= ~0xF0000000;
+
+			printf("\n major %d,%d\n", major, g_buildNumber);
+
+			if (major == 10 && minor == 0 && CheckBuildNumber(g_buildNumber))
+			{
+				HMODULE hUxtheme = LoadLibraryExW(L"uxtheme.dll", nullptr, 0x00000800);
+				if (hUxtheme)
+				{
+					_ShouldSystemUseDarkMode = reinterpret_cast<fnShouldSystemUseDarkMode>(GetProcAddress(hUxtheme, MAKEINTRESOURCEA(138)));
+					if (_ShouldSystemUseDarkMode && _ShouldSystemUseDarkMode())
+					{
+						ret = true;
+					}
+				}
+			}
+		}
+		FREObject result;
+		auto status = FRENewObjectFromBool(ret, &result);
+		return result;
+	}
+
 	BOOL CALLBACK EnumChildProc(HWND hwndChild, LPARAM lParam)
 	{
 		int idChild = GetWindowLong(hwndChild, GWL_ID);
@@ -635,17 +688,16 @@ extern "C" {
 		FREObject window = argv[0];
 		FREResult ret = FREAcquireNativeWindowHandle(window, &nativeWindow);
 		if (ret == FRE_OK) {
+			FREReleaseNativeWindowHandle(window);
+
 			std::string url = getFREString(argv[1]);
 			d3dpp = new D3DStage((HWND)nativeWindow, 320, 180, url);
-
 			//遍历窗口中的子窗口
-			EnumChildWindows((HWND)nativeWindow, EnumChildProc,NULL);
+			//EnumChildWindows((HWND)nativeWindow, EnumChildProc,NULL);
 			//HWND child1 = GetWindow((HWND)nativeWindow, GW_CHILD);
 			//HWND child2 = GetWindow((HWND)nativeWindow, GW_HWNDNEXT);
 			//printf("\n GetWindow child1= %d  child2=%d \n", child1, child2);
 			//SetWindowPos(child2, HWND_TOP, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_FRAMECHANGED);
-
-			FREReleaseNativeWindowHandle(window);
 		}
 
 		FREObject result;
@@ -666,6 +718,24 @@ extern "C" {
 		auto status = FRENewObjectFromBool(ret, &result);
 		return result;
 	}
+
+
+	FREObject d3dResize(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[])
+	{
+		
+		if (d3dpp != nullptr)
+		{
+			int x = getInt32(argv[0]);
+			int y = getInt32(argv[1]);
+			int w = getInt32(argv[2]);
+			int h = getInt32(argv[3]);
+			d3dpp->Resize(x,y,w,h);
+		}
+		return NULL;
+	}
+
+
+
 	///
 	// Flash Native Extensions stuff	
 	void ANEWinCoreContextInitializer(void* extData, const uint8_t* ctxType, FREContext ctx, uint32_t* numFunctionsToSet, const FRENamedFunction** functionsToSet) {
@@ -709,10 +779,12 @@ extern "C" {
 			{ (const uint8_t*) "getHostByName",     NULL, &getHostByName },
 
 			{ (const uint8_t*) "getWindowHwnd",     NULL, &getWindowHwnd },
-
-
+			{ (const uint8_t*) "isDarkMode",     NULL, &isDarkMode },
+			
 			{ (const uint8_t*) "initD3d",     NULL, &initD3d },
 			{ (const uint8_t*) "d3dRender",     NULL, &d3dRender },
+			{ (const uint8_t*) "d3dResize",     NULL, &d3dResize },
+			
 		};
 
 		*numFunctionsToSet = sizeof(extensionFunctions) / sizeof(FRENamedFunction);

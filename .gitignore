@@ -3,6 +3,7 @@ temp
 .db
 native/ANEWinCore.VC.db
 native/ANEWinCore.sdf
+native/.vs/ANEWinCore/v14/.suo
 *.txt
 .docx
 apm

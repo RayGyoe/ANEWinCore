@@ -16,6 +16,9 @@ class D3DStage
 public:
 	D3DStage(HWND hwnd, unsigned long lWidth, unsigned long lHeight,std::string url);
 	bool Render();
+
+	void Resize(int x, int y, int w, int h);
+
 	~D3DStage();
 
 private:
@@ -23,17 +26,16 @@ private:
 	IDirect3D9 *m_pDirect3D9 = NULL;
 	IDirect3DDevice9 *m_pDirect3DDevice = NULL;
 	IDirect3DSurface9 *m_pDirect3DSurfaceRender = NULL;
-	RECT m_rtViewport;
+	//RECT m_rtViewport;
 
 	HWND m_hwndLayeredChild;
 
 	FILE *fp = NULL;
 	int bpp = 12;
-	int screen_w = 320;
-	int screen_h = 180;
+
 	int pixel_w = 320;
 	int pixel_h = 180;
-	unsigned char buffer[320*180*12 / 8];
+	unsigned char buffer[320 * 180 * 12 / 8];
 	void Cleanup();
 
 };
