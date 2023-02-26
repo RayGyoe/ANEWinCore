@@ -19,6 +19,22 @@ D3DStage::D3DStage(HWND hwnd, unsigned long lWidth, unsigned long lHeight, std::
 	InitializeCriticalSection(&m_critial);
 	Cleanup();
 
+
+
+	WNDCLASSEXW wcex;
+	wcex.cbSize = sizeof(wcex);
+	wcex.style = 0;
+	wcex.lpfnWndProc = ChildWndProc;
+	wcex.cbClsExtra = 0;
+	wcex.cbWndExtra = 0;
+	wcex.hInstance = NULL;
+	wcex.hIcon = NULL;
+	wcex.hCursor = LoadCursor(NULL, IDC_ARROW);
+	wcex.hbrBackground = (HBRUSH)GetStockObject(GRAY_BRUSH);
+	wcex.lpszMenuName = NULL;
+	wcex.lpszClassName = L"D3DChildWindow";
+	wcex.hIconSm = NULL;
+	RegisterClassExW(&wcex);
 	m_hwndLayeredChild = CreateWindowEx(0,L"D3DChildWindow",NULL,WS_CHILD | WS_CLIPSIBLINGS,0,0, lWidth, lHeight,hwnd,NULL, NULL,NULL);
 
 
@@ -76,7 +92,7 @@ D3DStage::D3DStage(HWND hwnd, unsigned long lWidth, unsigned long lHeight, std::
 	
 	lRet = m_pDirect3DDevice->CreateOffscreenPlainSurface(
 		lWidth, lHeight,
-		(D3DFORMAT)MAKEFOURCC('Y', 'V', '1', '2'),
+		(D3DFORMAT)MAKEFOURCC('Y', 'V', '1', '2'),//D3DFMT_A8R8G8B8,//
 		D3DPOOL_DEFAULT,
 		&m_pDirect3DSurfaceRender,
 		NULL);
@@ -101,7 +117,7 @@ D3DStage::D3DStage(HWND hwnd, unsigned long lWidth, unsigned long lHeight, std::
 }
 
 
-bool D3DStage::Render()
+bool D3DStage::Render(uint32_t argc, FREObject argv[])
 {
 	if (m_pDirect3DDevice == NULL)
 		return false;

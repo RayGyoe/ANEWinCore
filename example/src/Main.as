@@ -42,9 +42,12 @@ package
 		private var initd3d:Boolean;
 		private var w2:flash.display.NativeWindow;
 		private var btn8:com.vsdevelop.controls.Button;
+		public static var view:Main;
 		
 		public function Main():void 
 		{
+			
+			view = this;
 			
 			stage.scaleMode = StageScaleMode.NO_SCALE;
 			stage.align = "TL";
@@ -135,42 +138,9 @@ package
 		
 		private function initD3d(e:MouseEvent):void 
 		{
-			
-			if (!initd3d){
-				
-				var op:NativeWindowInitOptions = new NativeWindowInitOptions();
-				w2 = new NativeWindow(op);
-				w2.width = w2.height = 400;
-				w2.stage.scaleMode = StageScaleMode.NO_SCALE;
-				w2.stage.align = "TL";
-				w2.stage.addChild(new Fps());
-				w2.stage.addEventListener(Event.RESIZE, resizeWindow);
-				w2.activate();
-				
-				
-				var file:File = new File(File.applicationDirectory.nativePath + "/assets/test_yuv420p_320x180.yuv");
-			
-				initd3d = ANEWinCore.getInstance().context.call("initD3d", w2.stage.nativeWindow,file.nativePath) as Boolean;
-				
-				if (initd3d) {
-					//ANEWinCore.getInstance().context.call("d3dResize", 0, 100, w2.stage.stageWidth,w2.stage.stageHeight);
-					trace("initD3d",initd3d);
-					var timer:Timer = new Timer(1000 / 60);
-					timer.addEventListener(TimerEvent.TIMER, function(e:TimerEvent):void{
-						ANEWinCore.getInstance().context.call("d3dRender");
-					});
-					timer.start();
-				}
-			}else{
-				
-			}
+			new Direct3DWindow();
 		}
 		
-		private function resizeWindow(e:Event):void 
-		{
-			trace(Screen.mainScreen.contentsScaleFactor);
-			ANEWinCore.getInstance().context.call("d3dResize", 0, 100, int(w2.stage.stageWidth * Screen.mainScreen.contentsScaleFactor),int(Screen.mainScreen.contentsScaleFactor* w2.stage.stageHeight));
-		}
 		
 		private function getHostIp(e:MouseEvent):void 
 		{

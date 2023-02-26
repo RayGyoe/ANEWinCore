@@ -712,7 +712,7 @@ extern "C" {
 		bool ret = false;
 		if (d3dpp != nullptr)
 		{
-			ret = d3dpp->Render();
+			ret = d3dpp->Render(argc, argv);
 		}
 		FREObject result;
 		auto status = FRENewObjectFromBool(ret, &result);

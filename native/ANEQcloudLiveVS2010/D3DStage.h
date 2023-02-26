@@ -3,8 +3,10 @@
 #include <tchar.h>
 #include <d3d9.h>
 #include<iostream>
+
 using namespace std;
 
+#include "FlashRuntimeExtensions.h"
 
 #ifndef HINST_THISCOMPONENT
 EXTERN_C IMAGE_DOS_HEADER __ImageBase;
@@ -15,7 +17,7 @@ class D3DStage
 {
 public:
 	D3DStage(HWND hwnd, unsigned long lWidth, unsigned long lHeight,std::string url);
-	bool Render();
+	bool Render(uint32_t argc, FREObject argv[]);
 
 	void Resize(int x, int y, int w, int h);
 
