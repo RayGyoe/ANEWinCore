@@ -4,9 +4,15 @@
 #include <d3d9.h>
 #include<iostream>
 
+#include <assert.h>
+#include <inttypes.h>
+#include <tmmintrin.h>
+
 using namespace std;
 
 #include "FlashRuntimeExtensions.h"
+
+
 
 
 
@@ -19,7 +25,7 @@ class D3DStage
 {
 public:
 
-	D3DStage(int index, HWND hwnd, int x, int y, int width, int height);
+	D3DStage(int index, HWND hwnd, int x, int y, int width, int height, double scale);
 	bool Render(uint32_t argc, FREObject argv[]);
 	bool Resize(int x, int y, int w, int h);
 
@@ -41,7 +47,7 @@ private:
 	HWND m_hwndLayeredChild;
 	int width;
 	int height;
-
+	double scale;
 
 
 	FILE *fp = NULL;

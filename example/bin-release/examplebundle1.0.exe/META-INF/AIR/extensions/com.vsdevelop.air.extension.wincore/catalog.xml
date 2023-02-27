@@ -30,7 +30,7 @@
         <dep id="Object" type="i" /> 
         <dep id="AS3" type="n" /> 
       </script>
-      <script name="com/vsdevelop/air/extension/wincore/D3DStage" mod="1677511368377" signatureChecksum="2126554562" >
+      <script name="com/vsdevelop/air/extension/wincore/D3DStage" mod="1677528723262" signatureChecksum="1525006752" >
         <def id="com.vsdevelop.air.extension.wincore:D3DStage" /> 
         <dep id="flash.display:Stage" type="s" /> 
         <dep id="flash.display:BitmapData" type="s" /> 
@@ -42,14 +42,14 @@
         <dep id="Object" type="i" /> 
         <dep id="AS3" type="n" /> 
       </script>
-      <script name="_f0dda5b682d892324242f7685f5937d7faa4c5700132ca5c518a871b8f2bec14_flash_display_Sprite" mod="1677511371018" signatureChecksum="65173971" >
-        <def id="_f0dda5b682d892324242f7685f5937d7faa4c5700132ca5c518a871b8f2bec14_flash_display_Sprite" /> 
+      <script name="_4d2ad8a8b21776390692f6b5ee64e135fd52b2fcd62eed14c737ac804640ad35_flash_display_Sprite" mod="1677528726245" signatureChecksum="2370992785" >
+        <def id="_4d2ad8a8b21776390692f6b5ee64e135fd52b2fcd62eed14c737ac804640ad35_flash_display_Sprite" /> 
         <dep id="flash.system:Security" type="e" /> 
         <dep id="flash.display:Sprite" type="i" /> 
         <dep id="AS3" type="n" /> 
       </script>
       <digests>
-        <digest type="SHA-256" signed="false" value="9982d7fbe0855b0719d996bfc9d05ea0196b1a238d0539ddf51ab38572f9ebe4"   />
+        <digest type="SHA-256" signed="false" value="47156a065ad718512d095ef49b959802cb18e7f8a7e637750d360c544007298f"   />
       </digests>
     </library>
   </libraries>

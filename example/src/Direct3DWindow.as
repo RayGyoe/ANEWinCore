@@ -44,12 +44,12 @@ package
 			
 			bitmap = new Bitmap();
 			bitmap.smoothing = true;
-			bitmap.x = 200;
+			bitmap.x = 50;
 			bitmap.scaleX = bitmap.scaleY = 0.2;
 			stage.addChild(bitmap);
 			stage.addChild(new Fps());
 			
-			d3DStage = new D3DStage(stage, 0, 300, 1280, 720);
+			d3DStage = new D3DStage(stage, bitmap.x, 720*bitmap.scaleY, 1280, 720);
 			d3DStage.renderMode = renderMode;
 			
 			trace("d3DStage.renderMode",d3DStage.renderMode);
@@ -105,7 +105,7 @@ package
 			
 			if (d3DStage)
 			{
-				//d3DStage.resize(0, 100, 640, 380);
+				d3DStage.resize(d3DStage.x, d3DStage.y, stage.stageWidth-d3DStage.x, stage.stageHeight - d3DStage.y);
 			}
 			//ANEWinCore.getInstance().context.call("d3dResize", 0, 100, int(stage.stageWidth * Screen.mainScreen.contentsScaleFactor),int(Screen.mainScreen.contentsScaleFactor* stage.stageHeight));
 		}

@@ -16,13 +16,22 @@ package com.vsdevelop.air.extension.wincore
 		
 		private var _type:int = 0;//1=argb  2=yuv420
 		
+		private var _x:Number;
+		private var _y:Number;
+		private var _width:Number;
+		private var _height:Number;
+		
 		public function D3DStage(stage:Stage,x:int,y:int,width:int,height:int) 
 		{
 			if (ANEWinCore.getInstance().isSupported)
 			{
 				_scale = Screen.mainScreen['contentsScaleFactor']?Screen.mainScreen['contentsScaleFactor']:1;
 				
-				_index = int(ANEWinCore.getInstance().context.call("d3dInit", stage.nativeWindow, int(x * _scale), int(y * _scale), int(width * _scale), int(height * _scale)));
+				_x = x * _scale;
+				_y = y * _scale;
+				_width = width * _scale;
+				_height = height * _scale;
+				_index = int(ANEWinCore.getInstance().context.call("d3dInit", stage.nativeWindow, x , y , width , height ,_scale));
 				
 				
 				trace("contentsScaleFactor", _scale, "D3DStage", _index);
@@ -42,13 +51,37 @@ package com.vsdevelop.air.extension.wincore
 		public function resize(x:int,y:int,width:int,height:int):Boolean{
 			
 			if (_index){
-				return Boolean(ANEWinCore.getInstance().context.call("d3dResize", _index, int(x * _scale), int(y * _scale), int(width * _scale), int(height * _scale)));
+				
+				_x = x;
+				_y = y;
+				_width = width;
+				_height = height;
+				
+				return Boolean(ANEWinCore.getInstance().context.call("d3dResize", _index, int(_x * _scale), int(_y * _scale), int(_width * _scale), int(_height * _scale)));
 			}
 			return false;
 		}
 		
 		
 		
+		public function get x():Number{
+			return _x;
+		}
+		
+		
+		public function get y():Number{
+			return _y;
+		}
+		
+		
+		public function get width():Number{
+			return _width;
+		}
+		
+		
+		public function get height():Number{
+			return _height;
+		}
 		
 		/**
 		 * 渲染bytearray

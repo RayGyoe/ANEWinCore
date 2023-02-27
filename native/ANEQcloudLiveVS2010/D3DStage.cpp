@@ -16,6 +16,7 @@ typedef DWORD D3DCOLOR;
 typedef unsigned char		uint8;
 
 
+
 LRESULT CALLBACK ChildWndProc(HWND hwnd, UINT message,WPARAM wParam, LPARAM lParam)
 {
 
@@ -26,7 +27,7 @@ LRESULT CALLBACK ChildWndProc(HWND hwnd, UINT message,WPARAM wParam, LPARAM lPar
 	}
 	return DefWindowProc(hwnd, message, wParam, lParam);
 }
-D3DStage::D3DStage(int index,HWND hwnd,int x,int y, int width, int height)
+D3DStage::D3DStage(int index,HWND hwnd,int x,int y, int width, int height, double scale)
 {
 	HRESULT hr = S_OK;
 
@@ -35,6 +36,7 @@ D3DStage::D3DStage(int index,HWND hwnd,int x,int y, int width, int height)
 
 	this->width = width;
 	this->height = height;
+	this->scale = scale;
 
 	WNDCLASSEXW wcex;
 	wcex.cbSize = sizeof(wcex);
@@ -50,10 +52,10 @@ D3DStage::D3DStage(int index,HWND hwnd,int x,int y, int width, int height)
 	wcex.lpszClassName = L"D3DChildWindow"+index;
 	wcex.hIconSm = NULL;
 	RegisterClassExW(&wcex);
-	m_hwndLayeredChild = CreateWindowEx(0, wcex.lpszClassName, NULL, WS_CHILD | WS_CLIPSIBLINGS, 0, 0, width, height, hwnd, NULL, NULL, NULL);
+	m_hwndLayeredChild = CreateWindowEx(0, wcex.lpszClassName, NULL, WS_CHILD | WS_CLIPSIBLINGS, x* scale, y* scale, width * scale, height* scale, hwnd, NULL, NULL, NULL);
 
 
-	printf("\n CreateWindowEx w:%d  h:%d \n", width, height);
+	printf("\n CreateWindowEx w:%d  h:%d  scale:%f \n", width, height,scale);
 
 	hr = m_hwndLayeredChild ? S_OK : E_FAIL;
 	if (SUCCEEDED(hr))
@@ -66,7 +68,7 @@ D3DStage::D3DStage(int index,HWND hwnd,int x,int y, int width, int height)
 		}
 	}
 
-	SetWindowPos(m_hwndLayeredChild, HWND_BOTTOM, x, y, width, height, SWP_FRAMECHANGED);
+	//SetWindowPos(m_hwndLayeredChild, HWND_BOTTOM, x, y, width, height, SWP_FRAMECHANGED);
 	ShowWindow(m_hwndLayeredChild, SW_SHOWNORMAL);
 
 
@@ -82,7 +84,7 @@ D3DStage::D3DStage(int index,HWND hwnd,int x,int y, int width, int height)
 	d3dpp.AutoDepthStencilFormat = D3DFMT_D24S8;//D3DFMT_D24S8
 	d3dpp.Flags = D3DPRESENTFLAG_VIDEO;
 	d3dpp.SwapEffect = D3DSWAPEFFECT_FLIP;//D3DSWAPEFFECT_FLIP	D3DSWAPEFFECT_DISCARD
-	d3dpp.BackBufferFormat = D3DFMT_X8R8G8B8;
+	d3dpp.BackBufferFormat = D3DFMT_A8R8G8B8;
 	//d3dpp.BackBufferWidth = width;
 	//d3dpp.BackBufferHeight = height;
 	
@@ -108,7 +110,7 @@ D3DStage::D3DStage(int index,HWND hwnd,int x,int y, int width, int height)
 	
 	lRet = m_pDirect3DDevice->CreateOffscreenPlainSurface(
 		width, height,
-		d3dpp.BackBufferFormat,//D3DFMT_A8R8G8B8  D3DFMT_X8R8G8B8
+		d3dpp.BackBufferFormat,//D3DFMT_A8R8G8B8  D3DFMT_X8R8G8B8 
 		D3DPOOL_DEFAULT,
 		&m_pDirect3DSurfaceRender,
 		NULL);
@@ -120,7 +122,16 @@ D3DStage::D3DStage(int index,HWND hwnd,int x,int y, int width, int height)
 	}
 }
 
-
+//argb -> bgr
+void convert(uint8_t *orig, size_t imagesize, uint8_t *dest) {
+	assert((uintptr_t)orig % 16 == 0);
+	assert(imagesize % 4 == 0);
+	__m128i mask = _mm_set_epi8(-128, -128, -128, -128, 13, 14, 15, 9, 10, 11, 5, 6, 7, 1, 2, 3);
+	uint8_t *end = orig + imagesize * 4;
+	for (; orig != end; orig += 16, dest += 12) {
+		_mm_storeu_si128((__m128i *)dest, _mm_shuffle_epi8(_mm_load_si128((__m128i *)orig), mask));
+	}
+}
 
 bool D3DStage::Render(uint32_t argc, FREObject argv[])
 {
@@ -148,9 +159,16 @@ bool D3DStage::Render(uint32_t argc, FREObject argv[])
 		FREObject objectByteArray = argv[2];
 		FREByteArray byteArray;
 		FREAcquireByteArray(objectByteArray, &byteArray);
-		memcpy(d3d_rect.pBits, byteArray.bytes, byteArray.length);
+		memcpy(dst, byteArray.bytes, byteArray.length);
+		/*
+		for (unsigned long i = 0; i< this->height; i++) {
+			memcpy(dst, byteArray.bytes, this->width);
+			dst += stride;
+			byteArray.bytes += this->width;
+		}*/
+
 		FREReleaseByteArray(objectByteArray);
-		printf("\n stride=%d,\n", stride);
+		//printf("\n stride=%d,\n", stride);
 	}
 	else if (_type == 2) {
 		FREObject bitmap_data_object = argv[2];
@@ -160,38 +178,17 @@ bool D3DStage::Render(uint32_t argc, FREObject argv[])
 
 		int buflength = bitmapData.width * bitmapData.height * 4;
 
-		memcpy(dst, bitmapData.bits32, buflength);
-
-		/*
-		int height = this->width;
-		int width = this->height;
-		unsigned int color = 0xff000000;
-		for (int y = 0; y<this->height; y++)
-		{
-			_asm {
-				mov edi, dst    // destination pointer
-				mov ecx, width  // number of argb pixels to fill
-				mov eax, color  // argb color
-				rep stosd
-			}
+		//memcpy(dst, bitmapData.bits32, buflength);
+		for (unsigned long i = 0; i< this->height; i++) {
+			memcpy(dst, bitmapData.bits32, this->width);
 			dst += stride;
+			bitmapData.bits32 += this->width;
 		}
-		*/
-		/*
-		uint8 * rgba = new uint8[buflength];
-		for (unsigned int i = 0; i<buflength; i += 4)
-		{
-			rgba[i + 3]		= rgba[i];		//A
-			rgba[i + 2]	= rgba[i + 1];	//R
-			rgba[i + 1]	= rgba[i + 2];	//G
-			rgba[i]		= rgba[i + 3];	//B
-		}
-		memcpy(d3d_rect.pBits, rgba, buflength);
-		delete[] rgba; rgba = 0;
-		*/
+
+		//convert((uint8_t*)bitmapData.bits32, sizeof bitmapData.bits32, dst);
 
 		//d3d_rect.Pitch = bitmapData.lineStride32;
-		printf("\n  Pitch=%d isPremultiplied=%d  lineStride32=%d ,\n", stride, bitmapData.isPremultiplied, bitmapData.lineStride32);
+	//	printf("\n  Pitch=%d isPremultiplied=%d  lineStride32=%d  \n", stride, bitmapData.isPremultiplied, bitmapData.lineStride32);
 		FREReleaseBitmapData(bitmap_data_object);
 	}
 

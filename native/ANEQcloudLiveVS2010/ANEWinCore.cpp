@@ -695,9 +695,11 @@ extern "C" {
 			int y = getInt32(argv[2]);
 			int width = getInt32(argv[3]);
 			int height = getInt32(argv[4]);
+			double scale;
+			FREGetObjectAsDouble(argv[5],&scale);
 
 			int index = d3dStage_Index += 1;
-			D3DStage *stage = new D3DStage(index, (HWND)nativeWindow,x,y,width,height);
+			D3DStage *stage = new D3DStage(index, (HWND)nativeWindow,x,y,width,height, scale);
 			VectorD3dStage[index] = stage;
 			printf("\n Index %d\n", index);
 			index_d3d = index;

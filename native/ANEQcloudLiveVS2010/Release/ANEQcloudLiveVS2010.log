@@ -1,4 +1,4 @@
-﻿生成启动时间为 2023/2/28 02:15:13。
+﻿生成启动时间为 2023/2/28 04:05:23。
      1>项目“E:\Works\eDoctor\ANEWinCore\native\ANEQcloudLiveVS2010\ANEQcloudLiveVS2010.vcxproj”在节点 2 上(Rebuild 个目标)。
      1>ClCompile:
          C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\CL.exe /c /Zi /nologo /W3 /WX- /O2 /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _WINDOWS /D _USRDLL /D ANEQCLOUDLIVEVS2010_EXPORTS /D _CRT_SECURE_NO_DEPRECATE /D _USING_V110_SDK71_ /D _WINDLL /D _UNICODE /D UNICODE /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Release\\" /Fd"Release\vc140.pdb" /Gd /TP /analyze- /errorReport:prompt ANEWinCore.cpp "crash-report.cpp" CustomURLProtocolApp.cpp D3DStage.cpp FontLoader.cpp MiniDump.cpp
@@ -20,9 +20,11 @@
      1>C:\Program Files (x86)\Windows Kits\10\Include\10.0.10150.0\ucrt\tchar.h(220): warning C4005: “_stprintf”: 宏重定义
          C:\Program Files (x86)\Microsoft SDKs\Windows\v7.1A\include\Strsafe.h(9686): note: 参见“_stprintf”的前一个定义
          D3DStage.cpp
+     1>D3DStage.cpp(55): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
+     1>D3DStage.cpp(182): warning C4018: “<”: 有符号/无符号不匹配
+     1>D3DStage.cpp(383): warning C4018: “<”: 有符号/无符号不匹配
      1>D3DStage.cpp(386): warning C4018: “<”: 有符号/无符号不匹配
      1>D3DStage.cpp(389): warning C4018: “<”: 有符号/无符号不匹配
-     1>D3DStage.cpp(392): warning C4018: “<”: 有符号/无符号不匹配
          FontLoader.cpp
          MiniDump.cpp
      1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.1A\include\DbgHelp.h(1540): warning C4091: “typedef ”: 没有声明变量时忽略“”的左侧
@@ -45,4 +47,4 @@
 
 已成功生成。
 
-已用时间 00:00:03.89
+已用时间 00:00:03.92
