@@ -4,7 +4,7 @@
 #include <iostream>
 #include <Windows.h>
 #include <tchar.h>
-
+#include <map>
 #include <thread>
 #include <winuser.h>
 //#include <ShellScalingAPI.h>  //vs140

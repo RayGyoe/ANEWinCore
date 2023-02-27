@@ -8,6 +8,8 @@ using namespace std;
 
 #include "FlashRuntimeExtensions.h"
 
+
+
 #ifndef HINST_THISCOMPONENT
 EXTERN_C IMAGE_DOS_HEADER __ImageBase;
 #define HINST_THISCOMPONENT ((HINSTANCE)&__ImageBase)
@@ -16,10 +18,16 @@ EXTERN_C IMAGE_DOS_HEADER __ImageBase;
 class D3DStage
 {
 public:
-	D3DStage(HWND hwnd, unsigned long lWidth, unsigned long lHeight,std::string url);
-	bool Render(uint32_t argc, FREObject argv[]);
 
-	void Resize(int x, int y, int w, int h);
+	D3DStage(int index, HWND hwnd, int x, int y, int width, int height);
+	bool Render(uint32_t argc, FREObject argv[]);
+	bool Resize(int x, int y, int w, int h);
+
+	bool Destroy();
+
+	//debug
+	D3DStage(HWND hwnd, unsigned long lWidth, unsigned long lHeight, std::string url);
+	bool Render();
 
 	~D3DStage();
 
@@ -31,6 +39,10 @@ private:
 	//RECT m_rtViewport;
 
 	HWND m_hwndLayeredChild;
+	int width;
+	int height;
+
+
 
 	FILE *fp = NULL;
 	int bpp = 12;

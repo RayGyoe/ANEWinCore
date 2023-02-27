@@ -10,7 +10,7 @@
   </features>
   <libraries>
     <library path="library.swf">
-      <script name="com/vsdevelop/air/extension/wincore/ANEWinCore" mod="1666104681180" signatureChecksum="1464103562" >
+      <script name="com/vsdevelop/air/extension/wincore/ANEWinCore" mod="1677507636013" signatureChecksum="2267642866" >
         <def id="com.vsdevelop.air.extension.wincore:ANEWinCore" /> 
         <dep id="flash.display:NativeWindow" type="s" /> 
         <dep id="flash.filesystem:File" type="s" /> 
@@ -25,19 +25,31 @@
         <dep id="flash.events:EventDispatcher" type="i" /> 
         <dep id="AS3" type="n" /> 
       </script>
-      <script name="_e54a80bb29a85777da4e92604bb14253ee4e2887c7f6516304cc0aef6cc42f84_flash_display_Sprite" mod="1666104693498" signatureChecksum="1266842175" >
-        <def id="_e54a80bb29a85777da4e92604bb14253ee4e2887c7f6516304cc0aef6cc42f84_flash_display_Sprite" /> 
-        <dep id="flash.system:Security" type="e" /> 
-        <dep id="flash.display:Sprite" type="i" /> 
-        <dep id="AS3" type="n" /> 
-      </script>
       <script name="com/vsdevelop/air/extension/wincore/ANEHKeyType" mod="1622567427535" signatureChecksum="1327320513" >
         <def id="com.vsdevelop.air.extension.wincore:ANEHKeyType" /> 
         <dep id="Object" type="i" /> 
         <dep id="AS3" type="n" /> 
       </script>
+      <script name="com/vsdevelop/air/extension/wincore/D3DStage" mod="1677511368377" signatureChecksum="2126554562" >
+        <def id="com.vsdevelop.air.extension.wincore:D3DStage" /> 
+        <dep id="flash.display:Stage" type="s" /> 
+        <dep id="flash.display:BitmapData" type="s" /> 
+        <dep id="flash.utils:ByteArray" type="s" /> 
+        <dep id="trace" type="e" /> 
+        <dep id="com.vsdevelop.air.extension.wincore:ANEWinCore" type="e" /> 
+        <dep id="Error" type="e" /> 
+        <dep id="flash.display:Screen" type="e" /> 
+        <dep id="Object" type="i" /> 
+        <dep id="AS3" type="n" /> 
+      </script>
+      <script name="_f0dda5b682d892324242f7685f5937d7faa4c5700132ca5c518a871b8f2bec14_flash_display_Sprite" mod="1677511371018" signatureChecksum="65173971" >
+        <def id="_f0dda5b682d892324242f7685f5937d7faa4c5700132ca5c518a871b8f2bec14_flash_display_Sprite" /> 
+        <dep id="flash.system:Security" type="e" /> 
+        <dep id="flash.display:Sprite" type="i" /> 
+        <dep id="AS3" type="n" /> 
+      </script>
       <digests>
-        <digest type="SHA-256" signed="false" value="1a597bf62bc29bd5b1f8629ab2f5498e1b981b866ca94fd878737850692205c0"   />
+        <digest type="SHA-256" signed="false" value="9982d7fbe0855b0719d996bfc9d05ea0196b1a238d0539ddf51ab38572f9ebe4"   />
       </digests>
     </library>
   </libraries>

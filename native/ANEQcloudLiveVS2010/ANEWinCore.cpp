@@ -179,11 +179,15 @@ extern "C" {
 	fnShouldSystemUseDarkMode _ShouldSystemUseDarkMode = nullptr;
 
 
+	bool _isDarkMode = false;
 
 
 	bool isCrateCrashDump = false;
 
 	D3DStage *d3dpp;
+
+	std::map<int, D3DStage*>VectorD3dStage;
+	int d3dStage_Index = 0;
 
 	CustomURLProtocol m_CustomURLProtocol;
 	//初始化
@@ -645,44 +649,38 @@ extern "C" {
 
 	FREObject isDarkMode(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[])
 	{
-		bool ret = false;
-
-		auto RtlGetNtVersionNumbers = reinterpret_cast<fnRtlGetNtVersionNumbers>(GetProcAddress(GetModuleHandleW(L"ntdll.dll"), "RtlGetNtVersionNumbers"));
-		if (RtlGetNtVersionNumbers)
-		{
-			DWORD major, minor;
-			RtlGetNtVersionNumbers(&major, &minor, &g_buildNumber);
-			g_buildNumber &= ~0xF0000000;
-
-			printf("\n major %d,%d\n", major, g_buildNumber);
-
-			if (major == 10 && minor == 0 && CheckBuildNumber(g_buildNumber))
+		if (!_isDarkMode) {
+			auto RtlGetNtVersionNumbers = reinterpret_cast<fnRtlGetNtVersionNumbers>(GetProcAddress(GetModuleHandleW(L"ntdll.dll"), "RtlGetNtVersionNumbers"));
+			if (RtlGetNtVersionNumbers)
 			{
-				HMODULE hUxtheme = LoadLibraryExW(L"uxtheme.dll", nullptr, 0x00000800);
-				if (hUxtheme)
+				DWORD major, minor;
+				RtlGetNtVersionNumbers(&major, &minor, &g_buildNumber);
+				g_buildNumber &= ~0xF0000000;
+
+				printf("\n major %d,%d\n", major, g_buildNumber);
+
+				if (major == 10 && minor == 0 && CheckBuildNumber(g_buildNumber))
 				{
-					_ShouldSystemUseDarkMode = reinterpret_cast<fnShouldSystemUseDarkMode>(GetProcAddress(hUxtheme, MAKEINTRESOURCEA(138)));
-					if (_ShouldSystemUseDarkMode && _ShouldSystemUseDarkMode())
+					HMODULE hUxtheme = LoadLibraryExW(L"uxtheme.dll", nullptr, 0x00000800);
+					if (hUxtheme)
 					{
-						ret = true;
+						_ShouldSystemUseDarkMode = reinterpret_cast<fnShouldSystemUseDarkMode>(GetProcAddress(hUxtheme, MAKEINTRESOURCEA(138)));
+						if (_ShouldSystemUseDarkMode && _ShouldSystemUseDarkMode())
+						{
+							_isDarkMode = true;
+						}
 					}
 				}
 			}
-		}
+		}		
 		FREObject result;
-		auto status = FRENewObjectFromBool(ret, &result);
+		auto status = FRENewObjectFromBool(_isDarkMode, &result);
 		return result;
 	}
 
-	BOOL CALLBACK EnumChildProc(HWND hwndChild, LPARAM lParam)
+	FREObject d3dInit(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[])
 	{
-		int idChild = GetWindowLong(hwndChild, GWL_ID);
-		printf("\n EnumChildProc idChild= %d\n", idChild);
-		//ShowWindow(hwndChild, SW_SHOW);
-		return TRUE;
-	}
-	FREObject initD3d(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[])
-	{
+		int  index_d3d = -1;
 
 		FRENativeWindow nativeWindow;
 		FREObject window = argv[0];
@@ -690,8 +688,19 @@ extern "C" {
 		if (ret == FRE_OK) {
 			FREReleaseNativeWindowHandle(window);
 
-			std::string url = getFREString(argv[1]);
-			d3dpp = new D3DStage((HWND)nativeWindow, 320, 180, url);
+			//std::string url = getFREString(argv[1]);
+			//d3dpp = new D3DStage((HWND)nativeWindow, 320, 180, url);
+
+			int x = getInt32(argv[1]);
+			int y = getInt32(argv[2]);
+			int width = getInt32(argv[3]);
+			int height = getInt32(argv[4]);
+
+			int index = d3dStage_Index += 1;
+			D3DStage *stage = new D3DStage(index, (HWND)nativeWindow,x,y,width,height);
+			VectorD3dStage[index] = stage;
+			printf("\n Index %d\n", index);
+			index_d3d = index;
 			//遍历窗口中的子窗口
 			//EnumChildWindows((HWND)nativeWindow, EnumChildProc,NULL);
 			//HWND child1 = GetWindow((HWND)nativeWindow, GW_CHILD);
@@ -701,7 +710,7 @@ extern "C" {
 		}
 
 		FREObject result;
-		auto status = FRENewObjectFromBool(true, &result);
+		auto status = FRENewObjectFromInt32(index_d3d, &result);
 		return result;
 	}
 
@@ -710,6 +719,18 @@ extern "C" {
 	FREObject d3dRender(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[])
 	{
 		bool ret = false;
+		int index = getInt32(argv[0]);
+
+		D3DStage *stage = VectorD3dStage[index];
+		if (stage) {
+			ret = stage->Render(argc, argv);
+		}
+		FREObject result;
+		auto status = FRENewObjectFromBool(ret, &result);
+		return result;
+
+		/*
+		bool ret = false;
 		if (d3dpp != nullptr)
 		{
 			ret = d3dpp->Render(argc, argv);
@@ -717,23 +738,46 @@ extern "C" {
 		FREObject result;
 		auto status = FRENewObjectFromBool(ret, &result);
 		return result;
+		*/
 	}
 
 
 	FREObject d3dResize(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[])
 	{
-		
-		if (d3dpp != nullptr)
-		{
-			int x = getInt32(argv[0]);
-			int y = getInt32(argv[1]);
-			int w = getInt32(argv[2]);
-			int h = getInt32(argv[3]);
-			d3dpp->Resize(x,y,w,h);
+		bool ret = false;
+		int index = getInt32(argv[0]);
+
+
+		D3DStage *stage = VectorD3dStage[index];
+		if (stage) {
+			int x = getInt32(argv[1]);
+			int y = getInt32(argv[2]);
+			int w = getInt32(argv[3]);
+			int h = getInt32(argv[4]);
+			ret = stage->Resize(x, y, w, h);
 		}
-		return NULL;
+		FREObject result;
+		auto status = FRENewObjectFromBool(ret, &result);
+		return result;
 	}
 
+
+
+	FREObject d3dDestroy(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[])
+	{
+		bool ret = false;
+		int index = getInt32(argv[0]);
+
+
+		D3DStage *stage = VectorD3dStage[index];
+		if (stage) {
+			printf("\n Destroy Index %d\n", index);
+			ret = stage->Destroy();
+		}
+		FREObject result;
+		auto status = FRENewObjectFromBool(ret, &result);
+		return result;
+	}
 
 
 	///
@@ -781,10 +825,10 @@ extern "C" {
 			{ (const uint8_t*) "getWindowHwnd",     NULL, &getWindowHwnd },
 			{ (const uint8_t*) "isDarkMode",     NULL, &isDarkMode },
 			
-			{ (const uint8_t*) "initD3d",     NULL, &initD3d },
+			{ (const uint8_t*) "d3dInit",     NULL, &d3dInit },
 			{ (const uint8_t*) "d3dRender",     NULL, &d3dRender },
 			{ (const uint8_t*) "d3dResize",     NULL, &d3dResize },
-			
+			{ (const uint8_t*) "d3dDestroy",     NULL, &d3dDestroy },			
 		};
 
 		*numFunctionsToSet = sizeof(extensionFunctions) / sizeof(FRENamedFunction);

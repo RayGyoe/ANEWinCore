@@ -42,6 +42,7 @@ package
 		private var initd3d:Boolean;
 		private var w2:flash.display.NativeWindow;
 		private var btn8:com.vsdevelop.controls.Button;
+		private var renderMode:int = 1;
 		public static var view:Main;
 		
 		public function Main():void 
@@ -51,7 +52,7 @@ package
 			
 			stage.scaleMode = StageScaleMode.NO_SCALE;
 			stage.align = "TL";
-			stage.quality = StageQuality.MEDIUM;
+			//stage.quality = StageQuality.MEDIUM;
 			
 			// entry point
 			
@@ -131,14 +132,16 @@ package
 		
 		private function checkisDarkMode(e:MouseEvent):void 
 		{
-			trace('checkisDarkMode', ANEWinCore.getInstance().context.call("isDarkMode"));
+			trace('checkisDarkMode', ANEWinCore.getInstance().isDarkMode());
 			
-			debug.appendText("\n 系统深色模式："+ ANEWinCore.getInstance().context.call("isDarkMode"));
+			debug.appendText("\n 系统深色模式："+ ANEWinCore.getInstance().isDarkMode());
 		}
 		
 		private function initD3d(e:MouseEvent):void 
 		{
-			new Direct3DWindow();
+			renderMode++;
+			if (renderMode > 2) renderMode = 1;
+			new Direct3DWindow(renderMode);
 		}
 		
 		

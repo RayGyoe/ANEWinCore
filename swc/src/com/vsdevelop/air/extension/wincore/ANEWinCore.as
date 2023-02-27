@@ -76,8 +76,6 @@ package com.vsdevelop.air.extension.wincore
 		protected function onStatus(event:Event):void
 		{
 			
-			
-			
 		}
 		
 		/**
@@ -307,6 +305,19 @@ package com.vsdevelop.air.extension.wincore
 				hwnd =  int(_extCtx.call("getWindowHwnd", window));
 			}
 			return hwnd;
+		}
+		
+		
+		/**
+		 * 检查系统是否开启 深色模式
+		 * @return Boolean
+		 */
+		public function isDarkMode():Boolean
+		{
+			if(isSupported){
+				return Boolean(_extCtx.call("isDarkMode"));
+			}
+			return false;
 		}
 		
 		
