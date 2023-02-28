@@ -141,7 +141,7 @@ package
 		{
 			renderMode++;
 			if (renderMode > 2) renderMode = 1;
-			new Direct3DWindow(renderMode);
+			new Direct3DWindow(1);
 		}
 		
 		

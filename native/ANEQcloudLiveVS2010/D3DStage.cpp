@@ -47,12 +47,12 @@ D3DStage::D3DStage(int index,HWND hwnd,int x,int y, int width, int height, doubl
 	wcex.hInstance = NULL;
 	wcex.hIcon = NULL;
 	wcex.hCursor = LoadCursor(NULL, IDC_ARROW);
-	wcex.hbrBackground = (HBRUSH)GetStockObject(GRAY_BRUSH);
+	wcex.hbrBackground = (HBRUSH)GetStockObject(BLACK_BRUSH);
 	wcex.lpszMenuName = NULL;
 	wcex.lpszClassName = L"D3DChildWindow"+index;
 	wcex.hIconSm = NULL;
 	RegisterClassExW(&wcex);
-	m_hwndLayeredChild = CreateWindowEx(0, wcex.lpszClassName, NULL, WS_CHILD | WS_CLIPSIBLINGS, x* scale, y* scale, width * scale, height* scale, hwnd, NULL, NULL, NULL);
+	m_hwndLayeredChild = CreateWindowEx(WS_EX_TRANSPARENT, wcex.lpszClassName, NULL, WS_CHILD | WS_CLIPSIBLINGS, x* scale, y* scale, width * scale, height* scale, hwnd, NULL, NULL, NULL);
 
 
 	printf("\n CreateWindowEx w:%d  h:%d  scale:%f \n", width, height,scale);

@@ -4,6 +4,7 @@ package com.vsdevelop.air.extension.wincore
 	import flash.display.BitmapData;
 	import flash.display.Screen;
 	import flash.display.Stage;
+	import flash.events.Event;
 	import flash.utils.ByteArray;
 	/**
 	 * ...
@@ -20,12 +21,16 @@ package com.vsdevelop.air.extension.wincore
 		private var _y:Number;
 		private var _width:Number;
 		private var _height:Number;
+		private var _stage:Stage;
 		
 		public function D3DStage(stage:Stage,x:int,y:int,width:int,height:int) 
 		{
 			if (ANEWinCore.getInstance().isSupported)
 			{
-				_scale = Screen.mainScreen['contentsScaleFactor']?Screen.mainScreen['contentsScaleFactor']:1;
+				_scale = stage.contentsScaleFactor;
+				
+				_stage = stage;
+				if(_stage)_stage.addEventListener(Event.RESIZE, resizeStage);
 				
 				_x = x * _scale;
 				_y = y * _scale;
@@ -36,6 +41,11 @@ package com.vsdevelop.air.extension.wincore
 				
 				trace("contentsScaleFactor", _scale, "D3DStage", _index);
 			}
+		}
+		
+		private function resizeStage(e:Event):void 
+		{
+			if(_stage)_scale = _stage.contentsScaleFactor;
 		}
 		
 		
@@ -57,6 +67,7 @@ package com.vsdevelop.air.extension.wincore
 				_width = width;
 				_height = height;
 				
+				_scale = _stage.contentsScaleFactor;
 				return Boolean(ANEWinCore.getInstance().context.call("d3dResize", _index, int(_x * _scale), int(_y * _scale), int(_width * _scale), int(_height * _scale)));
 			}
 			return false;
@@ -140,6 +151,7 @@ package com.vsdevelop.air.extension.wincore
 		 */
 		public function destroy():Boolean
 		{
+			if(_stage)_stage.removeEventListener(Event.RESIZE, resizeStage);
 			if (_index)
 			{
 				return Boolean(ANEWinCore.getInstance().context.call("d3dDestroy",_index));

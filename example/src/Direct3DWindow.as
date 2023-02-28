@@ -71,12 +71,12 @@ package
 			var byte:ByteArray = new ByteArray();
 			var bitemapdata:BitmapData = new BitmapData(Main.view.stage.stageWidth, Main.view.stage.stageHeight, false);
 			bitemapdata.draw(Main.view.stage, null, null, null, null, true);
-			bitmap.bitmapData = bitemapdata;
+			//bitmap.bitmapData = bitemapdata;
 			
 			if (d3DStage.renderMode == 1){
+				byte.endian = Endian.LITTLE_ENDIAN;
 				bitemapdata.copyPixelsToByteArray(bitemapdata.rect, byte);
 			
-				byte.endian = Endian.LITTLE_ENDIAN;
 				d3DStage.renderByteArray(byte);
 			}
 			else{
@@ -100,9 +100,7 @@ package
 		}
 		
 		private function resizeWindow(e:Event):void 
-		{
-			trace(Screen.mainScreen.contentsScaleFactor);
-			
+		{		
 			if (d3DStage)
 			{
 				d3DStage.resize(d3DStage.x, d3DStage.y, stage.stageWidth-d3DStage.x, stage.stageHeight - d3DStage.y);
