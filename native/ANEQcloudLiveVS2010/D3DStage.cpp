@@ -47,12 +47,14 @@ D3DStage::D3DStage(int index,HWND hwnd,int x,int y, int width, int height, doubl
 	wcex.hInstance = NULL;
 	wcex.hIcon = NULL;
 	wcex.hCursor = LoadCursor(NULL, IDC_ARROW);
-	wcex.hbrBackground = (HBRUSH)GetStockObject(BLACK_BRUSH);
+	wcex.hbrBackground = (HBRUSH)GetStockObject(BLACK_BRUSH);//BLACK_BRUSH
 	wcex.lpszMenuName = NULL;
-	wcex.lpszClassName = L"D3DChildWindow"+index;
+	wcex.lpszClassName = L"D3DChildWindowClass"+index;
 	wcex.hIconSm = NULL;
 	RegisterClassExW(&wcex);
-	m_hwndLayeredChild = CreateWindowEx(WS_EX_TRANSPARENT, wcex.lpszClassName, NULL, WS_CHILD | WS_CLIPSIBLINGS, x* scale, y* scale, width * scale, height* scale, hwnd, NULL, NULL, NULL);
+
+	//WS_EX_TRANSPARENT
+	m_hwndLayeredChild = CreateWindowEx(WS_EX_TRANSPARENT, wcex.lpszClassName, NULL, WS_CHILD | WS_CLIPSIBLINGS | WS_EX_LAYERED, x* scale, y* scale, width * scale, height* scale, hwnd, NULL, NULL, NULL);
 
 
 	printf("\n CreateWindowEx w:%d  h:%d  scale:%f \n", width, height,scale);
@@ -60,12 +62,12 @@ D3DStage::D3DStage(int index,HWND hwnd,int x,int y, int width, int height, doubl
 	hr = m_hwndLayeredChild ? S_OK : E_FAIL;
 	if (SUCCEEDED(hr))
 	{
-		printf("\n m_hwndLayeredChild ok\n");
-		if (!SetLayeredWindowAttributes(m_hwndLayeredChild, 0, 255, LWA_ALPHA))// LWA_ALPHA
-		{
-			printf("\n SetLayeredWindowAttributes error\n");
-			return;
-		}
+		printf("\n m_hwndLayeredChild ok  hwnd:%d\n",m_hwndLayeredChild);
+		SetLayeredWindowAttributes(m_hwndLayeredChild, 0, 255, LWA_ALPHA);
+	}
+	else {
+		printf("\n m_hwndLayeredChild error\n");
+		return;
 	}
 
 	//SetWindowPos(m_hwndLayeredChild, HWND_BOTTOM, x, y, width, height, SWP_FRAMECHANGED);
@@ -84,7 +86,7 @@ D3DStage::D3DStage(int index,HWND hwnd,int x,int y, int width, int height, doubl
 	d3dpp.AutoDepthStencilFormat = D3DFMT_D24S8;//D3DFMT_D24S8
 	d3dpp.Flags = D3DPRESENTFLAG_VIDEO;
 	d3dpp.SwapEffect = D3DSWAPEFFECT_FLIP;//D3DSWAPEFFECT_FLIP	D3DSWAPEFFECT_DISCARD
-	d3dpp.BackBufferFormat = D3DFMT_A8R8G8B8;
+	d3dpp.BackBufferFormat = D3DFMT_A8R8G8B8;//D3DFMT_A8R8G8B8  D3DFMT_X8R8G8B8 
 	//d3dpp.BackBufferWidth = width;
 	//d3dpp.BackBufferHeight = height;
 	
@@ -212,7 +214,10 @@ bool D3DStage::Render(uint32_t argc, FREObject argv[])
 	return true;
 }
 
-
+bool D3DStage::Visible(bool visible) {
+	ShowWindow(m_hwndLayeredChild, visible ? SW_SHOWNORMAL : SW_HIDE);
+	return true;
+}
 
 
 bool D3DStage::Resize(int x, int y, int w, int h)

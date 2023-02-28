@@ -743,7 +743,21 @@ extern "C" {
 		*/
 	}
 
+	FREObject d3dVisible(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[])
+	{
+		bool ret = false;
+		int index = getInt32(argv[0]);
 
+		D3DStage *stage = VectorD3dStage[index];
+		if (stage) {
+			uint32_t visible;
+			FREGetObjectAsBool(argv[1], &visible);
+			ret = stage->Visible((bool)visible);
+		}
+		FREObject result;
+		auto status = FRENewObjectFromBool(ret, &result);
+		return result;
+	}
 	FREObject d3dResize(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[])
 	{
 		bool ret = false;
@@ -830,6 +844,7 @@ extern "C" {
 			{ (const uint8_t*) "d3dInit",     NULL, &d3dInit },
 			{ (const uint8_t*) "d3dRender",     NULL, &d3dRender },
 			{ (const uint8_t*) "d3dResize",     NULL, &d3dResize },
+			{ (const uint8_t*) "d3dVisible",     NULL, &d3dVisible },
 			{ (const uint8_t*) "d3dDestroy",     NULL, &d3dDestroy },			
 		};
 

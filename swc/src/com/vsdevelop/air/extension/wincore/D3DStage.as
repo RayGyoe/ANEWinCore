@@ -23,6 +23,8 @@ package com.vsdevelop.air.extension.wincore
 		private var _height:Number;
 		private var _stage:Stage;
 		
+		private var _visible:Boolean = true;
+		
 		public function D3DStage(stage:Stage,x:int,y:int,width:int,height:int) 
 		{
 			if (ANEWinCore.getInstance().isSupported)
@@ -103,8 +105,14 @@ package com.vsdevelop.air.extension.wincore
 			
 			if (_index)
 			{
+				if (!_visible) return false;
+				if (_type != 1 && _type != 2){
+					throw new Error("type is 1 & 2");
+				}
 				if (_type == 1){
 					return Boolean(ANEWinCore.getInstance().context.call("d3dRender", _index,_type,byteArray));
+				}else{
+					trace("render model is bitmapdata");
 				}
 			}
 			
@@ -120,8 +128,14 @@ package com.vsdevelop.air.extension.wincore
 			
 			if (_index)
 			{
+				if (!_visible) return false;
+				if (_type != 1 && _type != 2){
+					throw new Error("type is 1 & 2");
+				}
 				if (_type == 2){
 					return Boolean(ANEWinCore.getInstance().context.call("d3dRender", _index,_type,bitmapData));
+				}else{
+					trace("render model is bytearray");
 				}
 			}
 			
@@ -142,6 +156,20 @@ package com.vsdevelop.air.extension.wincore
 		public function get renderMode():int
 		{
 			return this._type;
+		}
+		
+		public function get visible():Boolean 
+		{
+			return _visible;
+		}
+		
+		public function set visible(value:Boolean):void 
+		{
+			if (_index)
+			{
+				_visible = value;
+				ANEWinCore.getInstance().context.call("d3dVisible", _index,_visible);
+			}
 		}
 		
 		

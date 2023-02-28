@@ -2,6 +2,7 @@ package
 {
 	import com.vsdevelop.air.extension.wincore.ANEWinCore;
 	import com.vsdevelop.air.extension.wincore.D3DStage;
+	import com.vsdevelop.controls.Button;
 	import com.vsdevelop.controls.Fps;
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
@@ -10,9 +11,11 @@ package
 	import flash.display.Screen;
 	import flash.display.StageScaleMode;
 	import flash.events.Event;
+	import flash.events.MouseEvent;
 	import flash.filesystem.File;
 	import flash.utils.ByteArray;
 	import flash.utils.Endian;
+	import flash.utils.setTimeout;
 	
 	/**
 	 * ...
@@ -23,6 +26,7 @@ package
 		private var initd3d:Boolean;
 		private var d3DStage:com.vsdevelop.air.extension.wincore.D3DStage;
 		private var bitmap:flash.display.Bitmap;
+		private var btn:Button;
 		
 		public function Direct3DWindow(renderMode:int =1) 
 		{
@@ -31,7 +35,7 @@ package
 			
 			
 			stage.scaleMode = StageScaleMode.NO_SCALE;
-			stage.color = 0x000000;
+			stage.color = 0x901010;
 			stage.align = "TL";
 			
 			width = 1280
@@ -40,6 +44,12 @@ package
 			stage.addEventListener(Event.RESIZE, resizeWindow);
 			stage.nativeWindow.addEventListener(Event.CLOSING, closeWindow);
 			activate();
+			
+			
+			btn = new Button(null, "显示隐藏");
+			btn.x = 100;
+			stage.addChild(btn);
+			btn.addEventListener(MouseEvent.CLICK, checkVisible);
 			
 			
 			bitmap = new Bitmap();
@@ -64,6 +74,11 @@ package
 				trace("initD3d",initd3d);
 				stage.addEventListener(Event.ENTER_FRAME, render);
 			}
+		}
+		
+		private function checkVisible(e:MouseEvent):void 
+		{
+			d3DStage.visible = !d3DStage.visible;
 		}
 		
 		private function drawMain(e:Event):void 

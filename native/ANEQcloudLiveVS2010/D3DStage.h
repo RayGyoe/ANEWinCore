@@ -27,6 +27,7 @@ public:
 
 	D3DStage(int index, HWND hwnd, int x, int y, int width, int height, double scale);
 	bool Render(uint32_t argc, FREObject argv[]);
+	bool Visible(bool visible);
 	bool Resize(int x, int y, int w, int h);
 
 	bool Destroy();
