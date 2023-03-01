@@ -44,6 +44,7 @@ package
 		private var btn8:com.vsdevelop.controls.Button;
 		private var renderMode:int = 1;
 		private var btn10:Button;
+		private var btn11:Button;
 		public static var view:Main;
 		
 		public function Main():void 
@@ -122,16 +123,11 @@ package
 			btn10.addEventListener(MouseEvent.CLICK, startRunEvent);
 			btn10.y = 120;
 			
-			btn11 = new Button(null, "开机启动");
+			btn11 = new Button(null, "开关/开机启动");
 			addChild(btn11);
 			btn11.addEventListener(MouseEvent.CLICK, startRunEvent);
 			btn11.y = 120;
 			btn11.x = 120;
-			btn12 = new Button(null, "取消开机启动");
-			addChild(btn12);
-			btn12.addEventListener(MouseEvent.CLICK, startRunEvent);
-			btn12.y = 120;
-			btn12.x = 220;
 			
 			
 			debug = new TextField();
@@ -150,7 +146,17 @@ package
 		
 		private function startRunEvent(e:MouseEvent):void 
 		{
-			trace(e.target);
+			if (e.currentTarget == btn10){
+				
+				
+				debug.appendText("\n 是否开机启动："+ ANEWinCore.getInstance().isStartAtLogin("example"));
+			}
+			if (e.currentTarget == btn11){
+				
+				 var isRun:Boolean = ANEWinCore.getInstance().isStartAtLogin("example");
+				
+				debug.appendText("\n 更新开机启动：" + ANEWinCore.getInstance().setStartAtLogin("example", !isRun));
+			}
 		}
 		
 		private function checkisDarkMode(e:MouseEvent):void 

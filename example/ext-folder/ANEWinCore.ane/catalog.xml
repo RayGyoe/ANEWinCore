@@ -10,7 +10,7 @@
   </features>
   <libraries>
     <library path="library.swf">
-      <script name="com/vsdevelop/air/extension/wincore/ANEWinCore" mod="1677507636013" signatureChecksum="2267642866" >
+      <script name="com/vsdevelop/air/extension/wincore/ANEWinCore" mod="1677681857971" signatureChecksum="1452320574" >
         <def id="com.vsdevelop.air.extension.wincore:ANEWinCore" /> 
         <dep id="flash.display:NativeWindow" type="s" /> 
         <dep id="flash.filesystem:File" type="s" /> 
@@ -43,14 +43,14 @@
         <dep id="Object" type="i" /> 
         <dep id="AS3" type="n" /> 
       </script>
-      <script name="_fbaf79ccd4ac43a6c150324520d57eef4343310230774b125574c9850dc43de9_flash_display_Sprite" mod="1677597384697" signatureChecksum="3734468947" >
-        <def id="_fbaf79ccd4ac43a6c150324520d57eef4343310230774b125574c9850dc43de9_flash_display_Sprite" /> 
+      <script name="_18066ebb2c6f3fb0ff2e11923acf8dba874d8d7222d0e55cae485ba38850af23_flash_display_Sprite" mod="1677681867749" signatureChecksum="1489599391" >
+        <def id="_18066ebb2c6f3fb0ff2e11923acf8dba874d8d7222d0e55cae485ba38850af23_flash_display_Sprite" /> 
         <dep id="flash.system:Security" type="e" /> 
         <dep id="flash.display:Sprite" type="i" /> 
         <dep id="AS3" type="n" /> 
       </script>
       <digests>
-        <digest type="SHA-256" signed="false" value="ee7188255dde17c3301c81014dc045532af25397cefb112259228603ed1d2c2f"   />
+        <digest type="SHA-256" signed="false" value="32af9d083df810862b45d1409b95213fac1a6ad7d327ec7e70a3610e1521125f"   />
       </digests>
     </library>
   </libraries>

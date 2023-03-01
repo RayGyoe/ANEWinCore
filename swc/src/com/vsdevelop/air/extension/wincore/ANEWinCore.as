@@ -1,5 +1,6 @@
 package com.vsdevelop.air.extension.wincore
 {
+	import flash.desktop.NativeApplication;
 	import flash.display.NativeWindow;
 	import flash.display.Stage;
 	import flash.events.Event;
@@ -345,6 +346,31 @@ package com.vsdevelop.air.extension.wincore
 			if (isSupported){
 				if (font.exists) return _extCtx.call("removeFont", font.nativePath) as Boolean;
 				else trace("Font is Exists");
+			}
+			return false;
+		}
+		
+		/**
+		 * 检查是否开启了开机启动
+		 * @param	appName
+		 * @return
+		 */
+		public function isStartAtLogin (appName:String) : Boolean{
+			if (isSupported){
+				return _extCtx.call("isAutoStart", appName) as Boolean;
+			}
+			return false;
+		}
+		/**
+		 * 设置开机启动
+		 * @param	appName
+		 * @param	startAtLogin
+		 * @return
+		 */
+		public function setStartAtLogin (appName:String,startAtLogin:Boolean):Boolean
+		{
+			if (isSupported){
+				return _extCtx.call("updateAutoStart", appName,startAtLogin) as Boolean;
 			}
 			return false;
 		}
