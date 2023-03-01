@@ -1,5 +1,6 @@
 #include "ANEWinCore.h"
 
+#include "win_utils.h"
 
 #include "IEProxy.h"
 using namespace ie_proxy;
@@ -17,6 +18,7 @@ using namespace ie_proxy;
 #include "D3DStage.h"
 
 #include "StartRun.h"
+
 
 //===================================================================
 std::string intToStdString(int value)

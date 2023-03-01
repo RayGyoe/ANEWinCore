@@ -199,6 +199,7 @@
     <ClInclude Include="IEProxy.h" />
     <ClInclude Include="MiniDump.h" />
     <ClInclude Include="StartRun.h" />
+    <ClInclude Include="win_utils.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ANEWinCore.cpp" />

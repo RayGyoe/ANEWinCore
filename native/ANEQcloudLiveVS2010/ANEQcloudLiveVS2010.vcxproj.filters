@@ -45,6 +45,9 @@
     <ClInclude Include="StartRun.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="win_utils.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Library Include="FlashRuntimeExtensions.lib">
