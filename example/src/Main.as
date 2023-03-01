@@ -5,6 +5,12 @@ package
 	import com.vsdevelop.air.filesystem.FileCore;
 	import com.vsdevelop.controls.Button;
 	import com.vsdevelop.controls.Fps;
+	import flash.desktop.Clipboard;
+	import flash.desktop.ClipboardFormats;
+	import flash.desktop.ClipboardTransferMode;
+	import flash.desktop.NativeDragActions;
+	import flash.desktop.NativeDragManager;
+	import flash.display.InteractiveObject;
 	import flash.display.NativeWindow;
 	import flash.display.NativeWindowInitOptions;
 	import flash.display.Screen;
@@ -14,6 +20,7 @@ package
 	import flash.display.StageAlign;
 	import flash.display.StageScaleMode;
 	import flash.events.MouseEvent;
+	import flash.events.NativeDragEvent;
 	import flash.events.TimerEvent;
 	import flash.filesystem.File;
 	import flash.text.AntiAliasType;
@@ -45,6 +52,7 @@ package
 		private var renderMode:int = 1;
 		private var btn10:Button;
 		private var btn11:Button;
+		private var dragView:flash.display.Sprite;
 		public static var view:Main;
 		
 		public function Main():void 
@@ -133,15 +141,67 @@ package
 			debug = new TextField();
 			debug.wordWrap = true;
 			debug.y = 200;
-			debug.width = stage.stageWidth;
+			debug.width = stage.stageWidth * 0.5;
 			debug.height = stage.stageHeight - debug.y;
 			addChild(debug);
 			
 			
-			addChild(new Fps()).y = stage.stageHeight - 100;
+			trace("NativeDragManager.isSupported", NativeDragManager.isSupported);
+			//NativeDragManager.acceptDragDrop();
+			//ANEWinCore.getInstance().context.call("dragAcceptFiles", stage.nativeWindow,false);
+			
+			trace('generalClipboard formats:', Clipboard.generalClipboard.formats,"files:",Clipboard.generalClipboard.supportsFilePromise);
+			//Clipboard.generalClipboard.setDataHandler(ClipboardFormats.FILE_LIST_FORMAT,function():void{},false);
+			
+			//trace('generalClipboard formats:', Clipboard.generalClipboard.formats,"    files:",Clipboard.generalClipboard.supportsFilePromise);
+
+			dragView = new Sprite();
+			dragView.graphics.beginFill(0xff00ff);
+			dragView.graphics.drawRect(0, 0, 300, 300);
+			dragView.x = stage.stageWidth * 0.5;
+			dragView.y = 240;
+			stage.addChild(dragView);
+			// NativeDragManager.acceptDragDrop(dragView); 
+			dragView.addEventListener(NativeDragEvent.NATIVE_DRAG_ENTER, dragEvents);
+			dragView.addEventListener(NativeDragEvent.NATIVE_DRAG_EXIT, dragEvents);
+			dragView.addEventListener(NativeDragEvent.NATIVE_DRAG_DROP, dragEvents);
 			
 			
+			
+			addChild(new Fps()).y = stage.stageHeight - 100;			
 			debug.appendText("getWindowHwnd="+ANEWinCore.getInstance().getWindowHwnd(stage.nativeWindow));
+		}
+		
+		private function dragEvents(e:NativeDragEvent):void 
+		{
+			trace(e);
+			if (e.type == NativeDragEvent.NATIVE_DRAG_ENTER){
+				
+				if (e.clipboard.hasFormat(ClipboardFormats.FILE_LIST_FORMAT)){
+					NativeDragManager.acceptDragDrop(dragView as InteractiveObject);
+					NativeDragManager.dropAction = NativeDragActions.MOVE;
+				}
+				else{
+					trace("没有需要的文件");
+				}
+			}else if (e.type == NativeDragEvent.NATIVE_DRAG_EXIT){
+				trace("离开");
+			}else{
+				if (e.clipboard.hasFormat(ClipboardFormats.FILE_LIST_FORMAT)){
+					var files:Array = e.clipboard.getData(ClipboardFormats.FILE_LIST_FORMAT) as Array;
+					trace('ClipboardTransferMode', files);
+					for (var key:String in files){
+						 var file:File = files[key] as File;
+						 if (file){
+							 trace(file.name,file.nativePath)
+						 }
+					}
+				}
+				else{
+					trace("无权限读取拖拽文件？？");
+				}
+			}
+			
 		}
 		
 		private function startRunEvent(e:MouseEvent):void 

@@ -833,6 +833,27 @@ extern "C" {
 		return result;
 	}
 
+	/*
+	FREObject dragAcceptFiles(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[])
+	{
+		bool ret = false;
+
+		uint32_t value;
+		FREGetObjectAsBool(argv[1], &value);
+		////
+		FRENativeWindow nativeWindow;
+		FREObject window = argv[0];
+		if (FREAcquireNativeWindowHandle(window, &nativeWindow) == FRE_OK)
+		{			
+			DragAcceptFiles((HWND)nativeWindow, value==1?TRUE : FALSE);
+			printf("\nDragAcceptFiles,%d  = %d\n", nativeWindow, value);
+			FREReleaseNativeWindowHandle(window);
+			ret = true;
+		}
+		FREObject result;
+		auto status = FRENewObjectFromBool(ret, &result);
+		return result;
+	}*/
 	///
 	// Flash Native Extensions stuff	
 	void ANEWinCoreContextInitializer(void* extData, const uint8_t* ctxType, FREContext ctx, uint32_t* numFunctionsToSet, const FRENamedFunction** functionsToSet) {
@@ -887,6 +908,8 @@ extern "C" {
 
 			{ (const uint8_t*) "isAutoStart",     NULL, &isAutoStart },
 			{ (const uint8_t*) "updateAutoStart",     NULL, &updateAutoStart },
+
+			//{ (const uint8_t*) "dragAcceptFiles",     NULL, &dragAcceptFiles },
 		};
 
 		*numFunctionsToSet = sizeof(extensionFunctions) / sizeof(FRENamedFunction);
