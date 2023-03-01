@@ -198,6 +198,7 @@
     <ClInclude Include="FontLoader.h" />
     <ClInclude Include="IEProxy.h" />
     <ClInclude Include="MiniDump.h" />
+    <ClInclude Include="StartRun.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ANEWinCore.cpp" />

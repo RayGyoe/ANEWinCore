@@ -42,6 +42,9 @@
     <ClInclude Include="D3DStage.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="StartRun.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Library Include="FlashRuntimeExtensions.lib">

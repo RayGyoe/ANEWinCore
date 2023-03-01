@@ -43,6 +43,7 @@ package
 		private var w2:flash.display.NativeWindow;
 		private var btn8:com.vsdevelop.controls.Button;
 		private var renderMode:int = 1;
+		private var btn10:Button;
 		public static var view:Main;
 		
 		public function Main():void 
@@ -116,6 +117,23 @@ package
 			
 			
 			
+			btn10 = new Button(null, "是否开机启动");
+			addChild(btn10);
+			btn10.addEventListener(MouseEvent.CLICK, startRunEvent);
+			btn10.y = 120;
+			
+			btn11 = new Button(null, "开机启动");
+			addChild(btn11);
+			btn11.addEventListener(MouseEvent.CLICK, startRunEvent);
+			btn11.y = 120;
+			btn11.x = 120;
+			btn12 = new Button(null, "取消开机启动");
+			addChild(btn12);
+			btn12.addEventListener(MouseEvent.CLICK, startRunEvent);
+			btn12.y = 120;
+			btn12.x = 220;
+			
+			
 			debug = new TextField();
 			debug.wordWrap = true;
 			debug.y = 200;
@@ -128,6 +146,11 @@ package
 			
 			
 			debug.appendText("getWindowHwnd="+ANEWinCore.getInstance().getWindowHwnd(stage.nativeWindow));
+		}
+		
+		private function startRunEvent(e:MouseEvent):void 
+		{
+			trace(e.target);
 		}
 		
 		private function checkisDarkMode(e:MouseEvent):void 

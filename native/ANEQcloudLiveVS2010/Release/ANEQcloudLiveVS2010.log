@@ -1,52 +1,36 @@
-﻿生成启动时间为 2023/2/28 23:12:41。
-     1>项目“E:\Works\eDoctor\ANEWinCore\native\ANEQcloudLiveVS2010\ANEQcloudLiveVS2010.vcxproj”在节点 2 上(Rebuild 个目标)。
-     1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\CL.exe /c /Zi /nologo /W3 /WX- /O2 /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _WINDOWS /D _USRDLL /D ANEQCLOUDLIVEVS2010_EXPORTS /D _CRT_SECURE_NO_DEPRECATE /D _USING_V110_SDK71_ /D _WINDLL /D _UNICODE /D UNICODE /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Release\\" /Fd"Release\vc140.pdb" /Gd /TP /analyze- /errorReport:prompt ANEWinCore.cpp "crash-report.cpp" CustomURLProtocolApp.cpp D3DStage.cpp FontLoader.cpp MiniDump.cpp
-         ANEWinCore.cpp
-     1>e:\works\edoctor\anewincore\native\aneqcloudlivevs2010\IEProxy.h(88): warning C4800: “BOOL”: 将值强制为布尔值“true”或“false”(性能警告)
-     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.1A\include\DbgHelp.h(1540): warning C4091: “typedef ”: 没有声明变量时忽略“”的左侧
-     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.1A\include\DbgHelp.h(3056): warning C4091: “typedef ”: 没有声明变量时忽略“”的左侧
-     1>ANEWinCore.cpp(453): warning C4477: 'printf' : format string '%ls' requires an argument of type 'wchar_t *', but variadic argument 1 has type 'std::wstring'
-     1>ANEWinCore.cpp(470): warning C4477: 'printf' : format string '%ls' requires an argument of type 'wchar_t *', but variadic argument 1 has type 'std::wstring'
-     1>ANEWinCore.cpp(755): warning C4800: “uint32_t”: 将值强制为布尔值“true”或“false”(性能警告)
-         crash-report.cpp
-     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.1A\include\DbgHelp.h(1540): warning C4091: “typedef ”: 没有声明变量时忽略“”的左侧
-     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.1A\include\DbgHelp.h(3056): warning C4091: “typedef ”: 没有声明变量时忽略“”的左侧
-     1>crash-report.cpp(52): warning C4800: “BOOL”: 将值强制为布尔值“true”或“false”(性能警告)
-         CustomURLProtocolApp.cpp
-     1>C:\Program Files (x86)\Windows Kits\10\Include\10.0.10150.0\ucrt\tchar.h(98): warning C4005: “_ftcscat”: 宏重定义
-         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.1A\include\Strsafe.h(9685): note: 参见“_ftcscat”的前一个定义
-     1>C:\Program Files (x86)\Windows Kits\10\Include\10.0.10150.0\ucrt\tchar.h(100): warning C4005: “_ftcscpy”: 宏重定义
-         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.1A\include\Strsafe.h(9683): note: 参见“_ftcscpy”的前一个定义
-     1>C:\Program Files (x86)\Windows Kits\10\Include\10.0.10150.0\ucrt\tchar.h(220): warning C4005: “_stprintf”: 宏重定义
-         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.1A\include\Strsafe.h(9686): note: 参见“_stprintf”的前一个定义
-         D3DStage.cpp
-     1>D3DStage.cpp(57): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
-     1>D3DStage.cpp(65): warning C4477: 'printf' : format string '%d' requires an argument of type 'int', but variadic argument 1 has type 'HWND'
-     1>D3DStage.cpp(184): warning C4018: “<”: 有符号/无符号不匹配
-     1>D3DStage.cpp(388): warning C4018: “<”: 有符号/无符号不匹配
-     1>D3DStage.cpp(391): warning C4018: “<”: 有符号/无符号不匹配
-     1>D3DStage.cpp(394): warning C4018: “<”: 有符号/无符号不匹配
-         FontLoader.cpp
-         MiniDump.cpp
-     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.1A\include\DbgHelp.h(1540): warning C4091: “typedef ”: 没有声明变量时忽略“”的左侧
-     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.1A\include\DbgHelp.h(3056): warning C4091: “typedef ”: 没有声明变量时忽略“”的左侧
-       Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"E:\Works\eDoctor\ANEWinCore\native\Release\ANEWinCore.dll" /INCREMENTAL:NO /NOLOGO /LIBPATH:. shlwapi.lib User32.lib FlashRuntimeExtensions.lib d3d9.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /manifestinput:"C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\Include\Manifest\PerMonitorHighDPIAware.manifest" /Debug /PDB:"E:\Works\eDoctor\ANEWinCore\native\Release\ANEWinCore.pdb" /SUBSYSTEM:WINDOWS,"5.01" /OPT:REF /OPT:ICF /LTCG:incremental /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"E:\Works\eDoctor\ANEWinCore\native\Release\ANEWinCore.lib" /MACHINE:X86 /SAFESEH /DLL Release\ANEWinCore.obj
-         "Release\crash-report.obj"
-         Release\CustomURLProtocolApp.obj
-         Release\D3DStage.obj
-         Release\FontLoader.obj
-         Release\MiniDump.obj
-         FlashRuntimeExtensions.lib
-           正在创建库 E:\Works\eDoctor\ANEWinCore\native\Release\ANEWinCore.lib 和对象 E:\Works\eDoctor\ANEWinCore\native\Release\ANEWinCore.exp
-         正在生成代码
-     1>e:\works\edoctor\anewincore\native\aneqcloudlivevs2010\anewincore.cpp(226): warning C4700: 使用了未初始化的局部变量“test”
-         All 827 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
-         已完成代码的生成
-         ANEQcloudLiveVS2010.vcxproj -> E:\Works\eDoctor\ANEWinCore\native\Release\ANEWinCore.dll
-     1>已完成生成项目“E:\Works\eDoctor\ANEWinCore\native\ANEQcloudLiveVS2010\ANEQcloudLiveVS2010.vcxproj”(Rebuild 个目标)的操作。
-
-已成功生成。
-
-已用时间 00:00:03.91
+﻿  ANEWinCore.cpp
+d:\works\works\talkmedandroid-company\anewincore\native\aneqcloudlivevs2010\IEProxy.h(88): warning C4800: “BOOL”: 将值强制为布尔值“true”或“false”(性能警告)
+C:\Program Files (x86)\Microsoft SDKs\Windows\v7.1A\include\DbgHelp.h(1540): warning C4091: “typedef ”: 没有声明变量时忽略“”的左侧
+C:\Program Files (x86)\Microsoft SDKs\Windows\v7.1A\include\DbgHelp.h(3056): warning C4091: “typedef ”: 没有声明变量时忽略“”的左侧
+ANEWinCore.cpp(456): warning C4477: “printf”: 格式字符串“%ls”需要类型“wchar_t *”的参数，但可变参数 1 拥有了类型“std::wstring”
+ANEWinCore.cpp(473): warning C4477: “printf”: 格式字符串“%ls”需要类型“wchar_t *”的参数，但可变参数 1 拥有了类型“std::wstring”
+ANEWinCore.cpp(758): warning C4800: “uint32_t”: 将值强制为布尔值“true”或“false”(性能警告)
+  crash-report.cpp
+C:\Program Files (x86)\Microsoft SDKs\Windows\v7.1A\include\DbgHelp.h(1540): warning C4091: “typedef ”: 没有声明变量时忽略“”的左侧
+C:\Program Files (x86)\Microsoft SDKs\Windows\v7.1A\include\DbgHelp.h(3056): warning C4091: “typedef ”: 没有声明变量时忽略“”的左侧
+crash-report.cpp(52): warning C4800: “BOOL”: 将值强制为布尔值“true”或“false”(性能警告)
+  CustomURLProtocolApp.cpp
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\tchar.h(98): warning C4005: “_ftcscat”: 宏重定义
+  C:\Program Files (x86)\Microsoft SDKs\Windows\v7.1A\include\Strsafe.h(9685): note: 参见“_ftcscat”的前一个定义
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\tchar.h(100): warning C4005: “_ftcscpy”: 宏重定义
+  C:\Program Files (x86)\Microsoft SDKs\Windows\v7.1A\include\Strsafe.h(9683): note: 参见“_ftcscpy”的前一个定义
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\tchar.h(220): warning C4005: “_stprintf”: 宏重定义
+  C:\Program Files (x86)\Microsoft SDKs\Windows\v7.1A\include\Strsafe.h(9686): note: 参见“_stprintf”的前一个定义
+  D3DStage.cpp
+D3DStage.cpp(57): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
+D3DStage.cpp(65): warning C4477: “printf”: 格式字符串“%d”需要类型“int”的参数，但可变参数 1 拥有了类型“HWND”
+D3DStage.cpp(184): warning C4018: “<”: 有符号/无符号不匹配
+D3DStage.cpp(388): warning C4018: “<”: 有符号/无符号不匹配
+D3DStage.cpp(391): warning C4018: “<”: 有符号/无符号不匹配
+D3DStage.cpp(394): warning C4018: “<”: 有符号/无符号不匹配
+  FontLoader.cpp
+  MiniDump.cpp
+C:\Program Files (x86)\Microsoft SDKs\Windows\v7.1A\include\DbgHelp.h(1540): warning C4091: “typedef ”: 没有声明变量时忽略“”的左侧
+C:\Program Files (x86)\Microsoft SDKs\Windows\v7.1A\include\DbgHelp.h(3056): warning C4091: “typedef ”: 没有声明变量时忽略“”的左侧
+    正在创建库 D:\Works\Works\TalkMEDAndroid-Company\anewincore\native\Release\ANEWinCore.lib 和对象 D:\Works\Works\TalkMEDAndroid-Company\anewincore\native\Release\ANEWinCore.exp
+  正在生成代码
+d:\works\works\talkmedandroid-company\anewincore\native\aneqcloudlivevs2010\anewincore.cpp(229): warning C4700: 使用了未初始化的局部变量“test”
+  All 870 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  已完成代码的生成
+  ANEQcloudLiveVS2010.vcxproj -> D:\Works\Works\TalkMEDAndroid-Company\anewincore\native\Release\ANEWinCore.dll
+  ANEQcloudLiveVS2010.vcxproj -> D:\Works\Works\TalkMEDAndroid-Company\anewincore\native\Release\ANEWinCore.pdb (Full PDB)

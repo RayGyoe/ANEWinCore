@@ -16,7 +16,7 @@ using namespace ie_proxy;
 
 #include "D3DStage.h"
 
-
+#include "StartRun.h"
 
 //===================================================================
 std::string intToStdString(int value)
@@ -190,6 +190,9 @@ extern "C" {
 	int d3dStage_Index = 0;
 
 	CustomURLProtocol m_CustomURLProtocol;
+
+
+	StartRun m_StartRun;
 	//初始化
 	FREObject isSupported(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[])
 	{
@@ -796,6 +799,40 @@ extern "C" {
 	}
 
 
+	//是否启用了开机启动
+	FREObject isAutoStart(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[])
+	{
+
+		std::string appName = getFREString(argv[0]);
+
+		bool ret = m_StartRun.isStart(appName);
+
+		FREObject result;
+		auto status = FRENewObjectFromBool(ret, &result);
+		return result;
+	}
+
+	FREObject updateAutoStart(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[])
+	{
+		bool ret = false;
+
+		////
+		std::string appName = getFREString(argv[0]);
+		uint32_t isRun;
+		FREGetObjectAsBool(argv[1],&isRun);
+		
+		if (isRun) {
+			ret = m_StartRun.StartOn(appName);
+		}
+		else {
+			ret = m_StartRun.StartOff(appName);
+		}
+
+		FREObject result;
+		auto status = FRENewObjectFromBool(ret, &result);
+		return result;
+	}
+
 	///
 	// Flash Native Extensions stuff	
 	void ANEWinCoreContextInitializer(void* extData, const uint8_t* ctxType, FREContext ctx, uint32_t* numFunctionsToSet, const FRENamedFunction** functionsToSet) {
@@ -845,7 +882,11 @@ extern "C" {
 			{ (const uint8_t*) "d3dRender",     NULL, &d3dRender },
 			{ (const uint8_t*) "d3dResize",     NULL, &d3dResize },
 			{ (const uint8_t*) "d3dVisible",     NULL, &d3dVisible },
-			{ (const uint8_t*) "d3dDestroy",     NULL, &d3dDestroy },			
+			{ (const uint8_t*) "d3dDestroy",     NULL, &d3dDestroy },
+
+
+			{ (const uint8_t*) "isAutoStart",     NULL, &isAutoStart },
+			{ (const uint8_t*) "updateAutoStart",     NULL, &updateAutoStart },
 		};
 
 		*numFunctionsToSet = sizeof(extensionFunctions) / sizeof(FRENamedFunction);
@@ -869,4 +910,3 @@ extern "C" {
 		return;
 	}
 }
-
