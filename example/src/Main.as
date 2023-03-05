@@ -2,7 +2,7 @@ package
 {
 	//import flash.desktop.NativeApplication;
 	import com.vsdevelop.air.extension.wincore.ANEHKeyType;
-	import com.vsdevelop.air.filesystem.FileCore;
+	import com.vsdevelop.air.extension.wincore.Mp4Record;
 	import com.vsdevelop.controls.Button;
 	import com.vsdevelop.controls.Fps;
 	import flash.desktop.Clipboard;
@@ -10,6 +10,7 @@ package
 	import flash.desktop.ClipboardTransferMode;
 	import flash.desktop.NativeDragActions;
 	import flash.desktop.NativeDragManager;
+	import flash.display.BitmapData;
 	import flash.display.InteractiveObject;
 	import flash.display.NativeWindow;
 	import flash.display.NativeWindowInitOptions;
@@ -29,7 +30,10 @@ package
 	import flash.ui.Multitouch;
 	import flash.ui.MultitouchInputMode;
 	import com.vsdevelop.air.extension.wincore.ANEWinCore;
+	import flash.utils.ByteArray;
+	import flash.utils.Endian;
 	import flash.utils.Timer;
+	import flash.utils.getTimer;
 	/**
 	 * ...
 	 * @author eDoctor DSN - Ray.Lei
@@ -53,6 +57,9 @@ package
 		private var btn10:Button;
 		private var btn11:Button;
 		private var dragView:flash.display.Sprite;
+		private var btn12:Button;
+		private var record:com.vsdevelop.air.extension.wincore.Mp4Record;
+		private var recordTimer:flash.utils.Timer;
 		public static var view:Main;
 		
 		public function Main():void 
@@ -138,6 +145,13 @@ package
 			btn11.x = 120;
 			
 			
+			btn12 = new Button(null, "开始/停止录制");
+			addChild(btn12);
+			btn12.addEventListener(MouseEvent.CLICK, recordBtn);
+			btn12.y = 120;
+			btn12.x = 220;
+			
+			
 			debug = new TextField();
 			debug.wordWrap = true;
 			debug.y = 200;
@@ -167,9 +181,48 @@ package
 			dragView.addEventListener(NativeDragEvent.NATIVE_DRAG_DROP, dragEvents);
 			
 			
+			//ANEWinCore.getInstance().dragAcceptFiles(stage, false);
+			
+			trace(ANEWinCore.getInstance().getComputerName(),stage.stageWidth,stage.stageHeight);
 			
 			addChild(new Fps()).y = stage.stageHeight - 100;			
 			debug.appendText("getWindowHwnd="+ANEWinCore.getInstance().getWindowHwnd(stage.nativeWindow));
+		}
+		
+		private function recordBtn(e:MouseEvent):void 
+		{
+			
+			if (record){
+				
+				recordTimer.stop();
+				recordTimer.removeEventListener(TimerEvent.TIMER, recordAppendFrame);
+				record.Finalize();
+				
+				record = null;
+				
+			}else{
+				
+				var file:File = new File(File.applicationDirectory.nativePath + "/test.mp4")
+				trace(file.nativePath);
+				record = new Mp4Record(file, 24, 1920, 1080);
+				
+				recordTimer = new Timer(1000 / 24);
+				recordTimer.addEventListener(TimerEvent.TIMER, recordAppendFrame);
+				recordTimer.start();
+			}			
+		}
+		
+		private function recordAppendFrame(e:TimerEvent):void 
+		{
+			var byte:ByteArray = new ByteArray();
+			var bitemapdata:BitmapData = new BitmapData(stage.stageWidth, stage.stageHeight, false);
+			bitemapdata.draw(stage, null, null, null, null, true);
+			byte.endian = Endian.LITTLE_ENDIAN;
+			bitemapdata.copyPixelsToByteArray(bitemapdata.rect, byte);
+			
+			record.AppendFrame(byte);
+			
+			byte.clear();
 		}
 		
 		private function dragEvents(e:NativeDragEvent):void 

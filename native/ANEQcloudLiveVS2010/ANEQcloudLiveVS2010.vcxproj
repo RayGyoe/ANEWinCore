@@ -198,6 +198,7 @@
     <ClInclude Include="FontLoader.h" />
     <ClInclude Include="IEProxy.h" />
     <ClInclude Include="MiniDump.h" />
+    <ClInclude Include="MP4File.h" />
     <ClInclude Include="StartRun.h" />
     <ClInclude Include="win_utils.h" />
   </ItemGroup>
@@ -208,6 +209,7 @@
     <ClCompile Include="D3DStage.cpp" />
     <ClCompile Include="FontLoader.cpp" />
     <ClCompile Include="MiniDump.cpp" />
+    <ClCompile Include="MP4File.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="FlashRuntimeExtensions.lib" />

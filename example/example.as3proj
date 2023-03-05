@@ -6,8 +6,8 @@
     <movie input="" />
     <movie path="bin\example.swf" />
     <movie fps="36" />
-    <movie width="1280" />
-    <movie height="720" />
+    <movie width="1920" />
+    <movie height="1080" />
     <movie version="0" />
     <movie minorVersion="0" />
     <movie platform="AIR Mobile" />

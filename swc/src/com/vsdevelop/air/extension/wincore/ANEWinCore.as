@@ -375,5 +375,30 @@ package com.vsdevelop.air.extension.wincore
 			return false;
 		}
 		
+		
+		/**
+		 * 设置窗口是否允许文件拖放
+		 * @param	stage
+		 * @param	value
+		 * @return
+		 */
+		public function dragAcceptFiles(stage:Stage,value:Boolean = true):Boolean{
+			if (isSupported){
+				return _extCtx.call("dragAcceptFiles", stage.nativeWindow,value) as Boolean;
+			}
+			return false;
+		}
+		
+		
+		/**
+		 * 获取计算机名称
+		 * @return
+		 */
+		public function getComputerName():String{
+			if (isSupported){
+				return _extCtx.call("getHostName") as String;
+			}
+			return null;
+		}
 	}
 }

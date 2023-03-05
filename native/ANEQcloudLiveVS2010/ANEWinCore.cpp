@@ -16,9 +16,9 @@ using namespace ie_proxy;
 #pragma comment(lib,"psapi.lib")
 
 #include "D3DStage.h"
-
 #include "StartRun.h"
-
+#include "win_utils.h"
+#include "MP4File.h"
 
 //===================================================================
 std::string intToStdString(int value)
@@ -105,7 +105,32 @@ bool isFREResultOK(FREResult errorCode, std::string errorMessage) {
 	printf("isFREResultOK = %s", errorMessage.c_str());
 	return false;
 }
+std::string string_To_UTF8(const std::string& str)
+{
+	int nwLen = ::MultiByteToWideChar(CP_ACP, 0, str.c_str(), -1, NULL, 0);
 
+	wchar_t* pwBuf = new wchar_t[nwLen + 1];//一定要加1，不然會出現尾巴
+	ZeroMemory(pwBuf, nwLen * 2 + 2);
+
+	::MultiByteToWideChar(CP_ACP, 0, str.c_str(), str.length(), pwBuf, nwLen);
+
+	int nLen = ::WideCharToMultiByte(CP_UTF8, 0, pwBuf, -1, NULL, NULL, NULL, NULL);
+
+	char* pBuf = new char[nLen + 1];
+	ZeroMemory(pBuf, nLen + 1);
+
+	::WideCharToMultiByte(CP_UTF8, 0, pwBuf, nwLen, pBuf, nLen, NULL, NULL);
+
+	std::string retStr(pBuf);
+
+	delete[]pwBuf;
+	delete[]pBuf;
+
+	pwBuf = NULL;
+	pBuf = NULL;
+
+	return retStr;
+}
 
 std::string getFREString(FREObject value)
 {
@@ -158,6 +183,21 @@ std::string ws2s(const std::wstring &ws)
 	return result;
 }
 
+char*  wcharToChar(const wchar_t* wch)
+{
+	char* _char;
+	int len = WideCharToMultiByte(CP_ACP, 0, wch, wcslen(wch), NULL, 0, NULL, NULL);
+	_char = new char[len + 1];
+	WideCharToMultiByte(CP_ACP, 0, wch, wcslen(wch), _char, len, NULL, NULL);
+	_char[len] = '\0';
+	return _char;
+}
+
+
+
+
+
+
 extern "C" {
 
 	const char *TAG = "ANEWinCore";
@@ -193,8 +233,17 @@ extern "C" {
 
 	CustomURLProtocol m_CustomURLProtocol;
 
-
+	WinUtils winUtils;
 	StartRun m_StartRun;
+
+
+
+	//
+	int VIDEO_WIDTH = 1920;
+	int VIDEO_HEIGHT = 1080;
+	std::map<int, MP4File*>VectorMp4Record;
+	int mp4Record_Index = 0;
+
 	//初始化
 	FREObject isSupported(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[])
 	{
@@ -835,7 +884,10 @@ extern "C" {
 		return result;
 	}
 
+	
 	/*
+	允许拖拽文件到窗口
+	*/
 	FREObject dragAcceptFiles(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[])
 	{
 		bool ret = false;
@@ -846,7 +898,7 @@ extern "C" {
 		FRENativeWindow nativeWindow;
 		FREObject window = argv[0];
 		if (FREAcquireNativeWindowHandle(window, &nativeWindow) == FRE_OK)
-		{			
+		{
 			DragAcceptFiles((HWND)nativeWindow, value==1?TRUE : FALSE);
 			printf("\nDragAcceptFiles,%d  = %d\n", nativeWindow, value);
 			FREReleaseNativeWindowHandle(window);
@@ -855,7 +907,108 @@ extern "C" {
 		FREObject result;
 		auto status = FRENewObjectFromBool(ret, &result);
 		return result;
-	}*/
+	}
+
+
+	/*
+	获取计算机名称
+	*/
+	FREObject getHostName(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[])
+	{
+		////
+		std::string hostName = string_To_UTF8(wcharToChar(winUtils.GetHostName().c_str()));
+		return newFREObject(hostName.c_str());
+	}
+	
+
+
+	HBITMAP GetBitmap()
+	{
+		HDC hScreen = GetDC(NULL);
+		HDC hDC = CreateCompatibleDC(hScreen);
+
+		HBITMAP hBitmap = CreateCompatibleBitmap(hScreen, VIDEO_WIDTH, VIDEO_HEIGHT);
+		HGDIOBJ old_obj = SelectObject(hDC, hBitmap);
+		BOOL bRet = BitBlt(hDC, 0, 0, VIDEO_WIDTH, VIDEO_HEIGHT, hScreen, 0, 0, SRCCOPY);
+
+		SelectObject(hDC, old_obj);
+		DeleteDC(hDC);
+		ReleaseDC(NULL, hScreen);
+
+		return hBitmap;
+	}
+
+
+	
+	FREObject initRecordMp4(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[])
+	{
+		////
+		int index = -1;
+		///
+		std::string file = getFREString(argv[0]);
+		int fps = getInt32(argv[1]);
+		int width = getInt32(argv[2]);
+		int height = getInt32(argv[3]);
+
+
+		std::wstring filePath = winUtils.to_wide_string(file);
+		///
+		MP4File *mp4Record = new MP4File(filePath, fps, width, height); // Do not specify file extension. You will get an mp4 file regardless
+
+		mp4Record_Index += 1;
+		index = mp4Record_Index;
+		VectorMp4Record[index] = mp4Record;
+
+		FREObject result;
+		auto status = FRENewObjectFromInt32(index, &result);
+		return result;
+	}
+
+	FREObject AppendFrameRecordMp4(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[])
+	{
+		bool ret = false;
+		HRESULT hr = NULL;
+
+		int index = getInt32(argv[0]);
+		MP4File *mp4Record = VectorMp4Record[index];
+		if (mp4Record) {
+			//printf("\n RecordMp4AppendFrame %d\n", index);
+			//HBITMAP hBitmap = GetBitmap();
+			//hr = mp4Record->AppendFrame(hbmp);
+
+			int width = getInt32(argv[1]);
+			int height = getInt32(argv[2]);
+			FREObject objectByteArray = argv[3];
+			FREByteArray byteArray;
+			FREAcquireByteArray(objectByteArray, &byteArray);
+			HBITMAP hBm = CreateBitmap(width, height, 1, 32, byteArray.bytes); // 1 plane, 32 bits
+			FREReleaseByteArray(objectByteArray);
+			
+			hr = mp4Record->AppendFrame(hBm);
+			if (!FAILED(hr))
+			{
+				ret = true;
+			}
+		}
+		FREObject result;
+		auto status = FRENewObjectFromBool(ret, &result);
+		return result;
+	}
+	FREObject FinalizeRecordMp4(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[])
+	{
+		bool ret = false;
+
+		int index = getInt32(argv[0]);
+		MP4File *mp4Record = VectorMp4Record[index];
+		if (mp4Record) {
+			mp4Record->Finalize();
+			ret = true;
+		}
+		FREObject result;
+		auto status = FRENewObjectFromBool(ret, &result);
+		return result;
+	}
+
 	///
 	// Flash Native Extensions stuff	
 	void ANEWinCoreContextInitializer(void* extData, const uint8_t* ctxType, FREContext ctx, uint32_t* numFunctionsToSet, const FRENamedFunction** functionsToSet) {
@@ -911,7 +1064,16 @@ extern "C" {
 			{ (const uint8_t*) "isAutoStart",     NULL, &isAutoStart },
 			{ (const uint8_t*) "updateAutoStart",     NULL, &updateAutoStart },
 
-			//{ (const uint8_t*) "dragAcceptFiles",     NULL, &dragAcceptFiles },
+			{ (const uint8_t*) "dragAcceptFiles",     NULL, &dragAcceptFiles },
+
+			{ (const uint8_t*) "getHostName",     NULL, &getHostName },
+			
+
+			//录制mp4
+			{ (const uint8_t*) "initRecordMp4",     NULL, &initRecordMp4 },
+			{ (const uint8_t*) "AppendFrameRecordMp4",     NULL, &AppendFrameRecordMp4 },
+			{ (const uint8_t*) "FinalizeRecordMp4",     NULL, &FinalizeRecordMp4 },
+			
 		};
 
 		*numFunctionsToSet = sizeof(extensionFunctions) / sizeof(FRENamedFunction);

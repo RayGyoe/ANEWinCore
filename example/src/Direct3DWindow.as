@@ -59,7 +59,7 @@ package
 			stage.addChild(bitmap);
 			stage.addChild(new Fps());
 			
-			d3DStage = new D3DStage(stage, bitmap.x, 720*bitmap.scaleY, 1280, 720);
+			d3DStage = new D3DStage(stage, bitmap.x, Main.view.stage.stageHeight*bitmap.scaleY, Main.view.stage.stageWidth, Main.view.stage.stageHeight);
 			d3DStage.renderMode = renderMode;
 			
 			trace("d3DStage.renderMode",d3DStage.renderMode);

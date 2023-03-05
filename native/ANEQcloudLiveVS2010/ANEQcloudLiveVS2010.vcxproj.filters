@@ -48,6 +48,9 @@
     <ClInclude Include="win_utils.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="MP4File.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Library Include="FlashRuntimeExtensions.lib">
@@ -71,6 +74,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="D3DStage.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="MP4File.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
