@@ -1,7 +1,6 @@
 package
 {
 	//import flash.desktop.NativeApplication;
-	import air.desktop.URLFilePromise;
 	import air.media.Pipeline;
 	import com.vsdevelop.air.extension.wincore.ANEHKeyType;
 	import com.vsdevelop.air.extension.wincore.Mp4Record;
@@ -26,6 +25,7 @@ package
 	import flash.events.NativeDragEvent;
 	import flash.events.TimerEvent;
 	import flash.filesystem.File;
+	import flash.geom.Rectangle;
 	import flash.text.AntiAliasType;
 	import flash.text.TextField;
 	import flash.text.TextFormat;
@@ -182,6 +182,7 @@ package
 			dragView.addEventListener(NativeDragEvent.NATIVE_DRAG_EXIT, dragEvents);
 			dragView.addEventListener(NativeDragEvent.NATIVE_DRAG_DROP, dragEvents);
 			
+			dragView.addEventListener(MouseEvent.CLICK, clickResize);
 			
 			//ANEWinCore.getInstance().dragAcceptFiles(stage, false);
 			
@@ -189,6 +190,11 @@ package
 			
 			addChild(new Fps()).y = stage.stageHeight - 100;			
 			debug.appendText("getWindowHwnd="+ANEWinCore.getInstance().getWindowHwnd(stage.nativeWindow));
+		}
+		
+		private function clickResize(e:MouseEvent):void 
+		{
+			this.stage.nativeWindow.bounds = new Rectangle(0, 0, 1280 + 14, 720 + 37);
 		}
 		
 		private function recordBtn(e:MouseEvent):void 
@@ -283,8 +289,6 @@ package
 		
 		private function initD3d(e:MouseEvent):void 
 		{
-			renderMode++;
-			if (renderMode > 2) renderMode = 1;
 			new Direct3DWindow(1);
 		}
 		

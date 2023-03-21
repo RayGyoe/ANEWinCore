@@ -15,7 +15,7 @@ package com.vsdevelop.air.extension.wincore
 		private var _scale:Number;
 		private var _index:int;
 		
-		private var _type:int = 0;//1=argb  2=yuv420
+		private var _type:int = 1;//1=argb  2=yuv420
 		
 		private var _x:Number;
 		private var _y:Number;
@@ -101,7 +101,7 @@ package com.vsdevelop.air.extension.wincore
 		 * @param	bytearray
 		 * @return
 		 */
-		public function renderByteArray(byteArray:ByteArray):Boolean{
+		public function renderByteArray(byteArray:ByteArray,width:int,height:int):Boolean{
 			
 			if (_index)
 			{
@@ -110,7 +110,7 @@ package com.vsdevelop.air.extension.wincore
 					throw new Error("type is 1 & 2");
 				}
 				if (_type == 1){
-					return Boolean(ANEWinCore.getInstance().context.call("d3dRender", _index,_type,byteArray));
+					return Boolean(ANEWinCore.getInstance().context.call("d3dRender", _index, _type, byteArray, width, height));
 				}else{
 					trace("render model is bitmapdata");
 				}

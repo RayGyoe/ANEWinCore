@@ -84,7 +84,8 @@ package
 		private function drawMain(e:Event):void 
 		{
 			var byte:ByteArray = new ByteArray();
-			var bitemapdata:BitmapData = new BitmapData(Main.view.stage.stageWidth, Main.view.stage.stageHeight, false);
+			var pow2:int = (Main.view.stage.stageWidth >> 1) * 2;
+			var bitemapdata:BitmapData = new BitmapData(pow2, Main.view.stage.stageHeight, false);
 			bitemapdata.draw(Main.view.stage, null, null, null, null, true);
 			//bitmap.bitmapData = bitemapdata;
 			
@@ -92,14 +93,16 @@ package
 				byte.endian = Endian.LITTLE_ENDIAN;
 				bitemapdata.copyPixelsToByteArray(bitemapdata.rect, byte);
 			
-				d3DStage.renderByteArray(byte);
+				
+				trace(bitemapdata.rect.width, bitemapdata.rect.height);
+				d3DStage.renderByteArray(byte, bitemapdata.rect.width, bitemapdata.rect.height);
 			}
 			else{
 				d3DStage.renderBitmapData(bitemapdata);
 			}
 			
 			
-			//bitemapdata.dispose();
+			bitemapdata.dispose();
 			byte.clear();
 		}
 		
