@@ -156,9 +156,10 @@ package
 			
 			debug = new TextField();
 			debug.wordWrap = true;
-			debug.y = 200;
+			debug.y = stage.stageHeight - 300;
 			debug.width = stage.stageWidth * 0.5;
 			debug.height = stage.stageHeight - debug.y;
+			debug.border = true;
 			addChild(debug);
 			
 			
@@ -308,30 +309,44 @@ package
 		{
 			btn5.removeEventListener(MouseEvent.CLICK, fontTest);
 			
-			var font:File = new File(File.applicationDirectory.nativePath + "/assets/MiSans-Regular.ttf");
-			ANEWinCore.getInstance().addFont(font);
-			
-			font = new File(File.applicationDirectory.nativePath + "/assets/中文/HarmonyOS_Sans_SC_Regular.ttf");
-			ANEWinCore.getInstance().addFont(font);
-			
-			
-			font = new File(File.applicationDirectory.nativePath + "/assets/TwitterColorEmoji-SVGinOT.ttf");
-			ANEWinCore.getInstance().addFont(font);
+			ANEWinCore.getInstance().addFont(new File(File.applicationDirectory.nativePath + "/assets/MiSans-Regular.ttf"));			
+			ANEWinCore.getInstance().addFont(new File(File.applicationDirectory.nativePath + "/assets/中文/HarmonyOS_Sans_SC_Regular.ttf"));			
+			ANEWinCore.getInstance().addFont(new File(File.applicationDirectory.nativePath + "/assets/悠然体.ttf"));
+			ANEWinCore.getInstance().addFont(new File(File.applicationDirectory.nativePath + "/assets/DingTalk_JinBuTi_Regular.ttf"));
 			
 			
 			var txt:TextField = new TextField();
-			txt.y = 140;
+			txt.y = 240;
 			//
-			txt.defaultTextFormat = new TextFormat("MiSans,Twitter Color Emoji",14);
+			txt.defaultTextFormat = new TextFormat("MiSans",24);
 			txt.width = stage.stageWidth;
 			txt.height = 36;
 			txt.text = "MIUI 13 采用全新系统字体 MiSans；The over the lazy dog! 😮‍💨🥰💀✌️🌴🐢🐐🍄⚽🍻👑📸";
 			addChild(txt);
 			
 			txt = new TextField();
-			txt.y = 180;
+			txt.y = 240 + 30;
 			//
-			txt.defaultTextFormat = new TextFormat("HarmonyOS Sans SC",14);
+			txt.defaultTextFormat = new TextFormat("HarmonyOS Sans SC",24);
+			txt.width = stage.stageWidth;
+			txt.height = 36;
+			txt.text = "MIUI 13 采用全新系统字体 MiSans；The over the lazy dog! 🥰💀✌️🌴🐢🐐🍄⚽🍻👑📸";
+			addChild(txt);
+			
+			
+			txt = new TextField();
+			txt.y = 240 + 30 + 30;
+			//
+			txt.defaultTextFormat = new TextFormat("汉仪悠然体简",24);
+			txt.width = stage.stageWidth;
+			txt.height = 36;
+			txt.text = "MIUI 13 采用全新系统字体 MiSans；The over the lazy dog! 🥰💀✌️🌴🐢🐐🍄⚽🍻👑📸";
+			addChild(txt);
+			
+			txt = new TextField();
+			txt.y = 240 + 30 + 30+ 30;
+			//
+			txt.defaultTextFormat = new TextFormat("钉钉进步体",24);
 			txt.width = stage.stageWidth;
 			txt.height = 36;
 			txt.text = "MIUI 13 采用全新系统字体 MiSans；The over the lazy dog! 🥰💀✌️🌴🐢🐐🍄⚽🍻👑📸";
