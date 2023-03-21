@@ -24,6 +24,8 @@ package com.vsdevelop.air.extension.wincore
 		private var _stage:Stage;
 		
 		private var _visible:Boolean = true;
+		private var _textureHeight:int;
+		private var _textureWidth:int;
 		
 		public function D3DStage(stage:Stage,x:int,y:int,width:int,height:int) 
 		{
@@ -110,6 +112,8 @@ package com.vsdevelop.air.extension.wincore
 					throw new Error("type is 1 & 2");
 				}
 				if (_type == 1){
+					_textureWidth = width;
+					_textureHeight = height;
 					return Boolean(ANEWinCore.getInstance().context.call("d3dRender", _index, _type, byteArray, width, height));
 				}else{
 					trace("render model is bitmapdata");
@@ -161,6 +165,16 @@ package com.vsdevelop.air.extension.wincore
 		public function get visible():Boolean 
 		{
 			return _visible;
+		}
+		
+		public function get textureHeight():int 
+		{
+			return _textureHeight;
+		}
+		
+		public function get textureWidth():int 
+		{
+			return _textureWidth;
 		}
 		
 		public function set visible(value:Boolean):void 
