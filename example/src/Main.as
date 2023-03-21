@@ -1,6 +1,8 @@
 package
 {
 	//import flash.desktop.NativeApplication;
+	import air.desktop.URLFilePromise;
+	import air.media.Pipeline;
 	import com.vsdevelop.air.extension.wincore.ANEHKeyType;
 	import com.vsdevelop.air.extension.wincore.Mp4Record;
 	import com.vsdevelop.controls.Button;
