@@ -2,6 +2,7 @@ package com.vsdevelop.air.extension.wincore
 {
 	import com.vsdevelop.air.extension.wincore.ANEWinCore;
 	import flash.display.BitmapData;
+	import flash.display.NativeWindowDisplayState;
 	import flash.display.Screen;
 	import flash.display.Stage;
 	import flash.events.Event;
@@ -112,6 +113,7 @@ package com.vsdevelop.air.extension.wincore
 					throw new Error("type is 1 & 2");
 				}
 				if (_type == 1){
+					if (_stage && _stage.nativeWindow.displayState == NativeWindowDisplayState.MINIMIZED) return false;					
 					_textureWidth = width;
 					_textureHeight = height;
 					return Boolean(ANEWinCore.getInstance().context.call("d3dRender", _index, _type, byteArray, width, height));
@@ -137,6 +139,9 @@ package com.vsdevelop.air.extension.wincore
 					throw new Error("type is 1 & 2");
 				}
 				if (_type == 2){
+					if (_stage && _stage.nativeWindow.displayState == NativeWindowDisplayState.MINIMIZED) return false;	
+					_textureWidth = bitmapData.rect.width;
+					_textureHeight = bitmapData.rect.height;
 					return Boolean(ANEWinCore.getInstance().context.call("d3dRender", _index,_type,bitmapData));
 				}else{
 					trace("render model is bytearray");
