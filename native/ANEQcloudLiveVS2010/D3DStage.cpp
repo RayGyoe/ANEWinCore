@@ -64,13 +64,12 @@ D3DStage::D3DStage(int index,HWND hwnd,int x,int y, int width, int height, doubl
 	if (SUCCEEDED(hr))
 	{
 		printf("\n m_hwndLayeredChild ok  hwnd:%d\n",m_hwndLayeredChild);
-		SetLayeredWindowAttributes(m_hwndLayeredChild, 0, 255, LWA_ALPHA);
+		SetLayeredWindowAttributes(m_hwndLayeredChild, 0, 0xFF, LWA_COLORKEY | LWA_ALPHA);
 	}
 	else {
 		printf("\n m_hwndLayeredChild error\n");
 		return;
 	}
-
 	//SetWindowPos(m_hwndLayeredChild, HWND_BOTTOM, x, y, width, height, SWP_FRAMECHANGED);
 	ShowWindow(m_hwndLayeredChild, SW_SHOWNORMAL);
 
@@ -87,8 +86,9 @@ D3DStage::D3DStage(int index,HWND hwnd,int x,int y, int width, int height, doubl
 	d3dpp.AutoDepthStencilFormat = D3DFMT_D24S8;//D3DFMT_D24S8
 	d3dpp.Flags = D3DPRESENTFLAG_VIDEO;
 	d3dpp.BackBufferFormat = D3DFMT_A8R8G8B8;//D3DFMT_A8R8G8B8  D3DFMT_X8R8G8B8 
-	//d3dpp.BackBufferWidth = width;
-	//d3dpp.BackBufferHeight = height;
+
+	d3dpp.BackBufferWidth = width < 1920 ? 1920 : width;
+	d3dpp.BackBufferHeight = height < 1080 ? 1080 : height;
 	/*
 	if (SUCCEEDED(m_pDirect3D9->CheckDeviceMultiSampleType(D3DADAPTER_DEFAULT,D3DDEVTYPE_HAL, d3dpp.BackBufferFormat, false, D3DMULTISAMPLE_2_SAMPLES, NULL)))
 	{

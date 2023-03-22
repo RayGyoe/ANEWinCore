@@ -116,7 +116,10 @@ package com.vsdevelop.air.extension.wincore
 					if (_stage && _stage.nativeWindow.displayState == NativeWindowDisplayState.MINIMIZED) return false;					
 					_textureWidth = width;
 					_textureHeight = height;
-					return Boolean(ANEWinCore.getInstance().context.call("d3dRender", _index, _type, byteArray, width, height));
+					//检测数据合法性
+					if (byteArray.length == _textureWidth * _textureHeight * 4){
+						return Boolean(ANEWinCore.getInstance().context.call("d3dRender", _index, _type, byteArray, width, height));
+					}
 				}else{
 					trace("render model is bitmapdata");
 				}
