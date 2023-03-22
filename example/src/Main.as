@@ -26,6 +26,7 @@ package
 	import flash.events.TimerEvent;
 	import flash.filesystem.File;
 	import flash.geom.Rectangle;
+	import flash.system.System;
 	import flash.text.AntiAliasType;
 	import flash.text.TextField;
 	import flash.text.TextFormat;
@@ -74,6 +75,7 @@ package
 			//stage.quality = StageQuality.MEDIUM;
 			
 			// entry point
+			System.pauseForGCIfCollectionImminent(0.25);
 			
 			ANEWinCore.getInstance().crashDump();
 			

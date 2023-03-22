@@ -10,19 +10,21 @@
   </features>
   <libraries>
     <library path="library.swf">
-      <script name="com/vsdevelop/air/extension/wincore/ANEWinCore" mod="1678023213309" signatureChecksum="2411447223" >
+      <script name="com/vsdevelop/air/extension/wincore/ANEWinCore" mod="1679498274892" signatureChecksum="2220806063" >
         <def id="com.vsdevelop.air.extension.wincore:ANEWinCore" /> 
         <dep id="flash.display:NativeWindow" type="s" /> 
         <dep id="flash.display:Stage" type="s" /> 
+        <dep id="flash.events:StatusEvent" type="s" /> 
         <dep id="flash.filesystem:File" type="s" /> 
         <dep id="com.vsdevelop.air.extension.wincore:ANEHKeyType" type="s" /> 
         <dep id="flash.external:ExtensionContext" type="s" /> 
-        <dep id="flash.events:Event" type="s" /> 
         <dep id="trace" type="e" /> 
         <dep id="flash.events:StatusEvent" type="e" /> 
         <dep id="flash.filesystem:File" type="e" /> 
         <dep id="Error" type="e" /> 
         <dep id="flash.external:ExtensionContext" type="e" /> 
+        <dep id="com.vsdevelop.air.extension.wincore:D3DStage" type="e" /> 
+        <dep id="flash.events:ErrorEvent" type="e" /> 
         <dep id="flash.events:EventDispatcher" type="i" /> 
         <dep id="AS3" type="n" /> 
       </script>
@@ -31,13 +33,7 @@
         <dep id="Object" type="i" /> 
         <dep id="AS3" type="n" /> 
       </script>
-      <script name="_e9ad9ca265f60942dc4d1ab0ba85e5f97d94ffa0c3d7ef97287615881b2bd31b_flash_display_Sprite" mod="1678032712784" signatureChecksum="2297789393" >
-        <def id="_e9ad9ca265f60942dc4d1ab0ba85e5f97d94ffa0c3d7ef97287615881b2bd31b_flash_display_Sprite" /> 
-        <dep id="flash.system:Security" type="e" /> 
-        <dep id="flash.display:Sprite" type="i" /> 
-        <dep id="AS3" type="n" /> 
-      </script>
-      <script name="com/vsdevelop/air/extension/wincore/D3DStage" mod="1677597382017" signatureChecksum="2837765244" >
+      <script name="com/vsdevelop/air/extension/wincore/D3DStage" mod="1679498658510" signatureChecksum="3188465570" >
         <def id="com.vsdevelop.air.extension.wincore:D3DStage" /> 
         <dep id="flash.display:Stage" type="s" /> 
         <dep id="flash.display:BitmapData" type="s" /> 
@@ -46,8 +42,15 @@
         <dep id="trace" type="e" /> 
         <dep id="com.vsdevelop.air.extension.wincore:ANEWinCore" type="e" /> 
         <dep id="Error" type="e" /> 
+        <dep id="flash.display:NativeWindowDisplayState" type="e" /> 
         <dep id="flash.events:Event" type="e" /> 
-        <dep id="Object" type="i" /> 
+        <dep id="flash.events:EventDispatcher" type="i" /> 
+        <dep id="AS3" type="n" /> 
+      </script>
+      <script name="_0cf91167863ec33043bc9aaabd5b32b22783423b2d0d385ac7c1e468921512d1_flash_display_Sprite" mod="1679499135638" signatureChecksum="2902292791" >
+        <def id="_0cf91167863ec33043bc9aaabd5b32b22783423b2d0d385ac7c1e468921512d1_flash_display_Sprite" /> 
+        <dep id="flash.system:Security" type="e" /> 
+        <dep id="flash.display:Sprite" type="i" /> 
         <dep id="AS3" type="n" /> 
       </script>
       <script name="com/vsdevelop/air/extension/wincore/Mp4Record" mod="1678032708846" signatureChecksum="888234451" >
@@ -59,7 +62,7 @@
         <dep id="AS3" type="n" /> 
       </script>
       <digests>
-        <digest type="SHA-256" signed="false" value="30036fa1bfa8808968f3a74792e364b5355681d97feb073b78603e342c9300e7"   />
+        <digest type="SHA-256" signed="false" value="533fba757936b42295c25f3853ea4590a07a6d387686d5793d215df41347f2ae"   />
       </digests>
     </library>
   </libraries>
