@@ -226,8 +226,9 @@ extern "C" {
 
 	bool isCrateCrashDump = false;
 
-	D3DStage *d3dpp;
 
+	IDirect3D9 *m_pDirect3D9 = NULL;
+	D3DStage *d3dpp;
 	std::map<int, D3DStage*>VectorD3dStage;
 	int d3dStage_Index = 0;
 
@@ -736,6 +737,17 @@ extern "C" {
 	{
 		int  index_d3d = -1;
 
+
+		if (m_pDirect3D9 == NULL) {
+			m_pDirect3D9 = Direct3DCreate9(D3D_SDK_VERSION);
+		}
+		if (m_pDirect3D9 == NULL) {
+			FREObject result;
+			auto status = FRENewObjectFromInt32(index_d3d, &result);
+			return result;
+		}
+
+
 		FRENativeWindow nativeWindow;
 		FREObject window = argv[0];
 		FREResult ret = FREAcquireNativeWindowHandle(window, &nativeWindow);
@@ -753,7 +765,7 @@ extern "C" {
 			FREGetObjectAsDouble(argv[5],&scale);
 
 			int index = d3dStage_Index += 1;
-			D3DStage *stage = new D3DStage(index, (HWND)nativeWindow,x,y,width,height, scale);
+			D3DStage *stage = new D3DStage(m_pDirect3D9,index, (HWND)nativeWindow,x,y,width,height, scale);
 			VectorD3dStage[index] = stage;
 			printf("\n Index %d\n", index);
 			index_d3d = index;
@@ -843,7 +855,27 @@ extern "C" {
 		if (stage) {
 			printf("\n Destroy Index %d\n", index);
 			ret = stage->Destroy();
+			
+			VectorD3dStage[index] = NULL;
 		}
+		
+		bool destroyD3d = true;
+		for (auto &kv : VectorD3dStage)
+		{
+			D3DStage *stage = kv.second;
+			if (stage) {
+				destroyD3d = false;
+				break;
+			}
+		}
+		if (destroyD3d) {
+			VectorD3dStage.clear();
+			printf("\n Destroy Direct3DCreate9 \n");
+
+			if (m_pDirect3D9)m_pDirect3D9->Release();
+			m_pDirect3D9 = NULL;
+		}
+
 		FREObject result;
 		auto status = FRENewObjectFromBool(ret, &result);
 		return result;

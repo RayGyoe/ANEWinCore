@@ -6,17 +6,7 @@ typedef DWORD D3DCOLOR;
 #define D3DCOLOR_DEFINED
 #endif
 
-// maps unsigned 8 bits/channel to D3DCOLOR
-#define D3DCOLOR_ARGB(a,r,g,b) \
-    ((D3DCOLOR)((((a)&0xff)<<24)|(((r)&0xff)<<16)|(((g)&0xff)<<8)|((b)&0xff)))
-#define D3DCOLOR_RGBA(r,g,b,a) D3DCOLOR_ARGB(a,r,g,b)
-#define D3DCOLOR_XRGB(r,g,b)   D3DCOLOR_ARGB(0xff,r,g,b)
-
-
 typedef unsigned char		uint8;
-
-
-
 
 LRESULT CALLBACK ChildWndProc(HWND hwnd, UINT message,WPARAM wParam, LPARAM lParam)
 {
@@ -28,7 +18,7 @@ LRESULT CALLBACK ChildWndProc(HWND hwnd, UINT message,WPARAM wParam, LPARAM lPar
 	}
 	return DefWindowProc(hwnd, message, wParam, lParam);
 }
-D3DStage::D3DStage(int index,HWND hwnd,int x,int y, int width, int height, double scale)
+D3DStage::D3DStage(IDirect3D9 *m_pDirect3D9,int index,HWND hwnd,int x,int y, int width, int height, double scale)
 {
 	HRESULT hr = S_OK;
 
@@ -65,7 +55,7 @@ D3DStage::D3DStage(int index,HWND hwnd,int x,int y, int width, int height, doubl
 	if (SUCCEEDED(hr))
 	{
 		printf("\n m_hwndLayeredChild ok  hwnd:%d\n",m_hwndLayeredChild);
-		SetLayeredWindowAttributes(m_hwndLayeredChild, 0, 0xFF, LWA_COLORKEY | LWA_ALPHA);
+		SetLayeredWindowAttributes(m_hwndLayeredChild, 0, 255, LWA_ALPHA);
 	}
 	else {
 		printf("\n m_hwndLayeredChild error\n");
@@ -74,12 +64,7 @@ D3DStage::D3DStage(int index,HWND hwnd,int x,int y, int width, int height, doubl
 	//SetWindowPos(m_hwndLayeredChild, HWND_BOTTOM, x, y, width, height, SWP_FRAMECHANGED);
 	ShowWindow(m_hwndLayeredChild, SW_SHOWNORMAL);
 
-
-
-	m_pDirect3D9 = Direct3DCreate9(D3D_SDK_VERSION);
-	if (m_pDirect3D9 == NULL)return;
-
-	
+	///
 	ZeroMemory(&d3dpp, sizeof(d3dpp));
 	d3dpp.Windowed = TRUE;
 	d3dpp.hDeviceWindow = m_hwndLayeredChild;
@@ -287,8 +272,6 @@ bool D3DStage::Destroy() {
 		m_pDirect3DSurfaceRender->Release();
 	if (m_pDirect3DDevice)
 		m_pDirect3DDevice->Release();
-	if (m_pDirect3D9)
-		m_pDirect3D9->Release();
 	LeaveCriticalSection(&m_critial);
 
 	m_pDirect3DDevice = NULL;

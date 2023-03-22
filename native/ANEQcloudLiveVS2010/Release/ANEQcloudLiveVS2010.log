@@ -1,4 +1,4 @@
-﻿生成启动时间为 2023/3/22 23:41:23。
+﻿生成启动时间为 2023/3/23 03:16:12。
      1>项目“E:\Works\eDoctor\ANEWinCore\native\ANEQcloudLiveVS2010\ANEQcloudLiveVS2010.vcxproj”在节点 2 上(Rebuild 个目标)。
      1>ClCompile:
          C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\CL.exe /c /Zi /nologo /W3 /WX- /O2 /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _WINDOWS /D _USRDLL /D ANEQCLOUDLIVEVS2010_EXPORTS /D _CRT_SECURE_NO_DEPRECATE /D _USING_V110_SDK71_ /D _WINDLL /D _UNICODE /D UNICODE /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Release\\" /Fd"Release\vc140.pdb" /Gd /TP /analyze- /errorReport:prompt ANEWinCore.cpp "crash-report.cpp" CustomURLProtocolApp.cpp D3DStage.cpp FontLoader.cpp MiniDump.cpp MP4File.cpp
@@ -6,10 +6,10 @@
      1>e:\works\edoctor\anewincore\native\aneqcloudlivevs2010\IEProxy.h(88): warning C4800: “BOOL”: 将值强制为布尔值“true”或“false”(性能警告)
      1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.1A\include\DbgHelp.h(1540): warning C4091: “typedef ”: 没有声明变量时忽略“”的左侧
      1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.1A\include\DbgHelp.h(3056): warning C4091: “typedef ”: 没有声明变量时忽略“”的左侧
-     1>ANEWinCore.cpp(507): warning C4477: 'printf' : format string '%ls' requires an argument of type 'wchar_t *', but variadic argument 1 has type 'std::wstring'
-     1>ANEWinCore.cpp(524): warning C4477: 'printf' : format string '%ls' requires an argument of type 'wchar_t *', but variadic argument 1 has type 'std::wstring'
-     1>ANEWinCore.cpp(809): warning C4800: “uint32_t”: 将值强制为布尔值“true”或“false”(性能警告)
-     1>ANEWinCore.cpp(903): warning C4477: 'printf' : format string '%d' requires an argument of type 'int', but variadic argument 1 has type 'FRENativeWindow'
+     1>ANEWinCore.cpp(508): warning C4477: 'printf' : format string '%ls' requires an argument of type 'wchar_t *', but variadic argument 1 has type 'std::wstring'
+     1>ANEWinCore.cpp(525): warning C4477: 'printf' : format string '%ls' requires an argument of type 'wchar_t *', but variadic argument 1 has type 'std::wstring'
+     1>ANEWinCore.cpp(821): warning C4800: “uint32_t”: 将值强制为布尔值“true”或“false”(性能警告)
+     1>ANEWinCore.cpp(935): warning C4477: 'printf' : format string '%d' requires an argument of type 'int', but variadic argument 1 has type 'FRENativeWindow'
          crash-report.cpp
      1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.1A\include\DbgHelp.h(1540): warning C4091: “typedef ”: 没有声明变量时忽略“”的左侧
      1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.1A\include\DbgHelp.h(3056): warning C4091: “typedef ”: 没有声明变量时忽略“”的左侧
@@ -22,9 +22,9 @@
      1>C:\Program Files (x86)\Windows Kits\10\Include\10.0.10150.0\ucrt\tchar.h(220): warning C4005: “_stprintf”: 宏重定义
          C:\Program Files (x86)\Microsoft SDKs\Windows\v7.1A\include\Strsafe.h(9686): note: 参见“_stprintf”的前一个定义
          D3DStage.cpp
-     1>D3DStage.cpp(59): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
-     1>D3DStage.cpp(67): warning C4477: 'printf' : format string '%d' requires an argument of type 'int', but variadic argument 1 has type 'HWND'
-     1>D3DStage.cpp(226): warning C4018: “<”: 有符号/无符号不匹配
+     1>D3DStage.cpp(49): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
+     1>D3DStage.cpp(57): warning C4477: 'printf' : format string '%d' requires an argument of type 'int', but variadic argument 1 has type 'HWND'
+     1>D3DStage.cpp(211): warning C4018: “<”: 有符号/无符号不匹配
          FontLoader.cpp
          MiniDump.cpp
      1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.1A\include\DbgHelp.h(1540): warning C4091: “typedef ”: 没有声明变量时忽略“”的左侧
@@ -41,12 +41,12 @@
          FlashRuntimeExtensions.lib
            正在创建库 E:\Works\eDoctor\ANEWinCore\native\Release\ANEWinCore.lib 和对象 E:\Works\eDoctor\ANEWinCore\native\Release\ANEWinCore.exp
          正在生成代码
-     1>e:\works\edoctor\anewincore\native\aneqcloudlivevs2010\anewincore.cpp(280): warning C4700: 使用了未初始化的局部变量“test”
-         All 1034 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+     1>e:\works\edoctor\anewincore\native\aneqcloudlivevs2010\anewincore.cpp(281): warning C4700: 使用了未初始化的局部变量“test”
+         All 1035 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
          已完成代码的生成
          ANEQcloudLiveVS2010.vcxproj -> E:\Works\eDoctor\ANEWinCore\native\Release\ANEWinCore.dll
      1>已完成生成项目“E:\Works\eDoctor\ANEWinCore\native\ANEQcloudLiveVS2010\ANEQcloudLiveVS2010.vcxproj”(Rebuild 个目标)的操作。
 
 已成功生成。
 
-已用时间 00:00:04.50
+已用时间 00:00:05.25

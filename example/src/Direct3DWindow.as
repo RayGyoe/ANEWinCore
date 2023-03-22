@@ -10,9 +10,11 @@ package
 	import flash.display.NativeWindowInitOptions;
 	import flash.display.Screen;
 	import flash.display.StageScaleMode;
+	import flash.events.ErrorEvent;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 	import flash.filesystem.File;
+	import flash.geom.Rectangle;
 	import flash.utils.ByteArray;
 	import flash.utils.Endian;
 	import flash.utils.setTimeout;
@@ -46,26 +48,26 @@ package
 			activate();
 			
 			
-			btn = new Button(null, "显示隐藏");
-			btn.x = 100;
+			btn = new Button(null, "Visible Change");
+			//btn.x = 100;
 			stage.addChild(btn);
 			btn.addEventListener(MouseEvent.CLICK, checkVisible);
 			
 			
 			bitmap = new Bitmap();
 			bitmap.smoothing = true;
-			bitmap.x = 50;
 			bitmap.scaleX = bitmap.scaleY = 0.2;
 			stage.addChild(bitmap);
-			stage.addChild(new Fps());
 			
-			d3DStage = new D3DStage(stage, bitmap.x, Main.view.stage.stageHeight*bitmap.scaleY, Main.view.stage.stageWidth, Main.view.stage.stageHeight);
-			d3DStage.renderMode = renderMode;
+			
+			initD3d();
 			
 			trace("d3DStage.renderMode",d3DStage.renderMode);
 			stage.addEventListener(Event.ENTER_FRAME, drawMain);
 			
 			return;
+			stage.addChild(new Fps());
+			
 			var file:File = new File(File.applicationDirectory.nativePath + "/assets/test_yuv420p_320x180.yuv");
 			initd3d = ANEWinCore.getInstance().context.call("initD3d", stage.nativeWindow,file.nativePath) as Boolean;
 			
@@ -76,6 +78,16 @@ package
 			}
 		}
 		
+		private function initD3d():void 
+		{
+			if (d3DStage) d3DStage.destroy();
+			d3DStage = null;
+			d3DStage = new D3DStage(stage, bitmap.x, 40, Main.view.stage.stageWidth, Main.view.stage.stageHeight);
+			d3DStage.addEventListener(ErrorEvent.ERROR, function(e:ErrorEvent = null):void{
+				setTimeout(initD3d, 20);
+			});
+		}
+		
 		private function checkVisible(e:MouseEvent):void 
 		{
 			d3DStage.visible = !d3DStage.visible;
@@ -83,27 +95,27 @@ package
 		
 		private function drawMain(e:Event):void 
 		{
-			var byte:ByteArray = new ByteArray();
-			var pow2:int = (Main.view.stage.stageWidth >> 1) * 2;
-			var bitemapdata:BitmapData = new BitmapData(pow2, Main.view.stage.stageHeight, false);
-			bitemapdata.draw(Main.view.stage, null, null, null, null, true);
-			//bitmap.bitmapData = bitemapdata;
+			if (Main.view.stage.nativeWindow.closed){
+				stage.nativeWindow.close();
+				return;
+			}
 			
-			if (d3DStage.renderMode == 1){
+			try{
+				if (!d3DStage) return;
+				var byte:ByteArray = new ByteArray();
+				
+				var bitemapdata:BitmapData = new BitmapData(1920,1080, false);
+				bitemapdata.draw(Main.view.stage, null, null, null, new Rectangle(0,0,1920,1080), true);
+				
 				byte.endian = Endian.LITTLE_ENDIAN;
 				bitemapdata.copyPixelsToByteArray(bitemapdata.rect, byte);
-			
-				
-				trace(bitemapdata.rect.width, bitemapdata.rect.height);
 				d3DStage.renderByteArray(byte, bitemapdata.rect.width, bitemapdata.rect.height);
+				
+				bitemapdata.dispose();
+				byte.clear();
+			}catch (e:Error){
+				trace(e.message);
 			}
-			else{
-				d3DStage.renderBitmapData(bitemapdata);
-			}
-			
-			
-			bitemapdata.dispose();
-			byte.clear();
 		}
 		
 		private function closeWindow(e:Event):void 
@@ -123,12 +135,10 @@ package
 			{
 				d3DStage.resize(d3DStage.x, d3DStage.y, stage.stageWidth-d3DStage.x, stage.stageHeight - d3DStage.y);
 			}
-			//ANEWinCore.getInstance().context.call("d3dResize", 0, 100, int(stage.stageWidth * Screen.mainScreen.contentsScaleFactor),int(Screen.mainScreen.contentsScaleFactor* stage.stageHeight));
 		}
 		
 		private function render(e:Event):void 
 		{
-			
 			ANEWinCore.getInstance().context.call("d3dRender");
 		}
 		
