@@ -779,7 +779,7 @@ extern "C" {
 
 		D3DStage *stage = VectorD3dStage[index];
 		if (stage) {
-			ret = stage->Render(argc, argv);
+			ret = stage->Render(argc, argv,ctx);
 		}
 		FREObject result;
 		auto status = FRENewObjectFromBool(ret, &result);

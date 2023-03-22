@@ -6,12 +6,13 @@ package com.vsdevelop.air.extension.wincore
 	import flash.display.Screen;
 	import flash.display.Stage;
 	import flash.events.Event;
+	import flash.events.EventDispatcher;
 	import flash.utils.ByteArray;
 	/**
 	 * ...
 	 * @author ...
 	 */
-	public class D3DStage 
+	public class D3DStage extends EventDispatcher
 	{
 		private var _scale:Number;
 		private var _index:int;
@@ -28,6 +29,8 @@ package com.vsdevelop.air.extension.wincore
 		private var _textureHeight:int;
 		private var _textureWidth:int;
 		
+		public static var stages:Object = {};
+		
 		public function D3DStage(stage:Stage,x:int,y:int,width:int,height:int) 
 		{
 			if (ANEWinCore.getInstance().isSupported)
@@ -43,7 +46,9 @@ package com.vsdevelop.air.extension.wincore
 				_height = height * _scale;
 				_index = int(ANEWinCore.getInstance().context.call("d3dInit", stage.nativeWindow, x , y , width , height ,_scale));
 				
-				
+				if (_index){
+					stages[_index] = this;
+				}
 				trace("contentsScaleFactor", _scale, "D3DStage", _index);
 			}
 		}
@@ -201,11 +206,14 @@ package com.vsdevelop.air.extension.wincore
 		 */
 		public function destroy():Boolean
 		{
-			if(_stage)_stage.removeEventListener(Event.RESIZE, resizeStage);
+			delete stages[_index];
+			if (_stage)_stage.removeEventListener(Event.RESIZE, resizeStage);
 			if (_index)
 			{
 				return Boolean(ANEWinCore.getInstance().context.call("d3dDestroy",_index));
 			}
+			
+			
 			return false;
 		}
 	}

@@ -3,6 +3,7 @@ package com.vsdevelop.air.extension.wincore
 	import flash.desktop.NativeApplication;
 	import flash.display.NativeWindow;
 	import flash.display.Stage;
+	import flash.events.ErrorEvent;
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
 	import flash.events.StatusEvent;
@@ -74,9 +75,15 @@ package com.vsdevelop.air.extension.wincore
 		 * @param event
 		 * 
 		 */		
-		protected function onStatus(event:Event):void
+		protected function onStatus(event:StatusEvent):void
 		{
-			
+			if (event.level == "d3derror"){
+				
+				var index:int = int(event.code.split("||")[0]);
+				if (D3DStage.stages[index]){
+					(D3DStage.stages[index] as D3DStage).dispatchEvent(new ErrorEvent(ErrorEvent.ERROR));
+				}
+			}
 		}
 		
 		/**

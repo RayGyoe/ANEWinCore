@@ -38,6 +38,7 @@ D3DStage::D3DStage(int index,HWND hwnd,int x,int y, int width, int height, doubl
 	this->width = width;
 	this->height = height;
 	this->scale = scale;
+	this->index = index;
 
 	WNDCLASSEXW wcex;
 	wcex.cbSize = sizeof(wcex);
@@ -86,7 +87,7 @@ D3DStage::D3DStage(int index,HWND hwnd,int x,int y, int width, int height, doubl
 	d3dpp.AutoDepthStencilFormat = D3DFMT_D24S8;//D3DFMT_D24S8
 	d3dpp.Flags = D3DPRESENTFLAG_VIDEO;
 	d3dpp.BackBufferFormat = D3DFMT_A8R8G8B8;//D3DFMT_A8R8G8B8  D3DFMT_X8R8G8B8 
-
+	d3dpp.BackBufferCount = 1;
 	d3dpp.BackBufferWidth = width < 1920 ? 1920 : width;
 	d3dpp.BackBufferHeight = height < 1080 ? 1080 : height;
 	/*
@@ -117,8 +118,8 @@ D3DStage::D3DStage(int index,HWND hwnd,int x,int y, int width, int height, doubl
 	}
 	// Turn on the zbuffer
 
+	m_pDirect3DDevice->SetRenderState(D3DRS_LIGHTING, FALSE);
 	printf("\n MultiSampleType. = %d\n", d3dpp.MultiSampleType);
-	
 	if (d3dpp.MultiSampleType != D3DMULTISAMPLE_NONE) {
 		m_pDirect3DDevice->SetRenderState(D3DRS_MULTISAMPLEANTIALIAS, TRUE);
 	}
@@ -155,7 +156,7 @@ void D3DStage::CreateTextureSurface()
 		NULL);
 }
 
-bool D3DStage::Render(uint32_t argc, FREObject argv[])
+bool D3DStage::Render(uint32_t argc, FREObject argv[], FREContext ctx)
 {
 	if (m_pDirect3DDevice == NULL)
 		return false;
@@ -249,8 +250,17 @@ bool D3DStage::Render(uint32_t argc, FREObject argv[])
 
 	//½áÊø³¡¾°äÖÈ¾
 	m_pDirect3DDevice->EndScene();
-	m_pDirect3DDevice->Present(NULL, NULL, NULL, NULL);
-	return true;
+	HRESULT result = m_pDirect3DDevice->Present(NULL, NULL, NULL, NULL);
+	if (result == D3DERR_DEVICELOST && m_pDirect3DDevice->TestCooperativeLevel() == D3DERR_DEVICENOTRESET)
+	{
+		printf("\n D3DERR_DEVICELOST \n");
+		if (m_pDirect3DSurfaceRender)m_pDirect3DSurfaceRender->Release();
+		m_pDirect3DSurfaceRender = NULL;
+
+		std::string level = "d3derror";
+		std::string code = std::to_string(this->index) + "||devicelost";
+		FREDispatchStatusEventAsync(ctx, reinterpret_cast<const uint8_t *>(code.data()), reinterpret_cast<const uint8_t *>(level.data()));
+	}
 
 	return true;
 }
