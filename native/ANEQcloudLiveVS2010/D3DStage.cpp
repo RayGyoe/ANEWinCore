@@ -251,7 +251,7 @@ bool D3DStage::Render(uint32_t argc, FREObject argv[], FREContext ctx)
 	//½áÊø³¡¾°äÖÈ¾
 	m_pDirect3DDevice->EndScene();
 	HRESULT result = m_pDirect3DDevice->Present(NULL, NULL, NULL, NULL);
-	if (result == D3DERR_DEVICELOST && m_pDirect3DDevice->TestCooperativeLevel() == D3DERR_DEVICENOTRESET)
+	if (result == D3DERR_DEVICELOST)// && m_pDirect3DDevice->TestCooperativeLevel() == D3DERR_DEVICENOTRESET
 	{
 		printf("\n D3DERR_DEVICELOST \n");
 		if (m_pDirect3DSurfaceRender)m_pDirect3DSurfaceRender->Release();
@@ -293,5 +293,9 @@ bool D3DStage::Destroy() {
 
 	m_pDirect3DDevice = NULL;
 	m_pDirect3DSurfaceRender = NULL;
+
+
+	DestroyWindow(m_hwndLayeredChild);
+
 	return true;
 }
