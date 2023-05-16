@@ -282,6 +282,12 @@ extern "C" {
 
 		return NULL;
 	}
+	FREObject memoryTest(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[])
+	{
+		int* Test = new int[1024 * 1024 * 100];
+		printf("\n%s,%s", TAG, "memoryTest");
+		return NULL;
+	}
 
 	///
 
@@ -602,6 +608,29 @@ extern "C" {
 		double memoryUsage_M = pmc.WorkingSetSize / (1024.0 *1024.0);
 
 		std::cout <<  "内存使用:" << memoryUsage_M << "M" << std::endl;
+
+		printf("\tPageFaultCount: %d\n", pmc.PageFaultCount / 1024 / 1024);
+		printf("\tPeakWorkingSetSize: %d\n",pmc.PeakWorkingSetSize / 1024 / 1024);
+		printf("\tWorkingSetSize: %d\n", pmc.WorkingSetSize / 1024 / 1024);
+		printf("\tQuotaPeakPagedPoolUsage: %d\n",pmc.QuotaPeakPagedPoolUsage / 1024 / 1024);
+		printf("\tQuotaPagedPoolUsage: %d\n",pmc.QuotaPagedPoolUsage / 1024 / 1024);
+		printf("\tQuotaPeakNonPagedPoolUsage: %d\n",pmc.QuotaPeakNonPagedPoolUsage / 1024 / 1024);
+		printf("\tQuotaNonPagedPoolUsage: %d\n",pmc.QuotaNonPagedPoolUsage / 1024 / 1024);
+		printf("\tPagefileUsage: %d\n", pmc.PagefileUsage / 1024 / 1024);
+		printf("\tPeakPagefileUsage: %d\n",	pmc.PeakPagefileUsage/1024 / 1024);
+
+		/*
+		PageFaultCount	页错误数。
+		PeakWorkingSetSize	峰值工作集大小（以字节为单位）。
+		WorkingSetSize	当前工作集大小（以字节为单位）。
+		QuotaPeakPagedPoolUsage	峰值分页池使用情况（以字节为单位）。
+		QuotaPagedPoolUsage	当前页池使用情况（以字节为单位）。
+		QuotaPeakNonPagedPoolUsage	峰值非分页池使用情况（以字节为单位）。
+		QuotaNonPagedPoolUsage	当前非分页池使用情况（以字节为单位）。
+		PagefileUsage	虚拟内存总量（以字节为单位）。
+		PeakPagefileUsage	峰值虚拟虚拟内存总量（以字节为单位）。
+		*/
+
 
 		if (memoryUsage_M > maxMemory) {
 			EmptyWorkingSet(handle);
@@ -1051,6 +1080,7 @@ extern "C" {
 
 			{ (const uint8_t*) "crashDump",     NULL, &crashDump },
 			{ (const uint8_t*) "crashTest",     NULL, &crashTest },
+			{ (const uint8_t*) "memoryTest",     NULL, &memoryTest },
 			
 			{ (const uint8_t*) "killProcess",     NULL, &killProcess },
 

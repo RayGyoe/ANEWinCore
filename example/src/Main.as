@@ -63,6 +63,7 @@ package
 		private var btn12:Button;
 		private var record:com.vsdevelop.air.extension.wincore.Mp4Record;
 		private var recordTimer:flash.utils.Timer;
+		private var btn13:Button;
 		public static var view:Main;
 		
 		public function Main():void 
@@ -155,6 +156,12 @@ package
 			btn12.y = 120;
 			btn12.x = 220;
 			
+			btn13 = new Button(null, "内存上限测试");
+			addChild(btn13);
+			btn13.addEventListener(MouseEvent.CLICK, memoryTest);
+			btn13.y = 120;
+			btn13.x = 320;
+			
 			
 			debug = new TextField();
 			debug.wordWrap = true;
@@ -193,6 +200,12 @@ package
 			
 			addChild(new Fps()).y = stage.stageHeight - 100;			
 			debug.appendText("getWindowHwnd="+ANEWinCore.getInstance().getWindowHwnd(stage.nativeWindow));
+		}
+		
+		private function memoryTest(e:MouseEvent):void 
+		{
+			//ANEWinCore.getInstance().context.call('memoryTest');
+			ANEWinCore.getInstance().memoryCollation(20);
 		}
 		
 		private function clickResize(e:MouseEvent):void 
