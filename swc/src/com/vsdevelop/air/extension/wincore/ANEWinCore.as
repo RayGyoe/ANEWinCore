@@ -269,6 +269,21 @@ package com.vsdevelop.air.extension.wincore
 		}
 		
 		
+		/**
+		 * 发送窗口消息
+		 * @param	hwnd
+		 * @param	message
+		 * @return
+		 */
+		public function postMessage(hwnd:int,message:String):Boolean
+		{
+			if(isSupported){
+				return _extCtx.call("postMessage",hwnd,message) as Boolean;
+			}
+			return false;
+		}
+		
+		
 		
 		/**
 		 * 强制内存整理 

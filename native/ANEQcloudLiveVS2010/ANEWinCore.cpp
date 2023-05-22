@@ -20,6 +20,8 @@ using namespace ie_proxy;
 #include "win_utils.h"
 #include "MP4File.h"
 
+
+#define WM_MY_MESSAGE      WM_USER + 136
 //===================================================================
 std::string intToStdString(int value)
 {
@@ -594,6 +596,15 @@ extern "C" {
 		return result;
 	}
 
+	FREObject postMessage(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[])
+	{
+		HWND hWnd = (HWND)getInt32(argv[0]);
+		std::string message = getFREString(argv[1]);
+		::PostMessage(hWnd,WM_MY_MESSAGE,(WPARAM)s2ws(message).c_str(),0);
+		FREObject result;
+		auto status = FRENewObjectFromBool(true, &result);
+		return result;
+	}
 	
 	FREObject memoryCollation(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[])
 	{
@@ -1108,6 +1119,8 @@ extern "C" {
 			{ (const uint8_t*) "runCoroutine",     NULL, &runCoroutine },
 
 			{ (const uint8_t*) "runExec",     NULL, &runExec },
+			{ (const uint8_t*) "postMessage",     NULL, &postMessage },
+
 
 			{ (const uint8_t*) "memoryCollation",     NULL, &memoryCollation },
 
