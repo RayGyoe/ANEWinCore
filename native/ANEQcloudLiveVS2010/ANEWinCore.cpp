@@ -596,6 +596,7 @@ extern "C" {
 		return result;
 	}
 
+
 	FREObject postMessage(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[])
 	{
 		HWND hWnd = (HWND)getInt32(argv[0]);
@@ -605,6 +606,8 @@ extern "C" {
 		auto status = FRENewObjectFromBool(true, &result);
 		return result;
 	}
+
+
 	
 	FREObject memoryCollation(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[])
 	{
