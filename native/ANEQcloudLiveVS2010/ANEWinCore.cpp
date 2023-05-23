@@ -21,7 +21,7 @@ using namespace ie_proxy;
 #include "MP4File.h"
 
 
-#define WM_MY_MESSAGE      WM_USER + 136
+#define WM_MY_MESSAGE      WM_USER + 1036
 //===================================================================
 std::string intToStdString(int value)
 {
@@ -600,7 +600,7 @@ extern "C" {
 	{
 		HWND hWnd = (HWND)getInt32(argv[0]);
 		std::string message = getFREString(argv[1]);
-		::PostMessage(hWnd,WM_MY_MESSAGE,(WPARAM)s2ws(message).c_str(),0);
+		::PostMessage(hWnd,WM_MY_MESSAGE,(WPARAM)s2ws(message).c_str(), (LPARAM)s2ws(message).c_str());
 		FREObject result;
 		auto status = FRENewObjectFromBool(true, &result);
 		return result;
