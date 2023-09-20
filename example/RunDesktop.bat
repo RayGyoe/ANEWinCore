@@ -7,7 +7,12 @@ call bat\SetupApplication.bat
 echo.
 echo Starting AIR Debug Launcher
 
-adl "%APP_XML%" "%APP_DIR%" -extdir "%EXT_FOLDER_DIR%"
+
+if "%ARCHITECTURE%"=="64" adl64 "%APP_XML%" "%APP_DIR%" -extdir "%EXT_FOLDER_DIR%"
+if "%ARCHITECTURE%"=="32" adl "%APP_XML%" "%APP_DIR%" -extdir "%EXT_FOLDER_DIR%"
+
+
+
 if errorlevel 1 goto error
 goto end
 

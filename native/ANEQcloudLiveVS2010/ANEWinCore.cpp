@@ -20,6 +20,9 @@ using namespace ie_proxy;
 #include "win_utils.h"
 #include "MP4File.h"
 
+#include "lunasvg.h"
+
+using namespace lunasvg;
 
 #define WM_MY_MESSAGE      WM_USER + 1036
 //===================================================================
@@ -151,6 +154,12 @@ int32_t getInt32(FREObject freObject) {
 FREObject newFREObject(const char *value) {
 	FREObject result;
 	auto status = FRENewObjectFromUTF8(uint32_t(strlen(value)) + 1, reinterpret_cast<const uint8_t *>(value), &result);
+	return result;
+}
+
+FREObject newFREObject(int32_t value) {
+	FREObject result;
+	auto status = FRENewObjectFromInt32(value,&result);
 	return result;
 }
 
@@ -1084,6 +1093,54 @@ extern "C" {
 		return result;
 	}
 
+
+
+	FREObject svgLoadFromData(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[])
+	{
+
+		std::string svgString = getFREString(argv[0]);
+		printf("\n svgLoadFromData,%s\n", svgString.c_str());
+
+		auto document = Document::loadFromData(svgString);
+		if (document)
+		{
+			printf("\n svgLoadFromData,%d  = %d \n", (int)document->width(), (int)document->height());
+
+			Bitmap bitmap = document->renderToBitmap();
+
+
+			printf("\n bitmap,%d  = %d \n", bitmap.width(), bitmap.height());
+
+			FREObject svgBitmap;
+
+			if (FRENewObject(reinterpret_cast<const uint8_t *>("com.vsdevelop.air.extension.wincore.SvgBitmapData"), 0, NULL, &svgBitmap, NULL) == FRE_OK)
+			{
+				FRESetObjectProperty(svgBitmap, reinterpret_cast<const uint8_t *>("width"), newFREObject((int32_t)bitmap.width()), NULL);
+				FRESetObjectProperty(svgBitmap, reinterpret_cast<const uint8_t *>("height"), newFREObject((int32_t)bitmap.height()), NULL);
+
+				FREObject AS3ByteArray = NULL;
+				FREByteArray byteArray;
+
+				uint8_t *data = bitmap.data();
+
+				byteArray.bytes = data;
+				byteArray.length = bitmap.width() * bitmap.height() * 4;
+				FRENewByteArray(&byteArray, &AS3ByteArray);
+				FRESetObjectProperty(svgBitmap, reinterpret_cast<const uint8_t *>("pixelsByteArray"), AS3ByteArray, NULL);
+
+				return svgBitmap;
+			}
+
+
+		}
+
+
+
+		return NULL;
+	}
+
+	
+
 	///
 	// Flash Native Extensions stuff	
 	void ANEWinCoreContextInitializer(void* extData, const uint8_t* ctxType, FREContext ctx, uint32_t* numFunctionsToSet, const FRENamedFunction** functionsToSet) {
@@ -1151,7 +1208,11 @@ extern "C" {
 			{ (const uint8_t*) "initRecordMp4",     NULL, &initRecordMp4 },
 			{ (const uint8_t*) "AppendFrameRecordMp4",     NULL, &AppendFrameRecordMp4 },
 			{ (const uint8_t*) "FinalizeRecordMp4",     NULL, &FinalizeRecordMp4 },
-			
+
+
+			//svg
+
+			{ (const uint8_t*) "svgLoadFromData",     NULL, &svgLoadFromData },
 		};
 
 		*numFunctionsToSet = sizeof(extensionFunctions) / sizeof(FRENamedFunction);

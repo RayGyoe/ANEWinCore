@@ -4,13 +4,16 @@ package
 	import air.media.Pipeline;
 	import com.vsdevelop.air.extension.wincore.ANEHKeyType;
 	import com.vsdevelop.air.extension.wincore.Mp4Record;
+	import com.vsdevelop.air.extension.wincore.SvgBitmapData;
 	import com.vsdevelop.controls.Button;
 	import com.vsdevelop.controls.Fps;
+	import com.vsdevelop.utils.StringCore;
 	import flash.desktop.Clipboard;
 	import flash.desktop.ClipboardFormats;
 	import flash.desktop.ClipboardTransferMode;
 	import flash.desktop.NativeDragActions;
 	import flash.desktop.NativeDragManager;
+	import flash.display.Bitmap;
 	import flash.display.BitmapData;
 	import flash.display.InteractiveObject;
 	import flash.display.NativeWindow;
@@ -26,6 +29,8 @@ package
 	import flash.events.TimerEvent;
 	import flash.filesystem.File;
 	import flash.geom.Rectangle;
+	import flash.net.URLLoader;
+	import flash.net.URLRequest;
 	import flash.system.System;
 	import flash.text.AntiAliasType;
 	import flash.text.TextField;
@@ -64,6 +69,10 @@ package
 		private var record:com.vsdevelop.air.extension.wincore.Mp4Record;
 		private var recordTimer:flash.utils.Timer;
 		private var btn13:Button;
+		private var btn14:Button;
+		private var loadSvg:URLLoader;
+		private var svgBitmap:Bitmap;
+		private var svgIndex:int;
 		public static var view:Main;
 		
 		public function Main():void 
@@ -163,6 +172,13 @@ package
 			btn13.x = 320;
 			
 			
+			btn14 = new Button(null, "加载SVG");
+			addChild(btn14);
+			btn14.addEventListener(MouseEvent.CLICK, svgTest);
+			btn14.y = 120;
+			btn14.x = 420;
+			
+			
 			debug = new TextField();
 			debug.wordWrap = true;
 			debug.y = stage.stageHeight - 300;
@@ -183,9 +199,9 @@ package
 
 			dragView = new Sprite();
 			dragView.graphics.beginFill(0xff00ff);
-			dragView.graphics.drawRect(0, 0, 300, 300);
+			dragView.graphics.drawRect(0, 0, 100, 100);
 			dragView.x = stage.stageWidth * 0.5;
-			dragView.y = 240;
+			dragView.y = 40;
 			stage.addChild(dragView);
 			// NativeDragManager.acceptDragDrop(dragView); 
 			dragView.addEventListener(NativeDragEvent.NATIVE_DRAG_ENTER, dragEvents);
@@ -202,6 +218,45 @@ package
 			debug.appendText("getWindowHwnd="+ANEWinCore.getInstance().getWindowHwnd(stage.nativeWindow));
 		}
 		
+		private function svgTest(e:MouseEvent):void 
+		{
+			//
+			if (!loadSvg){
+				loadSvg = new URLLoader();
+				loadSvg.addEventListener(Event.COMPLETE, loadSvgComplete);
+			}
+			
+			var svgArray:Array = ["assets/sample.svg","assets/s1.svg","assets/s2.svg"];
+			loadSvg.load(new URLRequest(svgArray[svgIndex]));
+			svgIndex++;
+			if (svgIndex == svgArray.length) svgIndex = 0;
+		}
+		
+		private function loadSvgComplete(e:Event):void 
+		{
+			var svgObject:SvgBitmapData = ANEWinCore.getInstance().context.call("svgLoadFromData", loadSvg.data) as SvgBitmapData;
+			trace(svgObject);
+			
+			if (!svgBitmap){
+				svgBitmap = new Bitmap();
+				addChild(svgBitmap);
+				svgBitmap.scaleX = svgBitmap.scaleY = 0.5;
+				svgBitmap.y = 160;
+				svgBitmap.x = 520;
+			}
+			
+			if (svgBitmap.bitmapData)
+			{
+				try{
+					svgBitmap.bitmapData.dispose();
+				}catch (e:Error){
+					
+				}
+			}
+			
+			svgBitmap.bitmapData = svgObject.render();
+		}
+		
 		private function memoryTest(e:MouseEvent):void 
 		{
 			//ANEWinCore.getInstance().context.call('memoryTest');
@@ -210,7 +265,7 @@ package
 		
 		private function clickResize(e:MouseEvent):void 
 		{
-			this.stage.nativeWindow.bounds = new Rectangle(0, 0, 1280 + 14, 720 + 37);
+			this.stage.nativeWindow.bounds = new Rectangle(0, 0, stage.stageWidth, stage.stageHeight);
 		}
 		
 		private function recordBtn(e:MouseEvent):void 
@@ -228,7 +283,7 @@ package
 				
 				var file:File = new File(File.applicationDirectory.nativePath + "/test.mp4")
 				trace(file.nativePath);
-				record = new Mp4Record(file, 24, 1920, 1080);
+				record = new Mp4Record(file, 24, stage.stageWidth, stage.stageHeight);
 				
 				recordTimer = new Timer(1000 / 24);
 				recordTimer.addEventListener(TimerEvent.TIMER, recordAppendFrame);

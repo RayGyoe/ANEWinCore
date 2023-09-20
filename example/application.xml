@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <application xmlns="http://ns.adobe.com/air/application/50.2">
 	<id>cn.edoctor.example</id>
-	<versionNumber>1.0</versionNumber>
-	<!--<supportedProfiles>tv extendedTV desktop mobileDevice extendedDesktop</supportedProfiles>-->
+	<versionNumber>1.0.1</versionNumber>
 	<supportedProfiles>extendedDesktop</supportedProfiles>
+	
+	<architecture>64</architecture>
+	
 	<programMenuFolder>eDoctor</programMenuFolder>
 	<filename>example</filename>
 	<name>
@@ -12,7 +14,7 @@
 		<text xml:lang="zh_Hant">example</text>
 	</name>
 	<copyright>Copyright (C) 2016 By eDoctor Healthcare Communications. All Rights Reserved.‎</copyright>
-
+	
 	<initialWindow>
 		<title>example</title>
 		<content>example.swf</content>

@@ -12,6 +12,6 @@ call copydll.bat
 
 echo start adt ane
 
-adt -package -tsa none -storetype pkcs12 -keystore cert.p12 -storepass fd -target ane ANEWinCore.ane extension.xml -swc ANEWinCore.swc -platform Windows-x86 -C Windows-x86 . -platform default -C default .
+adt -package -tsa none -storetype pkcs12 -keystore cert.p12 -storepass fd -target ane ANEWinCore.ane extension.xml -swc ANEWinCore.swc -platform Windows-x86 -C Windows-x86 .  -platform Windows-x86-64 -C Windows-x86-64 . -platform default -C default .
 
 echo end adt ane

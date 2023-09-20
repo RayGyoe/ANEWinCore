@@ -1,0 +1,83 @@
+﻿  ANEWinCore.cpp
+d:\works\works\talkmedandroid-company\anewincore\native\aneqcloudlivevs2010\win_utils.h(27): warning C4244: “初始化”: 从“SIZE_T”转换到“DWORD”，可能丢失数据
+d:\works\works\talkmedandroid-company\anewincore\native\aneqcloudlivevs2010\IEProxy.h(88): warning C4800: “BOOL”: 将值强制为布尔值“true”或“false”(性能警告)
+C:\Program Files (x86)\Windows Kits\8.1\Include\um\DbgHelp.h(1544): warning C4091: “typedef ”: 没有声明变量时忽略“”的左侧
+C:\Program Files (x86)\Windows Kits\8.1\Include\um\DbgHelp.h(3190): warning C4091: “typedef ”: 没有声明变量时忽略“”的左侧
+d:\works\works\talkmedandroid-company\anewincore\native\aneqcloudlivevs2010\FontLoader.h(112): warning C4267: “初始化”: 从“size_t”转换到“unsigned int”，可能丢失数据
+ANEWinCore.cpp(88): warning C4267: “参数”: 从“size_t”转换到“int”，可能丢失数据
+ANEWinCore.cpp(94): warning C4267: “参数”: 从“size_t”转换到“int”，可能丢失数据
+ANEWinCore.cpp(120): warning C4267: “参数”: 从“size_t”转换到“int”，可能丢失数据
+ANEWinCore.cpp(168): warning C4267: “参数”: 从“size_t”转换到“int”，可能丢失数据
+ANEWinCore.cpp(176): warning C4267: “参数”: 从“size_t”转换到“int”，可能丢失数据
+ANEWinCore.cpp(200): warning C4267: “参数”: 从“size_t”转换到“int”，可能丢失数据
+ANEWinCore.cpp(202): warning C4267: “参数”: 从“size_t”转换到“int”，可能丢失数据
+ANEWinCore.cpp(525): warning C4477: “printf”: 格式字符串“%ls”需要类型“wchar_t *”的参数，但可变参数 1 拥有了类型“std::wstring”
+ANEWinCore.cpp(542): warning C4477: “printf”: 格式字符串“%ls”需要类型“wchar_t *”的参数，但可变参数 1 拥有了类型“std::wstring”
+ANEWinCore.cpp(611): warning C4312: “类型转换”: 从“int32_t”转换到更大的“HWND”
+ANEWinCore.cpp(636): warning C4477: “printf”: 格式字符串“%d”需要类型“int”的参数，但可变参数 1 拥有了类型“SIZE_T”
+  ANEWinCore.cpp(636): note: 请考虑在格式字符串中使用“%lld”
+  ANEWinCore.cpp(636): note: 请考虑在格式字符串中使用“%Id”
+  ANEWinCore.cpp(636): note: 请考虑在格式字符串中使用“%I64d”
+ANEWinCore.cpp(637): warning C4477: “printf”: 格式字符串“%d”需要类型“int”的参数，但可变参数 1 拥有了类型“SIZE_T”
+  ANEWinCore.cpp(637): note: 请考虑在格式字符串中使用“%lld”
+  ANEWinCore.cpp(637): note: 请考虑在格式字符串中使用“%Id”
+  ANEWinCore.cpp(637): note: 请考虑在格式字符串中使用“%I64d”
+ANEWinCore.cpp(638): warning C4477: “printf”: 格式字符串“%d”需要类型“int”的参数，但可变参数 1 拥有了类型“SIZE_T”
+  ANEWinCore.cpp(638): note: 请考虑在格式字符串中使用“%lld”
+  ANEWinCore.cpp(638): note: 请考虑在格式字符串中使用“%Id”
+  ANEWinCore.cpp(638): note: 请考虑在格式字符串中使用“%I64d”
+ANEWinCore.cpp(639): warning C4477: “printf”: 格式字符串“%d”需要类型“int”的参数，但可变参数 1 拥有了类型“SIZE_T”
+  ANEWinCore.cpp(639): note: 请考虑在格式字符串中使用“%lld”
+  ANEWinCore.cpp(639): note: 请考虑在格式字符串中使用“%Id”
+  ANEWinCore.cpp(639): note: 请考虑在格式字符串中使用“%I64d”
+ANEWinCore.cpp(640): warning C4477: “printf”: 格式字符串“%d”需要类型“int”的参数，但可变参数 1 拥有了类型“SIZE_T”
+  ANEWinCore.cpp(640): note: 请考虑在格式字符串中使用“%lld”
+  ANEWinCore.cpp(640): note: 请考虑在格式字符串中使用“%Id”
+  ANEWinCore.cpp(640): note: 请考虑在格式字符串中使用“%I64d”
+ANEWinCore.cpp(641): warning C4477: “printf”: 格式字符串“%d”需要类型“int”的参数，但可变参数 1 拥有了类型“SIZE_T”
+  ANEWinCore.cpp(641): note: 请考虑在格式字符串中使用“%lld”
+  ANEWinCore.cpp(641): note: 请考虑在格式字符串中使用“%Id”
+  ANEWinCore.cpp(641): note: 请考虑在格式字符串中使用“%I64d”
+ANEWinCore.cpp(642): warning C4477: “printf”: 格式字符串“%d”需要类型“int”的参数，但可变参数 1 拥有了类型“SIZE_T”
+  ANEWinCore.cpp(642): note: 请考虑在格式字符串中使用“%lld”
+  ANEWinCore.cpp(642): note: 请考虑在格式字符串中使用“%Id”
+  ANEWinCore.cpp(642): note: 请考虑在格式字符串中使用“%I64d”
+ANEWinCore.cpp(643): warning C4477: “printf”: 格式字符串“%d”需要类型“int”的参数，但可变参数 1 拥有了类型“SIZE_T”
+  ANEWinCore.cpp(643): note: 请考虑在格式字符串中使用“%lld”
+  ANEWinCore.cpp(643): note: 请考虑在格式字符串中使用“%Id”
+  ANEWinCore.cpp(643): note: 请考虑在格式字符串中使用“%I64d”
+ANEWinCore.cpp(724): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\string.h(90): note: 参见“strcat”的声明
+ANEWinCore.cpp(708): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\stdio.h(1769): note: 参见“sprintf”的声明
+ANEWinCore.cpp(747): warning C4311: “类型转换”: 从“FRENativeWindow”到“int”的指针截断
+ANEWinCore.cpp(747): warning C4302: “类型转换”: 从“FRENativeWindow”到“int”截断
+ANEWinCore.cpp(873): warning C4800: “uint32_t”: 将值强制为布尔值“true”或“false”(性能警告)
+ANEWinCore.cpp(987): warning C4477: “printf”: 格式字符串“%d”需要类型“int”的参数，但可变参数 1 拥有了类型“FRENativeWindow”
+ANEWinCore.cpp(987): warning C4313: “printf”: 格式字符串中的“%d”与“FRENativeWindow”类型的参数 1 冲突
+  crash-report.cpp
+C:\Program Files (x86)\Windows Kits\8.1\Include\um\DbgHelp.h(1544): warning C4091: “typedef ”: 没有声明变量时忽略“”的左侧
+C:\Program Files (x86)\Windows Kits\8.1\Include\um\DbgHelp.h(3190): warning C4091: “typedef ”: 没有声明变量时忽略“”的左侧
+crash-report.cpp(52): warning C4800: “BOOL”: 将值强制为布尔值“true”或“false”(性能警告)
+  CustomURLProtocolApp.cpp
+CustomURLProtocolApp.cpp(123): warning C4267: “参数”: 从“size_t”转换到“DWORD”，可能丢失数据
+CustomURLProtocolApp.cpp(132): warning C4267: “参数”: 从“size_t”转换到“DWORD”，可能丢失数据
+CustomURLProtocolApp.cpp(138): warning C4267: “参数”: 从“size_t”转换到“DWORD”，可能丢失数据
+  D3DStage.cpp
+D3DStage.cpp(49): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
+D3DStage.cpp(57): warning C4477: “printf”: 格式字符串“%d”需要类型“int”的参数，但可变参数 1 拥有了类型“HWND”
+D3DStage.cpp(57): warning C4313: “printf”: 格式字符串中的“%d”与“HWND”类型的参数 1 冲突
+D3DStage.cpp(211): warning C4018: “<”: 有符号/无符号不匹配
+  FontLoader.cpp
+d:\works\works\talkmedandroid-company\anewincore\native\aneqcloudlivevs2010\FontLoader.h(112): warning C4267: “初始化”: 从“size_t”转换到“unsigned int”，可能丢失数据
+  MiniDump.cpp
+C:\Program Files (x86)\Windows Kits\8.1\Include\um\DbgHelp.h(1544): warning C4091: “typedef ”: 没有声明变量时忽略“”的左侧
+C:\Program Files (x86)\Windows Kits\8.1\Include\um\DbgHelp.h(3190): warning C4091: “typedef ”: 没有声明变量时忽略“”的左侧
+  MP4File.cpp
+    正在创建库 D:\Works\Works\TalkMEDAndroid-Company\ANEWincore\native\x64\Release\ANEWinCore.lib 和对象 D:\Works\Works\TalkMEDAndroid-Company\ANEWincore\native\x64\Release\ANEWinCore.exp
+  正在生成代码
+d:\works\works\talkmedandroid-company\anewincore\native\aneqcloudlivevs2010\anewincore.cpp(292): warning C4700: 使用了未初始化的局部变量“test”
+  All 1056 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  已完成代码的生成
+  ANEQcloudLiveVS2010.vcxproj -> D:\Works\Works\TalkMEDAndroid-Company\ANEWincore\native\x64\Release\ANEWinCore.dll
+  ANEQcloudLiveVS2010.vcxproj -> D:\Works\Works\TalkMEDAndroid-Company\ANEWincore\native\x64\Release\ANEWinCore.pdb (Full PDB)

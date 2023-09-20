@@ -40,8 +40,8 @@ package
 			stage.color = 0x901010;
 			stage.align = "TL";
 			
-			width = 1280
-			height = 900;
+			width = 1280;
+			height = 720;
 			
 			stage.addEventListener(Event.RESIZE, resizeWindow);
 			stage.nativeWindow.addEventListener(Event.CLOSING, closeWindow);
@@ -82,7 +82,7 @@ package
 		{
 			if (d3DStage) d3DStage.destroy();
 			d3DStage = null;
-			d3DStage = new D3DStage(stage, bitmap.x, 40, Main.view.stage.stageWidth, Main.view.stage.stageHeight);
+			d3DStage = new D3DStage(stage, bitmap.x, 40, 1920,1080);
 			d3DStage.addEventListener(ErrorEvent.ERROR, function(e:ErrorEvent = null):void{
 				setTimeout(initD3d, 20);
 			});
@@ -104,8 +104,8 @@ package
 				if (!d3DStage) return;
 				var byte:ByteArray = new ByteArray();
 				
-				var bitemapdata:BitmapData = new BitmapData(1920,1080, false);
-				bitemapdata.draw(Main.view.stage, null, null, null, new Rectangle(0,0,1920,1080), true);
+				var bitemapdata:BitmapData = new BitmapData(1280,720, false);
+				bitemapdata.draw(Main.view.stage, null, null, null, new Rectangle(0,0,1280,720), true);
 				
 				byte.endian = Endian.LITTLE_ENDIAN;
 				bitemapdata.copyPixelsToByteArray(bitemapdata.rect, byte);

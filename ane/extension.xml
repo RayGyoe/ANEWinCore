@@ -9,13 +9,13 @@
             <finalizer>ANEWinCoreExtFinalizer</finalizer> 
         </applicationDeployment>
     </platform>
-    <!--<platform name="Windows-x86-64">
+    <platform name="Windows-x86-64">
         <applicationDeployment>
-            <nativeLibrary>ANEQcloudLive.dll</nativeLibrary> 
+            <nativeLibrary>ANEWinCore.dll</nativeLibrary> 
             <initializer>ANEWinCoreExtInitializer</initializer> 
-            <finalizer>ANEWinCoreExtFinalizer</finalizer>
+            <finalizer>ANEWinCoreExtFinalizer</finalizer> 
         </applicationDeployment>
-    </platform>-->
+    </platform>
     <platform name="default">
         <applicationDeployment />
     </platform>

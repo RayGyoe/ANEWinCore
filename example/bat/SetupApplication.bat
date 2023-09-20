@@ -52,6 +52,15 @@ for /f "tokens=2 delims=>" %%i in ('findstr "<versionNumber>" %APP_XML%') do (
 	)
 )
 
+set ARCHITECTURE=32
+:: ARCHITECTURE
+for /f "tokens=2 delims=>" %%i in ('findstr "<architecture>" %APP_XML%') do (
+	for /f "delims=<" %%i in ("%%i")do (
+		set ARCHITECTURE=%%i
+	)
+)
+
+
 :: Output packages
 set DIST_PATH=bin-release
 set DIST_NAME=example
