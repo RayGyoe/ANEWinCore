@@ -1,5 +1,3 @@
-del ANEWinCore.dll
-
 del Windows-x86\ANEWinCore.dll
 del Windows-x86-64\ANEWinCore.dll
 

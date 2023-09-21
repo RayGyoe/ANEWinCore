@@ -234,8 +234,8 @@ package
 		
 		private function loadSvgComplete(e:Event):void 
 		{
-			var svgObject:SvgBitmapData = ANEWinCore.getInstance().context.call("svgLoadFromData", loadSvg.data) as SvgBitmapData;
-			trace(svgObject);
+			var svgObject:SvgBitmapData = ANEWinCore.getInstance().svgLoadFromData(loadSvg.data);
+			if (!svgObject) return;
 			
 			if (!svgBitmap){
 				svgBitmap = new Bitmap();

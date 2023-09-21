@@ -2,7 +2,7 @@ REM Get the path to the script and trim to get the directory.
 @echo off
 
 SET AIRSDK=D:\Software\Adobe\AIRSDK\AIR33.1.1.929
-SET AIRSDK=D:\Adobe\Flex_Sdk\AIR33.1.1.929
+SET AIRSDK=D:\Adobe\Flex_Sdk\flex_sdk_4.6.0.23201B
 
 
 SET projectName=ANEWinCore

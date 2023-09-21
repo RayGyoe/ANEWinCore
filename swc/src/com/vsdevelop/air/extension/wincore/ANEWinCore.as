@@ -422,5 +422,19 @@ package com.vsdevelop.air.extension.wincore
 			}
 			return null;
 		}
+		
+		
+		/**
+		 * 解析svg返回图像
+		 * @param	svgString
+		 * @return
+		 */
+		public function svgLoadFromData(svgString:String):SvgBitmapData
+		{
+			if (isSupported){
+				return _extCtx.call("svgLoadFromData", svgString) as SvgBitmapData;
+			}
+			return null;
+		}
 	}
 }

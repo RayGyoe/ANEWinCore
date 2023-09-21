@@ -10,6 +10,52 @@
 </field>
 <field name='HKEY_USERS' fullname='com.vsdevelop.air.extension.wincore:ANEHKeyType/HKEY_USERS' type='int' isStatic='true' isConst='true' defaultValue='3' >
 </field>
+<classRec name='SvgBitmapData' fullname='com.vsdevelop.air.extension.wincore:SvgBitmapData' sourcefile='E:\Works\eDoctor\ANEWinCore\swc\src\com\vsdevelop\air\extension\wincore\SvgBitmapData.as' namespace='com.vsdevelop.air.extension.wincore' access='public' baseclass='Object' isFinal='false' isDynamic='false' >
+<description><![CDATA[
+
+	 ...
+
+	 ]]></description>
+<author><![CDATA[Ray.eDoctor
+
+	 ]]></author>
+</classRec>
+<method name='SvgBitmapData' fullname='com.vsdevelop.air.extension.wincore:SvgBitmapData/SvgBitmapData' isStatic='false' isFinal='false' isOverride='false'  result_type='*'>
+</method>
+<method name='dispose' fullname='com.vsdevelop.air.extension.wincore:SvgBitmapData/dispose' isStatic='false' isFinal='false' isOverride='false'  result_type='void'>
+</method>
+<method name='render' fullname='com.vsdevelop.air.extension.wincore:SvgBitmapData/render' isStatic='false' isFinal='false' isOverride='false'  result_type='flash.display:BitmapData'>
+</method>
+<field name='_bitmapdata' fullname='com.vsdevelop.air.extension.wincore:SvgBitmapData/private:_bitmapdata' type='flash.display:BitmapData' isStatic='false' isConst='false' >
+</field>
+<field name='height' fullname='com.vsdevelop.air.extension.wincore:SvgBitmapData/height' type='int' isStatic='false' isConst='false' >
+</field>
+<field name='pixelsByteArray' fullname='com.vsdevelop.air.extension.wincore:SvgBitmapData/pixelsByteArray' type='flash.utils:ByteArray' isStatic='false' isConst='false' >
+</field>
+<field name='width' fullname='com.vsdevelop.air.extension.wincore:SvgBitmapData/width' type='int' isStatic='false' isConst='false' >
+</field>
+<classRec name='Mp4Record' fullname='com.vsdevelop.air.extension.wincore:Mp4Record' sourcefile='E:\Works\eDoctor\ANEWinCore\swc\src\com\vsdevelop\air\extension\wincore\Mp4Record.as' namespace='com.vsdevelop.air.extension.wincore' access='public' baseclass='Object' isFinal='false' isDynamic='false' >
+<description><![CDATA[
+
+	 ...
+
+	 ]]></description>
+<author><![CDATA[...
+
+	 ]]></author>
+</classRec>
+<method name='AppendFrame' fullname='com.vsdevelop.air.extension.wincore:Mp4Record/AppendFrame' isStatic='false' isFinal='false' isOverride='false'  param_names='byteArray' param_types='flash.utils:ByteArray' param_defaults='undefined' result_type='Boolean'>
+</method>
+<method name='Finalize' fullname='com.vsdevelop.air.extension.wincore:Mp4Record/Finalize' isStatic='false' isFinal='false' isOverride='false'  result_type='Boolean'>
+</method>
+<method name='Mp4Record' fullname='com.vsdevelop.air.extension.wincore:Mp4Record/Mp4Record' isStatic='false' isFinal='false' isOverride='false'  param_names='filePath;fps;width;height' param_types='flash.filesystem:File;int;int;int' param_defaults='undefined;undefined;undefined;undefined' result_type='*'>
+</method>
+<field name='_height' fullname='com.vsdevelop.air.extension.wincore:Mp4Record/private:_height' type='int' isStatic='false' isConst='false' >
+</field>
+<field name='_index' fullname='com.vsdevelop.air.extension.wincore:Mp4Record/private:_index' type='int' isStatic='false' isConst='false' >
+</field>
+<field name='_width' fullname='com.vsdevelop.air.extension.wincore:Mp4Record/private:_width' type='int' isStatic='false' isConst='false' >
+</field>
 <classRec name='ANEWinCore' fullname='com.vsdevelop.air.extension.wincore:ANEWinCore' sourcefile='E:\Works\eDoctor\ANEWinCore\swc\src\com\vsdevelop\air\extension\wincore\ANEWinCore.as' namespace='com.vsdevelop.air.extension.wincore' access='public' baseclass='flash.events:EventDispatcher' isFinal='false' isDynamic='false' >
 </classRec>
 <method name='ANEWinCore' fullname='com.vsdevelop.air.extension.wincore:ANEWinCore/ANEWinCore' isStatic='false' isFinal='false' isOverride='false'  result_type='*'>
@@ -86,6 +132,21 @@
 
 		 ]]></return>
 </method>
+<method name='dragAcceptFiles' fullname='com.vsdevelop.air.extension.wincore:ANEWinCore/dragAcceptFiles' isStatic='false' isFinal='false' isOverride='false'  param_names='stage;value' param_types='flash.display:Stage;Boolean' param_defaults='undefined;true' result_type='Boolean'>
+<description><![CDATA[
+
+		 设置窗口是否允许文件拖放
+
+		 ]]></description>
+<param><![CDATA[stage
+
+		 ]]></param>
+<param><![CDATA[value
+
+		 ]]></param>
+<return><![CDATA[
+		 ]]></return>
+</method>
 <method name='existURLProtocol' fullname='com.vsdevelop.air.extension.wincore:ANEWinCore/existURLProtocol' isStatic='false' isFinal='false' isOverride='false'  param_names='protocolName;hkeyType' param_types='String;int' param_defaults='undefined;unknown' result_type='Boolean'>
 <description><![CDATA[
 
@@ -100,6 +161,15 @@
 		 ]]></param>
 <return><![CDATA[
 
+		 ]]></return>
+</method>
+<method name='getComputerName' fullname='com.vsdevelop.air.extension.wincore:ANEWinCore/getComputerName' isStatic='false' isFinal='false' isOverride='false'  result_type='String'>
+<description><![CDATA[
+
+		 获取计算机名称
+
+		 ]]></description>
+<return><![CDATA[
 		 ]]></return>
 </method>
 <method name='getHostByName' fullname='com.vsdevelop.air.extension.wincore:ANEWinCore/getHostByName' isStatic='false' isFinal='false' isOverride='false'  param_names='url' param_types='String' param_defaults='undefined' result_type='String'>
@@ -154,6 +224,28 @@
 <return><![CDATA[
 		 ]]></return>
 </method>
+<method name='isDarkMode' fullname='com.vsdevelop.air.extension.wincore:ANEWinCore/isDarkMode' isStatic='false' isFinal='false' isOverride='false'  result_type='Boolean'>
+<description><![CDATA[
+
+		 检查系统是否开启 深色模式
+
+		 ]]></description>
+<return><![CDATA[Boolean
+
+		 ]]></return>
+</method>
+<method name='isStartAtLogin' fullname='com.vsdevelop.air.extension.wincore:ANEWinCore/isStartAtLogin' isStatic='false' isFinal='false' isOverride='false'  param_names='appName' param_types='String' param_defaults='undefined' result_type='Boolean'>
+<description><![CDATA[
+
+		 检查是否开启了开机启动
+
+		 ]]></description>
+<param><![CDATA[appName
+
+		 ]]></param>
+<return><![CDATA[
+		 ]]></return>
+</method>
 <method name='keepScreenOn' fullname='com.vsdevelop.air.extension.wincore:ANEWinCore/keepScreenOn' isStatic='false' isFinal='false' isOverride='false'  param_names='value' param_types='Boolean' param_defaults='undefined' result_type='void'>
 <description><![CDATA[
 
@@ -190,7 +282,7 @@
 
 		 ]]></return>
 </method>
-<method name='onStatus' fullname='com.vsdevelop.air.extension.wincore:ANEWinCore/protected:onStatus' isStatic='false' isFinal='false' isOverride='false'  param_names='event' param_types='flash.events:Event' param_defaults='undefined' result_type='void'>
+<method name='onStatus' fullname='com.vsdevelop.air.extension.wincore:ANEWinCore/protected:onStatus' isStatic='false' isFinal='false' isOverride='false'  param_names='event' param_types='flash.events:StatusEvent' param_defaults='undefined' result_type='void'>
 <description><![CDATA[
 
 		 事件 
@@ -201,6 +293,21 @@
 		 
 
 		 ]]></param>
+</method>
+<method name='postMessage' fullname='com.vsdevelop.air.extension.wincore:ANEWinCore/postMessage' isStatic='false' isFinal='false' isOverride='false'  param_names='hwnd;message' param_types='int;String' param_defaults='undefined;undefined' result_type='Boolean'>
+<description><![CDATA[
+
+		 发送窗口消息
+
+		 ]]></description>
+<param><![CDATA[hwnd
+
+		 ]]></param>
+<param><![CDATA[message
+
+		 ]]></param>
+<return><![CDATA[
+		 ]]></return>
 </method>
 <method name='removeFont' fullname='com.vsdevelop.air.extension.wincore:ANEWinCore/removeFont' isStatic='false' isFinal='false' isOverride='false'  param_names='font' param_types='flash.filesystem:File' param_defaults='undefined' result_type='Boolean'>
 <description><![CDATA[
@@ -236,6 +343,33 @@
 
 		 ]]></param>
 </method>
+<method name='setStartAtLogin' fullname='com.vsdevelop.air.extension.wincore:ANEWinCore/setStartAtLogin' isStatic='false' isFinal='false' isOverride='false'  param_names='appName;startAtLogin' param_types='String;Boolean' param_defaults='undefined;undefined' result_type='Boolean'>
+<description><![CDATA[
+
+		 设置开机启动
+
+		 ]]></description>
+<param><![CDATA[appName
+
+		 ]]></param>
+<param><![CDATA[startAtLogin
+
+		 ]]></param>
+<return><![CDATA[
+		 ]]></return>
+</method>
+<method name='svgLoadFromData' fullname='com.vsdevelop.air.extension.wincore:ANEWinCore/svgLoadFromData' isStatic='false' isFinal='false' isOverride='false'  param_names='svgString' param_types='String' param_defaults='undefined' result_type='com.vsdevelop.air.extension.wincore:SvgBitmapData'>
+<description><![CDATA[
+
+		 解析svg返回图像
+
+		 ]]></description>
+<param><![CDATA[svgString
+
+		 ]]></param>
+<return><![CDATA[
+		 ]]></return>
+</method>
 <method name='actionScriptData' fullname='com.vsdevelop.air.extension.wincore:ANEWinCore/actionScriptData/get' isStatic='false' isFinal='false' isOverride='false'  result_type='Object'>
 </method>
 <method name='context' fullname='com.vsdevelop.air.extension.wincore:ANEWinCore/context/get' isStatic='false' isFinal='false' isOverride='false'  result_type='flash.external:ExtensionContext'>
@@ -249,5 +383,125 @@
 <field name='_instance' fullname='com.vsdevelop.air.extension.wincore:ANEWinCore/private:_instance' type='com.vsdevelop.air.extension.wincore:ANEWinCore' isStatic='true' isConst='false' >
 </field>
 <field name='_isSupported' fullname='com.vsdevelop.air.extension.wincore:ANEWinCore/private:_isSupported' type='Boolean' isStatic='false' isConst='false' >
+</field>
+<classRec name='D3DStage' fullname='com.vsdevelop.air.extension.wincore:D3DStage' sourcefile='E:\Works\eDoctor\ANEWinCore\swc\src\com\vsdevelop\air\extension\wincore\D3DStage.as' namespace='com.vsdevelop.air.extension.wincore' access='public' baseclass='flash.events:EventDispatcher' isFinal='false' isDynamic='false' >
+<description><![CDATA[
+
+	 ...
+
+	 ]]></description>
+<author><![CDATA[...
+
+	 ]]></author>
+</classRec>
+<method name='D3DStage' fullname='com.vsdevelop.air.extension.wincore:D3DStage/D3DStage' isStatic='false' isFinal='false' isOverride='false'  param_names='stage;x;y;width;height' param_types='flash.display:Stage;int;int;int;int' param_defaults='undefined;undefined;undefined;undefined;undefined' result_type='*'>
+</method>
+<method name='destroy' fullname='com.vsdevelop.air.extension.wincore:D3DStage/destroy' isStatic='false' isFinal='false' isOverride='false'  result_type='Boolean'>
+<description><![CDATA[
+
+		 销毁
+
+		 ]]></description>
+<return><![CDATA[
+		 ]]></return>
+</method>
+<method name='renderBitmapData' fullname='com.vsdevelop.air.extension.wincore:D3DStage/renderBitmapData' isStatic='false' isFinal='false' isOverride='false'  param_names='bitmapData' param_types='flash.display:BitmapData' param_defaults='undefined' result_type='Boolean'>
+<description><![CDATA[
+
+		 渲染bitmapData
+
+		 ]]></description>
+<param><![CDATA[bitmapData
+
+		 ]]></param>
+<return><![CDATA[
+		 ]]></return>
+</method>
+<method name='renderByteArray' fullname='com.vsdevelop.air.extension.wincore:D3DStage/renderByteArray' isStatic='false' isFinal='false' isOverride='false'  param_names='byteArray;width;height' param_types='flash.utils:ByteArray;int;int' param_defaults='undefined;undefined;undefined' result_type='Boolean'>
+<description><![CDATA[
+
+		 渲染bytearray
+
+		 ]]></description>
+<param><![CDATA[bytearray
+
+		 ]]></param>
+<return><![CDATA[
+		 ]]></return>
+</method>
+<method name='resizeStage' fullname='com.vsdevelop.air.extension.wincore:D3DStage/private:resizeStage' isStatic='false' isFinal='false' isOverride='false'  param_names='e' param_types='flash.events:Event' param_defaults='undefined' result_type='void'>
+</method>
+<method name='resize' fullname='com.vsdevelop.air.extension.wincore:D3DStage/resize' isStatic='false' isFinal='false' isOverride='false'  param_names='x;y;width;height' param_types='int;int;int;int' param_defaults='undefined;undefined;undefined;undefined' result_type='Boolean'>
+<description><![CDATA[
+
+		 位置大小更改
+
+		 ]]></description>
+<param><![CDATA[x
+
+		 ]]></param>
+<param><![CDATA[y
+
+		 ]]></param>
+<param><![CDATA[width
+
+		 ]]></param>
+<param><![CDATA[height
+
+		 ]]></param>
+<return><![CDATA[
+		 ]]></return>
+</method>
+<method name='height' fullname='com.vsdevelop.air.extension.wincore:D3DStage/height/get' isStatic='false' isFinal='false' isOverride='false'  result_type='Number'>
+</method>
+<method name='renderMode' fullname='com.vsdevelop.air.extension.wincore:D3DStage/renderMode/get' isStatic='false' isFinal='false' isOverride='false'  result_type='int'>
+</method>
+<method name='textureHeight' fullname='com.vsdevelop.air.extension.wincore:D3DStage/textureHeight/get' isStatic='false' isFinal='false' isOverride='false'  result_type='int'>
+</method>
+<method name='textureWidth' fullname='com.vsdevelop.air.extension.wincore:D3DStage/textureWidth/get' isStatic='false' isFinal='false' isOverride='false'  result_type='int'>
+</method>
+<method name='visible' fullname='com.vsdevelop.air.extension.wincore:D3DStage/visible/get' isStatic='false' isFinal='false' isOverride='false'  result_type='Boolean'>
+</method>
+<method name='width' fullname='com.vsdevelop.air.extension.wincore:D3DStage/width/get' isStatic='false' isFinal='false' isOverride='false'  result_type='Number'>
+</method>
+<method name='x' fullname='com.vsdevelop.air.extension.wincore:D3DStage/x/get' isStatic='false' isFinal='false' isOverride='false'  result_type='Number'>
+</method>
+<method name='y' fullname='com.vsdevelop.air.extension.wincore:D3DStage/y/get' isStatic='false' isFinal='false' isOverride='false'  result_type='Number'>
+</method>
+<method name='renderMode' fullname='com.vsdevelop.air.extension.wincore:D3DStage/renderMode/set' isStatic='false' isFinal='false' isOverride='false'  param_names='type' param_types='int' param_defaults='undefined' result_type='void'>
+<description><![CDATA[
+
+		 渲染渲染模式
+
+		 ]]></description>
+<param><![CDATA[_type
+
+		 ]]></param>
+</method>
+<method name='visible' fullname='com.vsdevelop.air.extension.wincore:D3DStage/visible/set' isStatic='false' isFinal='false' isOverride='false'  param_names='value' param_types='Boolean' param_defaults='undefined' result_type='void'>
+</method>
+<field name='_height' fullname='com.vsdevelop.air.extension.wincore:D3DStage/private:_height' type='Number' isStatic='false' isConst='false' >
+</field>
+<field name='_index' fullname='com.vsdevelop.air.extension.wincore:D3DStage/private:_index' type='int' isStatic='false' isConst='false' >
+</field>
+<field name='_scale' fullname='com.vsdevelop.air.extension.wincore:D3DStage/private:_scale' type='Number' isStatic='false' isConst='false' >
+</field>
+<field name='_stage' fullname='com.vsdevelop.air.extension.wincore:D3DStage/private:_stage' type='flash.display:Stage' isStatic='false' isConst='false' >
+</field>
+<field name='_textureHeight' fullname='com.vsdevelop.air.extension.wincore:D3DStage/private:_textureHeight' type='int' isStatic='false' isConst='false' >
+</field>
+<field name='_textureWidth' fullname='com.vsdevelop.air.extension.wincore:D3DStage/private:_textureWidth' type='int' isStatic='false' isConst='false' >
+</field>
+<field name='_type' fullname='com.vsdevelop.air.extension.wincore:D3DStage/private:_type' type='int' isStatic='false' isConst='false' defaultValue='1' >
+</field>
+<field name='_visible' fullname='com.vsdevelop.air.extension.wincore:D3DStage/private:_visible' type='Boolean' isStatic='false' isConst='false' defaultValue='true' >
+</field>
+<field name='_width' fullname='com.vsdevelop.air.extension.wincore:D3DStage/private:_width' type='Number' isStatic='false' isConst='false' >
+</field>
+<field name='_x' fullname='com.vsdevelop.air.extension.wincore:D3DStage/private:_x' type='Number' isStatic='false' isConst='false' >
+</field>
+<field name='_y' fullname='com.vsdevelop.air.extension.wincore:D3DStage/private:_y' type='Number' isStatic='false' isConst='false' >
+</field>
+<field name='stages' fullname='com.vsdevelop.air.extension.wincore:D3DStage/stages' type='Object' isStatic='true' isConst='false' defaultValue='unknown' >
 </field>
 </asdoc>

@@ -19,6 +19,10 @@ package com.vsdevelop.air.extension.wincore
 		private var _bitmapdata:BitmapData;
 		
 		
+		public function SvgBitmapData(){
+			
+		}
+		
 		public function render():BitmapData
 		{
 			if (!width || !height || !pixelsByteArray) return null;
